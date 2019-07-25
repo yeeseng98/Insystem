@@ -1,0 +1,51 @@
+<style>
+  :root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+  }
+
+  header {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25em;
+    text-transform: uppercase;
+  }
+
+  section {
+    margin-top: 1em;
+    margin-bottom: 2.5em;
+  }
+
+  section:not(.full-width),
+  .full-width>header {
+    padding: 0 10px;
+  }
+</style>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Form 1</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="controls else loading">
+    <dynamic-form #dynamicForm="dynamicForm" [controls]="controls" [form]="form"></dynamic-form>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading">
+      Getting Data...
+    </div>
+  </ng-template>
+</ion-content>
+
+<ion-footer>
+  <section class="full-width">
+    <ion-button expand="full" color="secondary" (click)="submitForm($event)">
+        Submit
+    </ion-button>
+  </section>
+  
+</ion-footer>
