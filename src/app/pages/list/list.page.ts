@@ -15,7 +15,6 @@ export class ListPage implements OnInit {
   private nameArr: User[];
 
   constructor(public router: Router, private testProv: TestProvService) {
-
     this.testProv.getList().subscribe((nameList: User[]) => this.nameArr = nameList);
   }
 

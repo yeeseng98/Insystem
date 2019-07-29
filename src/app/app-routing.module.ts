@@ -15,10 +15,12 @@ const routes: Routes = [
     path: 'list',
     loadChildren: './pages/list/list.module#ListPageModule'
   },
-  { path: 'detail',
+  {
+    path: 'detail',
     loadChildren: './pages/detail/detail.module#DetailPageModule'
   },
-  { path: 'form', loadChildren: './pages/forms/form/form.module#FormPageModule' }
+  { path: 'form', loadChildren: './pages/forms/form/form.module#FormPageModule' },
+  { path: 'create-workflow', loadChildren: './pages/create-workflow/create-workflow.module#CreateWorkflowPageModule' }
 ];
 
 @NgModule({
@@ -27,4 +29,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

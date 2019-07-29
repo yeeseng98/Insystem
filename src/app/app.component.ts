@@ -24,6 +24,11 @@ export class AppComponent {
       title: 'Form',
       url: '/form',
       icon: 'form'
+    },
+    {
+      title: 'Create Workflow',
+      url: '/create-workflow',
+      icon: 'create-workflow'
     }
   ];
 

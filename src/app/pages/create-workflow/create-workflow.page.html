@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Workflow</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form" (ngSubmit)="receive(form.value)">
+    <ion-list margin-bottom>
+      <ion-item margin-bottom no-lines>
+        <ion-label floating>Form name:</ion-label>
+
+        <!-- Assign our first FormControl of name to the input field -->
+        <ion-input type="text" maxlength="20" formControlName="fname"></ion-input>
+        <span>(Must be unique!)</span>
+      </ion-item>
+
+
+      <!-- Assign the technologies FormArray to the form
+            where we want to track/generate new input track fields -->
+      <div formArrayName="cfields" margin-bottom>
+
+        <!-- Assign a FormGroupName property binding to track
+               and manage each separate generated input field.
+               Also iterate through the technologies FormArray to
+               correctly track/render new input fields against
+               existing fields -->
+        <section [formGroupName]="i" *ngFor="let field of form.controls.cfields.controls; let i = index">
+          <ion-item-group>
+            <ion-item-divider color="light">Field #{{ i + 1 }}</ion-item-divider>
+            <ion-item>
+              <ion-label floating>Field display name:</ion-label>
+              <ion-input type="text" maxlength="50" formControlName="title"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.title">
+                <div class="error-message"
+                  *ngIf="field.get('title').hasError(validation.type) && (field.get('title').dirty || field.get('title').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+            <ion-item>
+              <ion-label floating>DB variable name:</ion-label>
+              <ion-input type="text" maxlength="50" formControlName="name"></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.name">
+                <div class="error-message"
+                  *ngIf="field.get('name').hasError(validation.type) && (field.get('name').dirty || field.get('name').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+            <ion-item>
+              <ion-label floating>Field Type:</ion-label>
+              <ion-select value="text" okText="Okay" cancelText="Dismiss" formControlName="type">
+                <ion-select-option value="text">Text</ion-select-option>
+                <ion-select-option value="select">Select</ion-select-option>
+                <ion-select-option value="textarea">Text Area</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>Required:</ion-label>
+              <ion-select value="yes" okText="Okay" cancelText="Dismiss" formControlName="isRequired">
+                <ion-select-option value="yes">Yes</ion-select-option>
+                <ion-select-option value="no">No</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <!-- Allow generated input field to be removed -->
+            <span float-right ion-button icon-left clear *ngIf="form.controls.cfields.length > 1"
+              (click)="removeInputField(i)">
+              <ion-icon name="close"></ion-icon>
+              Remove
+            </span>
+          </ion-item-group>
+        </section>
+      </div>
+
+
+      <!-- Allow new input field to be generated/added -->
+      <span ion-button float-left icon-left clear (click)="addNewInputField()">
+        <ion-icon name="add"></ion-icon>
+        Add a new field.
+      </span>
+
+
+    </ion-list>
+
+
+    <!-- Only allow form to be submitted IF validation criteria for
+            input fields has been successfully passed -->
+    <!-- <button ion-button block margin-top color="primary" text-center [disabled]="!form.valid">Submit</button> -->
+    <section class="full-width">
+      <ion-button type="submit" expand="full" color="secondary" [disabled]="!form.valid">
+        Submit
+      </ion-button>
+    </section>
+  </form>
+
+</ion-content>
