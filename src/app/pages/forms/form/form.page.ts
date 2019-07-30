@@ -18,6 +18,7 @@ export class FormPage {
   submitted: any;
 
   filename = 'getForm';
+  // filename = 'form1-conf.json';
 
   constructor(public configService: FormConfigService, public controlsService: ControlsService, public alertCtrl: AlertController) {
     this.form = new FormGroup({});
@@ -25,7 +26,8 @@ export class FormPage {
     this.configService.getFormConfig(this.filename)
       .map(res => res.json())
       .subscribe(response => {
-        this.controls = this.controlsService.getControls(response);
+        const conv = JSON.parse(JSON.stringify(response), (k, v) => v === "true" ? true : v === "false" ? false : v);
+        this.controls = this.controlsService.getControls(conv);
       });
 
     this.form.valueChanges

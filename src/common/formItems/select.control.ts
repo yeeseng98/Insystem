@@ -6,6 +6,7 @@ export class SelectControl extends ControlBase<string> {
 
   constructor(options: {} = {}) {
     super(options);
+
     this.options = options['options'] || [];
   }
 }
