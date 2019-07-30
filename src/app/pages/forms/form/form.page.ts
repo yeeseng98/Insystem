@@ -17,13 +17,11 @@ export class FormPage {
   controls: ControlBase<any>[];
   submitted: any;
 
-  filename = '/form1-conf.json';
+  filename = 'getForm';
 
   constructor(public configService: FormConfigService, public controlsService: ControlsService, public alertCtrl: AlertController) {
     this.form = new FormGroup({});
-  }
 
-  ionViewWillEnter() {
     this.configService.getFormConfig(this.filename)
       .map(res => res.json())
       .subscribe(response => {

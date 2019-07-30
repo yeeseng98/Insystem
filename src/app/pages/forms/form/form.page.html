@@ -31,8 +31,14 @@
 
 <ion-content padding>
   <div *ngIf="controls else loading">
-    <dynamic-form #dynamicForm="dynamicForm" [controls]="controls" [form]="form"></dynamic-form>
+    <dynamic-form #dynamicForm="dynamicForm" [controls]="controls" [form]="form">
+    </dynamic-form>
   </div>
+  <section class="full-width">
+    <ion-button expand="full" color="secondary" (click)="submitForm($event)" [disabled]="!form.valid">
+      Submit
+    </ion-button>
+  </section>
 
   <ng-template #loading>
     <div class="loading">
@@ -40,12 +46,3 @@
     </div>
   </ng-template>
 </ion-content>
-
-<ion-footer>
-  <section class="full-width">
-    <ion-button expand="full" color="secondary" (click)="submitForm($event)">
-        Submit
-    </ion-button>
-  </section>
-  
-</ion-footer>

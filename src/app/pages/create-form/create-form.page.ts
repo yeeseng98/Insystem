@@ -2,23 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-create-workflow',
-  templateUrl: './create-workflow.page.html',
-  styleUrls: ['./create-workflow.page.scss'],
+  selector: 'app-create-form',
+  templateUrl: './create-form.page.html',
+  styleUrls: ['./create-form.page.scss'],
 })
-export class CreateWorkflowPage implements OnInit {
-
+export class CreateFormPage implements OnInit {
   public form: FormGroup;
+
+  selectedType: string;
 
   // tslint:disable-next-line: variable-name
   validation_messages = {
     name: [
-        { type: 'required', message: 'Variable name is required.' },
-        { type: 'pattern', message: 'Variable name must start with lowercase without any spaces.' }
-      ],
+      { type: 'required', message: 'Variable name is required.' },
+      { type: 'pattern', message: 'Variable name must start with lowercase without any spaces.' }
+    ],
     title: [
       { type: 'required', message: 'Field name is required.' },
-      { type: 'pattern', message: 'Field name must start with uppercase with minimum 3 letters.' }    ]
+      { type: 'pattern', message: 'Field name must start with uppercase with minimum 3 letters.' }]
   };
 
   constructor(private _FB: FormBuilder) {
@@ -42,10 +43,11 @@ export class CreateWorkflowPage implements OnInit {
     return this._FB.group({
       name: ['', Validators.compose([Validators.required, Validators.pattern('^(\\d|\\w)+$')])],
       type: ['text', Validators.required],
-      isRequired: ['yes', Validators.required],
-      display : ['selected'],
-      selected: ['true'],
-      title: [name, Validators.compose([Validators.required, Validators.pattern('^[A-z][a-z0-9_-]{2,19}$')])],
+      isRequired: [true, Validators.required],
+      display: ['selected'],
+      selected: [true],
+      title: [name, Validators.compose([Validators.required, Validators.pattern('^[A-Z].*')])],
+      options: ['']
     });
   }
 

@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
   providedIn: 'root'
 })
 export class FormConfigService {
-  private fString: string = 'https://dev.appseed.io.s3.amazonaws.com/mobile-apps/demo-angular-dynamic-forms';
+  private fString: string = 'http://127.0.0.1:5000/';
 
   constructor(private http: Http) { }
 

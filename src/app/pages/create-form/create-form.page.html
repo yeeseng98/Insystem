@@ -1,8 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create Workflow</ion-title>
+    <ion-title>Create Form</ion-title>
   </ion-toolbar>
 </ion-header>
+<style>
+  input~span:after {
+    opacity: 0;
+  }
+</style>
 <ion-content padding>
   <form [formGroup]="form" (ngSubmit)="receive(form.value)">
     <ion-list margin-bottom>
@@ -11,7 +16,7 @@
 
         <!-- Assign our first FormControl of name to the input field -->
         <ion-input type="text" maxlength="20" formControlName="fname"></ion-input>
-        <span>(Must be unique!)</span>
+        <span *ngIf="(!form.get('fname').dirty || !form.get('fname').touched)">(Must be unique!)</span>
       </ion-item>
 
 
@@ -59,11 +64,15 @@
                 <ion-select-option value="textarea">Text Area</ion-select-option>
               </ion-select>
             </ion-item>
+            <div *ngIf="field.get('type').value=='select'">
+              <ion-label floating>Select Options:</ion-label>
+              <ion-input type="text" maxlength="50" formControlName="options"></ion-input>
+            </div>
             <ion-item>
               <ion-label floating>Required:</ion-label>
               <ion-select value="yes" okText="Okay" cancelText="Dismiss" formControlName="isRequired">
-                <ion-select-option value="yes">Yes</ion-select-option>
-                <ion-select-option value="no">No</ion-select-option>
+                <ion-select-option value=true>Yes</ion-select-option>
+                <ion-select-option value=false>No</ion-select-option>
               </ion-select>
             </ion-item>
 
