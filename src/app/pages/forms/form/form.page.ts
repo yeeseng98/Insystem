@@ -26,7 +26,7 @@ export class FormPage {
     this.configService.getFormConfig(this.filename)
       .map(res => res.json())
       .subscribe(response => {
-        const conv = JSON.parse(JSON.stringify(response), (k, v) => v === "true" ? true : v === "false" ? false : v);
+        const conv = JSON.parse(JSON.stringify(response), (k, v) => v === 'true' ? true : v === 'false' ? false : v);
         this.controls = this.controlsService.getControls(conv);
       });
 

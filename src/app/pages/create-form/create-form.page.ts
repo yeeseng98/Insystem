@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
+import { FormConfigService } from '../../services/formConfig/form-config.service';
 
 @Component({
   selector: 'app-create-form',
@@ -22,7 +23,7 @@ export class CreateFormPage implements OnInit {
       { type: 'pattern', message: 'Field name must start with uppercase with minimum 3 letters.' }]
   };
 
-  constructor(private _FB: FormBuilder) {
+  constructor(private _FB: FormBuilder, private formConfigService: FormConfigService) {
     // Define the FormGroup object for the form
     // (with sub-FormGroup objects for handling
     // the dynamically generated form input fields)
@@ -63,6 +64,7 @@ export class CreateFormPage implements OnInit {
 
   receive(val: any): void {
     console.dir(val);
+    this.formConfigService.submitNewForm(val);
   }
 
   getErrorList(errorObject) {
