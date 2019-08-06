@@ -3,6 +3,8 @@ import { ControlDescriptor } from './control';
 import { SelectControl } from './select.control';
 import { TextareaControl } from './textarea.control';
 import { TextboxControl } from './textbox.control';
+import { MultiControl } from './multi.control';
+import { FileControl } from './file.control';
 
 @Injectable()
 export class ControlsService {
@@ -26,6 +28,11 @@ export class ControlsService {
           return new TextareaControl(options);
         case 'select':
           return new SelectControl(options);
+        case 'multi':
+          return new MultiControl(options);
+        case 'file':
+          console.log(options);
+          return new FileControl(options);
         default:
           console.error(`${descriptor.type} is not supported`);
       }

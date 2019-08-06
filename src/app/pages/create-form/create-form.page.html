@@ -16,10 +16,18 @@
 
         <!-- Assign our first FormControl of name to the input field -->
         <ion-input type="text" maxlength="20" formControlName="fname"></ion-input>
-        <span *ngIf="(!form.get('fname').dirty || !form.get('fname').touched)">(Must be unique!)</span>
+        <!-- <span *ngIf="(!form.get('fname').dirty || !form.get('fname').touched)">(Must be unique!)</span> -->
       </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.fname">
+          <div class="error-message"
+            *ngIf="form.get('fname').hasError(validation.type) && (form.get('fname').dirty || form.get('fname').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
 
-
+      <br>
       <!-- Assign the technologies FormArray to the form
             where we want to track/generate new input track fields -->
       <div formArrayName="cfields" margin-bottom>
@@ -44,7 +52,7 @@
                 </div>
               </ng-container>
             </div>
-            <ion-item>
+            <!-- <ion-item>
               <ion-label floating>DB variable name:</ion-label>
               <ion-input type="text" maxlength="50" formControlName="name"></ion-input>
             </ion-item>
@@ -55,20 +63,22 @@
                   {{ validation.message }}
                 </div>
               </ng-container>
-            </div>
+            </div> -->
             <ion-item>
               <ion-label floating>Field Type:</ion-label>
               <ion-select value="text" okText="Okay" cancelText="Dismiss" formControlName="type">
                 <ion-select-option value="text">Text</ion-select-option>
-                <ion-select-option value="select">Select</ion-select-option>
                 <ion-select-option value="textarea">Text Area</ion-select-option>
+                <ion-select-option value="select">Single Select</ion-select-option>
+                <ion-select-option value="multi">Multi-Select</ion-select-option>
+                <ion-select-option value="file">File Upload</ion-select-option>
               </ion-select>
             </ion-item>
-            <div *ngIf="field.get('type').value=='select'">
+            <div *ngIf="field.get('type').value=='select' || field.get('type').value=='multi' ">
               <ion-label floating>Select Options:</ion-label>
               <ion-input type="text" maxlength="50" formControlName="options"></ion-input>
             </div>
-            <ion-item>
+            <ion-item *ngIf="field.get('type').value!='file'">
               <ion-label floating>Required:</ion-label>
               <ion-select value=true okText="Okay" cancelText="Dismiss" formControlName="isRequired">
                 <ion-select-option value=true>Yes</ion-select-option>

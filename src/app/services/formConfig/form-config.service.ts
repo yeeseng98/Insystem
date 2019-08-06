@@ -11,14 +11,21 @@ const httpOptions = {
 })
 export class FormConfigService {
   private API: string = 'http://127.0.0.1:5000/';
-  //private fString: string = 'https://dev.appseed.io.s3.amazonaws.com/mobile-apps/demo-angular-dynamic-forms/';
+  // private fString: string = 'https://dev.appseed.io.s3.amazonaws.com/mobile-apps/demo-angular-dynamic-forms/';
 
   constructor(private http: Http) { }
 
-  public getFormConfig(url) {
-    return this.http.get(this.API + url);
+  // This method gets dynamic form data from database.
+  public getFormConfig() {
+    return this.http.get(this.API + 'getForm');
   }
 
+  // This method validates form name for uniqueness.
+  public getExistingForms() {
+    return this.http.get(this.API + 'formNameValidation');
+  }
+
+  // This method is used for dynamic form submission.
   public submitNewForm(val: any) {
     const formName = val['fname'];
     const formField = val['cfields'];
@@ -34,9 +41,12 @@ export class FormConfigService {
           return item.trim();
         });
       }
+
+      const fieldKey = this.varConvert(formName) + this.varConvert(formField[i].title);
+
       const field = {
         fname: formName,
-        name: formField[i].name,
+        name: fieldKey,
         type: formField[i].type,
         required: formField[i].isRequired,
         display: formField[i].display,
@@ -46,5 +56,9 @@ export class FormConfigService {
       };
       this.http.post(this.API + 'writeFields', field).subscribe(response => console.log(response));
     }
+  }
+
+  varConvert(val) {
+    return val.toLowerCase().replace(/\s/g, '');
   }
 }

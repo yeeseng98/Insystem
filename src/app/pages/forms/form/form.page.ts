@@ -17,17 +17,16 @@ export class FormPage {
   controls: ControlBase<any>[];
   submitted: any;
 
-  filename = 'getForm';
   // filename = 'form1-conf.json';
 
   constructor(public configService: FormConfigService, public controlsService: ControlsService, public alertCtrl: AlertController) {
     this.form = new FormGroup({});
 
-    this.configService.getFormConfig(this.filename)
+    this.configService.getFormConfig()
       .map(res => res.json())
       .subscribe(response => {
-        const conv = JSON.parse(JSON.stringify(response), (k, v) => v === 'true' ? true : v === 'false' ? false : v);
-        this.controls = this.controlsService.getControls(conv);
+        const formMap = JSON.parse(JSON.stringify(response), (k, v) => v === 'true' ? true : v === 'false' ? false : v);
+        this.controls = this.controlsService.getControls(formMap);
       });
 
     this.form.valueChanges

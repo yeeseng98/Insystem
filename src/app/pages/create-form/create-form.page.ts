@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { FormConfigService } from '../../services/formConfig/form-config.service';
+import { UniqueName } from './form-name-validator';
 
 @Component({
   selector: 'app-create-form',
@@ -14,13 +15,18 @@ export class CreateFormPage implements OnInit {
 
   // tslint:disable-next-line: variable-name
   validation_messages = {
-    name: [
-      { type: 'required', message: 'Variable name is required.' },
-      { type: 'pattern', message: 'Variable name must start with lowercase without any spaces.' }
-    ],
+    // name: [
+    //   { type: 'required', message: 'Variable name is required.' },
+    //   { type: 'pattern', message: 'Variable name must start with lowercase without any spaces.' }
+    // ],
     title: [
-      { type: 'required', message: 'Field name is required.' },
-      { type: 'pattern', message: 'Field name must start with uppercase with minimum 3 letters.' }]
+      { type: 'required', message: 'Field name cannot be empty.' },
+      { type: 'pattern', message: 'Field name must start with uppercase with minimum 3 letters.' }
+    ],
+    fname: [
+      { type: 'required', message: 'Form name cannot be empty.'},
+      { type: 'uniqueName', message: 'Form name already exists!'}
+    ]
   };
 
   constructor(private _FB: FormBuilder, private formConfigService: FormConfigService) {
@@ -29,7 +35,7 @@ export class CreateFormPage implements OnInit {
     // the dynamically generated form input fields)
     console.log('building');
     this.form = this._FB.group({
-      fname: ['', Validators.required],
+      fname: ['', Validators.compose([Validators.required, UniqueName(this.formConfigService)])],
       cfields: this._FB.array([
         this.initCustomFields()
       ])
@@ -42,12 +48,12 @@ export class CreateFormPage implements OnInit {
    */
   initCustomFields(): FormGroup {
     return this._FB.group({
-      name: ['', Validators.compose([Validators.required, Validators.pattern('^(\\d|\\w)+$')])],
+      // name: ['', Validators.compose([Validators.required, Validators.pattern('^(\\d|\\w)+$')])],
       type: ['text', Validators.required],
       isRequired: [true, Validators.required],
       display: ['selected'],
       selected: [true],
-      title: [name, Validators.compose([Validators.required, Validators.pattern('^[A-Z].*')])],
+      title: ['', Validators.compose([Validators.required, Validators.pattern('^[A-Z].*')])],
       options: ['']
     });
   }
@@ -74,4 +80,7 @@ export class CreateFormPage implements OnInit {
   ngOnInit() {
   }
 
+  varConvert(val) {
+    return val.toLowerCase().replace(/\s/g, '');
+  }
 }
