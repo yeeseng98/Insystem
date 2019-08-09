@@ -33,7 +33,6 @@ export class CreateFormPage implements OnInit {
     // Define the FormGroup object for the form
     // (with sub-FormGroup objects for handling
     // the dynamically generated form input fields)
-    console.log('building');
     this.form = this._FB.group({
       fname: ['', Validators.compose([Validators.required, UniqueName(this.formConfigService)])],
       cfields: this._FB.array([

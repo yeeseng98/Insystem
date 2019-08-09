@@ -5,9 +5,11 @@ import { TextareaControl } from './textarea.control';
 import { TextboxControl } from './textbox.control';
 import { MultiControl } from './multi.control';
 import { FileControl } from './file.control';
+import { FormConfigService } from 'src/app/services/formConfig/form-config.service';
 
 @Injectable()
 export class ControlsService {
+
   getControls(descriptors: ControlDescriptor[]) {
     let controls = descriptors.map((descriptor, index) => {
       let options = {
@@ -31,7 +33,6 @@ export class ControlsService {
         case 'multi':
           return new MultiControl(options);
         case 'file':
-          console.log(options);
           return new FileControl(options);
         default:
           console.error(`${descriptor.type} is not supported`);
@@ -40,4 +41,5 @@ export class ControlsService {
 
     return controls.filter(x => !!x).sort((a, b) => a.order - b.order);
   }
+
 }

@@ -36,6 +36,7 @@ export class FormPage {
   }
 
   submitForm($event) {
+    this.configService.submitFormValues(this.submitted);
     const alert = this.alertCtrl.create({
       message: 'Your form is successfully submitted!',
       subHeader: 'Success!',
