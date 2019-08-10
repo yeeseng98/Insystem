@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
+import { FormConfigService } from 'src/app/services/formConfig/form-config.service';
+import { WorkflowConfigService } from 'src/app/services/workflowConfig/workflow-config.service';
+import { UniqueName } from './workflow-name-validator';
 
 @Component({
   selector: 'app-create-workflow',
@@ -8,29 +11,74 @@ import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateWorkflowPage implements OnInit {
 
+  forms = [];
+  phaseSet = [];
+  defForm;
+  oldSelection = 0;
+
   public form: FormGroup;
 
   // tslint:disable-next-line: variable-name
   validation_messages = {
-    name: [
-        { type: 'required', message: 'Variable name is required.' },
-        { type: 'pattern', message: 'Variable name must start with lowercase without any spaces.' }
-      ],
     title: [
-      { type: 'required', message: 'Field name is required.' },
-      { type: 'pattern', message: 'Field name must start with uppercase with minimum 3 letters.' }    ]
+      { type: 'required', message: 'Task name is required.' },
+      { type: 'pattern', message: 'Task name must start with an uppercase letter.' }
+    ],
+    fname: [
+      { type: 'required', message: 'Workflow name cannot be empty.' },
+      { type: 'uniqueName', message: 'Workflow name already exists!' }
+    ],
+    phaseDuration: [
+      { type: 'required', message: 'Duration cannot be empty.' },
+      { type: 'pattern', message: 'This field must be a whole number.' }
+    ],
+    phaseName: [
+      { type: 'required', message: 'Phase Name cannot be empty.' }
+    ]
   };
 
-  constructor(private _FB: FormBuilder) {
+  constructor(private _FB: FormBuilder, formConfigService: FormConfigService,
+    public workflowConfigService: WorkflowConfigService) {
     // Define the FormGroup object for the form
     // (with sub-FormGroup objects for handling
     // the dynamically generated form input fields)
-    console.log('building');
     this.form = this._FB.group({
-      fname: ['', Validators.required],
+      fname: ['', Validators.compose([Validators.required, UniqueName(this.workflowConfigService)])],
+      phaseCount: ['', Validators.required],
+      phaseInfo: this._FB.array([
+
+      ]),
       cfields: this._FB.array([
         this.initCustomFields()
       ])
+    });
+
+    // fetch existing forms
+    formConfigService.getFormList()
+      .map(res => res.json())
+      .subscribe(response => {
+        let json_data = JSON.parse(JSON.stringify(response));
+
+        // tslint:disable-next-line: forin
+        json_data.forEach((element) => {
+          const formObj = {
+            formId: element.FormID,
+            formName: element.FormName
+          };
+          this.forms.push(formObj);
+        });
+
+        if (this.forms.length > 0) {
+          this.defForm = this.forms[0];
+        }
+
+      });
+  }
+
+  initPhaseFields(): FormGroup {
+    return this._FB.group({
+      phaseName: ['', Validators.required],
+      phaseDuration: [0, Validators.compose([Validators.required, Validators.pattern('^[0-9]+$')])]
     });
   }
 
@@ -40,12 +88,13 @@ export class CreateWorkflowPage implements OnInit {
    */
   initCustomFields(): FormGroup {
     return this._FB.group({
-      name: ['', Validators.compose([Validators.required, Validators.pattern('^(\\d|\\w)+$')])],
-      type: ['text', Validators.required],
-      isRequired: ['yes', Validators.required],
-      display : ['selected'],
-      selected: ['true'],
-      title: [name, Validators.compose([Validators.required, Validators.pattern('^[A-z][a-z0-9_-]{2,19}$')])],
+      type: ['file', Validators.required],
+      isRequired: [true],
+      display: ['selected'],
+      selected: [true],
+      title: ['', Validators.compose([Validators.required, Validators.pattern('^[A-Z].*')])],
+      form: [this.forms[0]],
+      phaseLevel: ['', Validators.required]
     });
   }
 
@@ -61,10 +110,34 @@ export class CreateWorkflowPage implements OnInit {
 
   receive(val: any): void {
     console.dir(val);
+    this.workflowConfigService.submitNewWorkflow(val);
   }
 
   getErrorList(errorObject) {
     return Object.keys(errorObject);
+  }
+
+  appendPhase(phases: any) {
+
+    // this.phaseSet = [];
+
+    const control = this.form.controls.phaseInfo as FormArray;
+    for (let i = 0; i < this.oldSelection; i++) {
+      this.phaseSet.shift();
+      // console.log('pop');
+      // console.log(this.phaseSet);
+      control.removeAt(0);
+    }
+
+    for (let i = 0; i < phases; i++) {
+      this.phaseSet.push('Phase ' + (i + 1));
+      control.push(this.initPhaseFields());
+
+      // console.log('push');
+      // console.log(this.phaseSet);
+    }
+
+    this.oldSelection = phases;
   }
 
   ngOnInit() {

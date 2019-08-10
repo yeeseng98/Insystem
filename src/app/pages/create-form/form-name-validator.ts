@@ -18,7 +18,7 @@ export function UniqueName(formConfigService: FormConfigService) {
 
                     // tslint:disable-next-line: forin
                     json_data.forEach((element) => {
-                        existingForms.push(element.FormName.toLowerCase().replace(/\s/g, ''));
+                        existingForms.push(element.FormID);
                     });
 
                     window.sessionStorage.setItem('existingForms', JSON.stringify(existingForms));

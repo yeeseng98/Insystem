@@ -7,7 +7,6 @@ import { Http, Headers } from '@angular/http';
 export class FormConfigService {
 
   private API: string = 'http://127.0.0.1:5000/';
-  // private fString: string = 'https://dev.appseed.io.s3.amazonaws.com/mobile-apps/demo-angular-dynamic-forms/';
 
   constructor(private http: Http) { }
 
@@ -35,11 +34,17 @@ export class FormConfigService {
     return this.http.get(this.API + 'formNameValidation');
   }
 
+  // This method gets a list of form names with its ID.
+  public getFormList() {
+    return this.http.get(this.API + 'formList');
+  }
+
   // This method is used for dynamic form creation.
   public submitNewForm(val: any) {
     const formName = val['fname'];
     const formField = val['cfields'];
     const form = {
+      formId: this.varConvert(formName),
       fname: formName
     }
     this.http.post(this.API + 'newForm', form).subscribe(response => console.log(response));
@@ -55,7 +60,7 @@ export class FormConfigService {
       const fieldKey = this.varConvert(formName) + this.varConvert(formField[i].title);
 
       const field = {
-        fname: formName,
+        fname: this.varConvert(formName),
         name: fieldKey,
         type: formField[i].type,
         required: formField[i].isRequired,

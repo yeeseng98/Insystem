@@ -52,18 +52,6 @@
                 </div>
               </ng-container>
             </div>
-            <!-- <ion-item>
-              <ion-label floating>DB variable name:</ion-label>
-              <ion-input type="text" maxlength="50" formControlName="name"></ion-input>
-            </ion-item>
-            <div class="validation-errors">
-              <ng-container *ngFor="let validation of validation_messages.name">
-                <div class="error-message"
-                  *ngIf="field.get('name').hasError(validation.type) && (field.get('name').dirty || field.get('name').touched)">
-                  {{ validation.message }}
-                </div>
-              </ng-container>
-            </div> -->
             <ion-item>
               <ion-label floating>Field Type:</ion-label>
               <ion-select value="text" okText="Okay" cancelText="Dismiss" formControlName="type">
@@ -75,8 +63,10 @@
               </ion-select>
             </ion-item>
             <div *ngIf="field.get('type').value=='select' || field.get('type').value=='multi' ">
-              <ion-label floating>Select Options:</ion-label>
-              <ion-input type="text" maxlength="50" formControlName="options"></ion-input>
+              <ion-item>
+                <ion-label floating>Select Options:</ion-label>
+                <ion-input type="text" maxlength="50" formControlName="options"></ion-input>
+              </ion-item>
             </div>
             <ion-item *ngIf="field.get('type').value!='file'">
               <ion-label floating>Required:</ion-label>

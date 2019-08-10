@@ -20,7 +20,8 @@ const routes: Routes = [
     loadChildren: './pages/detail/detail.module#DetailPageModule'
   },
   { path: 'form', loadChildren: './pages/forms/form/form.module#FormPageModule' },
-  { path: 'create-form', loadChildren: './pages/create-form/create-form.module#CreateFormPageModule' }
+  { path: 'create-form', loadChildren: './pages/create-form/create-form.module#CreateFormPageModule' },
+  { path: 'create-workflow', loadChildren: './pages/create-workflow/create-workflow.module#CreateWorkflowPageModule' }
 ];
 
 @NgModule({

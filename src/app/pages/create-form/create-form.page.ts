@@ -15,10 +15,6 @@ export class CreateFormPage implements OnInit {
 
   // tslint:disable-next-line: variable-name
   validation_messages = {
-    // name: [
-    //   { type: 'required', message: 'Variable name is required.' },
-    //   { type: 'pattern', message: 'Variable name must start with lowercase without any spaces.' }
-    // ],
     title: [
       { type: 'required', message: 'Field name cannot be empty.' },
       { type: 'pattern', message: 'Field name must start with uppercase with minimum 3 letters.' }
@@ -47,7 +43,6 @@ export class CreateFormPage implements OnInit {
    */
   initCustomFields(): FormGroup {
     return this._FB.group({
-      // name: ['', Validators.compose([Validators.required, Validators.pattern('^(\\d|\\w)+$')])],
       type: ['text', Validators.required],
       isRequired: [true, Validators.required],
       display: ['selected'],
