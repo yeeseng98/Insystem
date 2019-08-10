@@ -25,7 +25,7 @@ export class WorkflowConfigService {
       fname: workflowName
     };
 
-    //this.http.post(this.API + 'newWorkflow', workflow).subscribe(response => console.log(response));
+    this.http.post(this.API + 'newWorkflow', workflow).subscribe(response => console.log(response));
 
     // tslint:disable-next-line: forin
     for (let i = 0; i < phaseInfo.length; i++) {
@@ -38,8 +38,8 @@ export class WorkflowConfigService {
         phaseName: phaseInfo[i].phaseName,
         phaseOrder: i + 1
       };
-
-     // this.http.post(this.API + 'writePhases', phaseinfo).subscribe(response => console.log(response));
+      console.log(phaseinfo);
+      this.http.post(this.API + 'writePhases', phaseinfo).subscribe(response => console.log(response));
     }
     // tslint:disable-next-line: forin
     for (let i in workflowField) {
@@ -56,7 +56,8 @@ export class WorkflowConfigService {
           formId: workflowField[i].form.formId
         };
 
-        //this.http.post(this.API + 'writeTasks', field).subscribe(response => console.log(response));
+        console.log(field);
+        this.http.post(this.API + 'writeTasks', field).subscribe(response => console.log(response));
       } else {
         const field = {
           phaseId: phaseKey,
@@ -64,8 +65,8 @@ export class WorkflowConfigService {
           taskName: workflowField[i].title,
           taskType: workflowField[i].type,
         };
-
-        //this.http.post(this.API + 'writeTasks', field).subscribe(response => console.log(response));
+        console.log(field);
+        this.http.post(this.API + 'writeTasks', field).subscribe(response => console.log(response));
       }
     }
   }

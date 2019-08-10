@@ -39,6 +39,7 @@ export class CreateWorkflowPage implements OnInit {
 
   constructor(private _FB: FormBuilder, formConfigService: FormConfigService,
     public workflowConfigService: WorkflowConfigService) {
+
     // Define the FormGroup object for the form
     // (with sub-FormGroup objects for handling
     // the dynamically generated form input fields)
@@ -70,6 +71,7 @@ export class CreateWorkflowPage implements OnInit {
 
         if (this.forms.length > 0) {
           this.defForm = this.forms[0];
+          this.form.get(['cfields','form']).setValue(this.defForm);
         }
 
       });
@@ -109,7 +111,13 @@ export class CreateWorkflowPage implements OnInit {
   }
 
   receive(val: any): void {
-    console.dir(val);
+    // solve bug where first fromid selectbox is null.
+    const checker = val['cfields'];
+    for (let i in checker) {
+      if ( checker[i].type === 'form' && checker[i].form == null) {
+        val['cfields'][i].form = this.defForm;
+      }
+    }
     this.workflowConfigService.submitNewWorkflow(val);
   }
 
