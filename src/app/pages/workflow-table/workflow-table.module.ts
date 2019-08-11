@@ -2,16 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
-import { DynamicFormModule } from '../../../../common/formItems/dynamic-form.module';
-import { FormPage } from './form.page';
-import { FormConfigService } from '../../../services/formConfig/form-config.service';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { WorkflowTablePage } from './workflow-table.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: FormPage
+    component: WorkflowTablePage
   }
 ];
 
@@ -20,10 +18,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    DynamicFormModule,
+    NgxDatatableModule,
     RouterModule.forChild(routes)
   ],
-  providers: [FormConfigService],
-  declarations: [FormPage]
+  declarations: [WorkflowTablePage]
 })
-export class FormPageModule {}
+export class WorkflowTablePageModule {}

@@ -12,7 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TestProvService } from './services/testProv/test-prov.service';
 
 @NgModule({
@@ -26,7 +26,8 @@ import { TestProvService } from './services/testProv/test-prov.service';
     CommonModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxDatatableModule
   ],
   providers: [
     StatusBar,

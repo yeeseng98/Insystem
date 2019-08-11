@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Workflow Details: {{workflowId}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card>
+      <div [innerHTML]="workflowInfo"></div>
+
+      <ion-button (click)='updateTest(id)'>TEST</ion-button>
+    </ion-card>
+  </ion-content>
+  

@@ -9,7 +9,7 @@ export function UniqueName(workflowConfigService: WorkflowConfigService) {
         if (window.sessionStorage.getItem('existingWorkflows') == null) {
             let json_data;
 
-            workflowConfigService.getExistingFlows()
+            workflowConfigService.getWorkflowValidation()
                 .map(res => res.json())
                 .subscribe(response => {
                     json_data = JSON.parse(JSON.stringify(response));

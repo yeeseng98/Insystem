@@ -19,9 +19,12 @@ const routes: Routes = [
     path: 'detail',
     loadChildren: './pages/detail/detail.module#DetailPageModule'
   },
-  { path: 'form', loadChildren: './pages/forms/form/form.module#FormPageModule' },
+  { path: 'form', loadChildren: './pages/form/form.module#FormPageModule' },
   { path: 'create-form', loadChildren: './pages/create-form/create-form.module#CreateFormPageModule' },
-  { path: 'create-workflow', loadChildren: './pages/create-workflow/create-workflow.module#CreateWorkflowPageModule' }
+  { path: 'create-workflow', loadChildren: './pages/create-workflow/create-workflow.module#CreateWorkflowPageModule' },
+  { path: 'form-table', loadChildren: './pages/form-table/form-table.module#FormTablePageModule' },
+  { path: 'workflow-table', loadChildren: './pages/workflow-table/workflow-table.module#WorkflowTablePageModule' },
+  { path: 'workflow-details', loadChildren: './pages/workflow-details/workflow-details.module#WorkflowDetailsPageModule' }
 ];
 
 @NgModule({

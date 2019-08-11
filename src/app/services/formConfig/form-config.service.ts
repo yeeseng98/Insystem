@@ -11,16 +11,18 @@ export class FormConfigService {
   constructor(private http: Http) { }
 
   // This method gets dynamic form data from database.
-  public getFormConfig() {
-    return this.http.get(this.API + 'getForm');
+  public getFormConfig(formId: string) {
+
+    const params = {
+      formId: formId,
+    };
+
+    return this.http.get(this.API + 'getForm', { search: params });
   }
 
   // This method pre-loads user-submitted form data.
   public getSubmittedFormData(fieldId: string, studentId: string) {
 
-    // let params: URLSearchParams = new URLSearchParams();
-    // params.set('fieldId', fieldId);
-    // params.set('stdId', studentId);
     const params = {
       fieldId: fieldId,
       stdId: studentId

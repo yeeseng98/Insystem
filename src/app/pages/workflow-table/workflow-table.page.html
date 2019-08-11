@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Workflow Table
+      </ion-title>
+  
+      <ion-input type="text" style="margin:auto;width:30%;" placeholder="Search" (keyup)="updateFilter($event)">
+      </ion-input>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <div>
+      <!--
+           Embed the ngx-datatable component with following property bindings/values:
+           1. sorttype - allow data to be sorted on multiple columns
+           2. headerHeight - Set height of table header at 50 pixels
+           3. footerHeight - Set height of table footer at 50 pixels
+           4. rowHeight - Set height of table rows at 50 pixels
+           5. rows - Derives the data for the table rows from the component class
+                     property of rows
+           6. columns - Derives the names for the table columns from the component
+                        class property of columns
+           7. columnMode - Use of standard, flex or force - Force value makes columns
+                           equidistant and span the width of the parent container
+           8. limit - the number of records to display before paginating the results
+        -->
+      <ngx-datatable class="material fullscreen" [rows]="rows" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true">
+        <ngx-datatable-column prop="WorkflowID" name="Workflow ID">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.WorkflowID}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="WorkflowName" name="Workflow Name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.WorkflowName}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="DateCreated" name="Date Created">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.DateCreated}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Action">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <button ion-button small outline color="light" (click)="goto(row.WorkflowID)">Details</button>
+          </ng-template>  
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </ion-content>

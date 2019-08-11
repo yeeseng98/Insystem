@@ -10,8 +10,20 @@ export class WorkflowConfigService {
 
   constructor(private http: Http) { }
 
-  public getExistingFlows() {
+  public getWorkflowValidation() {
     return this.http.get(this.API + 'workflowNameValidation');
+  }
+
+  public getExistingWorkflows() {
+    return this.http.get(this.API + 'workflowList');
+  }
+
+  public getSelectedWorkflow(workflowId: string) {
+    const params = {
+      workflowId: workflowId
+    };
+
+    return this.http.get(this.API + 'getWorkflow', { search: params });
   }
 
   // This method is used for creating a new workflow.

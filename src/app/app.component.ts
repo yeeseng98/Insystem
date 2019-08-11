@@ -34,6 +34,16 @@ export class AppComponent {
       title: 'Create Workflow',
       url: '/create-workflow',
       icon: 'create-workflow'
+    },
+    {
+      title: 'Form Table',
+      url: '/form-table',
+      icon: 'form-table'
+    },
+    {
+      title: 'Workflow Table',
+      url: '/workflow-table',
+      icon: 'workflow-table'
     }
   ];
 
