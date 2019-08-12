@@ -9,14 +9,20 @@
   <br>
   <ion-label>Please select a workflow for this intake:</ion-label>
   <form [formGroup]="form" (ngSubmit)="receive(form.value)">
-    <ion-select formControlName="workflowId" [value]="workflows[0]">
+    <ion-select formControlName="workflowId" placeholder="Pick a workflow!" (ngModelChange)="workSelected($event)">
       <ion-select-option *ngFor="let workflow of workflows" [value]="workflow">{{workflow.workflowName}}
       </ion-select-option>
     </ion-select>
-    <ion-datetime formControlName="startDate" displayFormat="DD-MM-YYYY"
-      placeholder="Select Workflow Start Date (DD/MM/YYYY)">
-    </ion-datetime>
-    <ion-label *ngIf="form.get('startDate')">Expected End Date: {{endDate}}</ion-label>
+    <div *ngIf="form.get('workflowId').value">
+      <ion-label>Workflow Duration: {{workflowDays}}</ion-label>
+      <br>
+      <ion-datetime formControlName="startDate" displayFormat="YYYY-MM-DD"
+        [min]="minDate" [max]="maxDate" placeholder="Select Workflow Start Date (YYYY-MM-DD)"
+        (ngModelChange)="calEndDate($event)">
+      </ion-datetime>
+    </div>
+
+    <ion-label *ngIf="form.get('startDate').value">Expected End Date: {{endDate}}</ion-label>
     <section class="full-width">
       <ion-button type="submit" expand="full" color="secondary" [disabled]="!form.valid">
         Confirm Workflow Assignment

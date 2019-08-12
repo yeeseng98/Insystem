@@ -10,14 +10,25 @@ export class WorkflowConfigService {
 
   constructor(private http: Http) { }
 
+  // get workflow names for validation
   public getWorkflowValidation() {
     return this.http.get(this.API + 'workflowNameValidation');
   }
 
+  // get all workflow objects
   public getExistingWorkflows() {
     return this.http.get(this.API + 'workflowList');
   }
 
+  // get specific workflow's phases
+  public getWorkflowPhases(workflowId: string) {
+    const params = {
+      workflowId: workflowId
+    };
+    return this.http.get(this.API + 'phaseData', { search: params });
+  }
+
+  // get full info of specific workflow
   public getSelectedWorkflow(workflowId: string) {
     const params = {
       workflowId: workflowId
@@ -81,6 +92,17 @@ export class WorkflowConfigService {
         this.http.post(this.API + 'writeTasks', field).subscribe(response => console.log(response));
       }
     }
+  }
+
+  // used for assigning intake to workflow
+  public assignWorkflow(val: any) {
+    const assignInfo = {
+      intakeCode: val['intakeCode'],
+      workflowId: val['workflowId'],
+      startDate: val['startDate'],
+      endDate: val['endDate']
+    };
+    this.http.post(this.API + 'assignFlow', assignInfo).subscribe(response => console.log(response));
   }
 
   varConvert(val) {

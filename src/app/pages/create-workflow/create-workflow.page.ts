@@ -71,7 +71,7 @@ export class CreateWorkflowPage implements OnInit {
 
         if (this.forms.length > 0) {
           this.defForm = this.forms[0];
-          this.form.get(['cfields','form']).setValue(this.defForm);
+          this.form.get(['cfields', 'form']).setValue(this.defForm);
         }
 
       });
