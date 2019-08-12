@@ -44,6 +44,11 @@ export class AppComponent {
       title: 'Workflow Table',
       url: '/workflow-table',
       icon: 'workflow-table'
+    },
+    {
+      title: 'Assign Workflow',
+      url: '/assign-workflow',
+      icon: 'assign-workflow'
     }
   ];
 

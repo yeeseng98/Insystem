@@ -31,7 +31,8 @@ export class FormTablePage implements OnInit {
     const val = event.target.value.toLowerCase();
 
     // filter our data
-    const temp = this.temp.filter(function (d) {
+    // tslint:disable-next-line: only-arrow-functions
+    const temp = this.temp.filter(function(d) {
       return d.FormName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
