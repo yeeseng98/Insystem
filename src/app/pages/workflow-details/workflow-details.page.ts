@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WorkflowConfigService } from 'src/app/services/workflowConfig/workflow-config.service';
-import { PhaseObj } from 'src/app/models/phaseObj';
+import { PhaseObj } from '../../models/phaseObj';
 
 @Component({
   selector: 'app-workflow-details',
@@ -56,6 +56,7 @@ export class WorkflowDetailsPage implements OnInit {
               if (task.phaseOrder === phaseArray[i].phaseNum) {
                 this.workflowInfo = this.workflowInfo + '<br> <h3> Task Name: ' + task.taskName;
                 this.workflowInfo = this.workflowInfo + '        ID: ' + task.taskID + ' </h3>';
+                this.workflowInfo = this.workflowInfo + '<h3> Task Instruction: ' + task.desc + ' </h3>';
                 this.workflowInfo = this.workflowInfo + '<h3> Task Type: ' + task.taskType + '</h3>';
                 this.workflowInfo = this.workflowInfo + '<br>';
               }

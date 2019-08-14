@@ -84,6 +84,10 @@
                 </ng-container>
               </div>
               <ion-item>
+                <ion-label floating>Task instructions:</ion-label>
+                <ion-input type="text" maxlength="100" formControlName="desc"></ion-input>
+              </ion-item>
+              <ion-item>
                   <ion-label floating>Task Phase:</ion-label>
                   <ion-select okText="Okay" cancelText="Dismiss" formControlName="phaseLevel">
                       <ion-select-option *ngFor="let phase of phaseSet" [value]="phase">{{phase}}</ion-select-option>

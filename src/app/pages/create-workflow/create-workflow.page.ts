@@ -95,6 +95,7 @@ export class CreateWorkflowPage implements OnInit {
       display: ['selected'],
       selected: [true],
       title: ['', Validators.compose([Validators.required, Validators.pattern('^[A-Z].*')])],
+      desc: [''],
       form: [this.forms[0]],
       phaseLevel: ['', Validators.required]
     });

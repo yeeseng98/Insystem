@@ -71,6 +71,7 @@ export class WorkflowSelectionPage implements OnInit {
   workSelected(event) {
     this.workflowDays = this.form.get('workflowId').value.totalDur + ' days';
   }
+
   calEndDate(event) {
     console.log(event);
     const converted = this.datePipe.transform(event, 'yyyy-MM-dd');

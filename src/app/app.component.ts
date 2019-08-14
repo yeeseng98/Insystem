@@ -49,6 +49,11 @@ export class AppComponent {
       title: 'Assign Workflow',
       url: '/assign-workflow',
       icon: 'assign-workflow'
+    },
+    {
+      title: 'Student Task View',
+      url: '/student-task-view',
+      icon: 'student-task-view'
     }
   ];
 
