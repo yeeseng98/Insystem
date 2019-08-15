@@ -13,8 +13,7 @@ export class DynamicControlsService {
 
     controls.forEach(control => {
 
-      //TODO: Check why validator.required is not allowing file to pass through
-      if (control.controlType === 'file' && !control.required) {
+      if (control.controlType === 'file') {
         let formControl = new FormControl(control.value || '', requiredFileType('docx'));
         formGroup.addControl(control.key, formControl);
 

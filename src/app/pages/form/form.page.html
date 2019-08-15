@@ -25,7 +25,7 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-title>Form 1</ion-title>
+    <ion-title>{{formId}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -34,7 +34,7 @@
     <dynamic-form #dynamicForm="dynamicForm" [controls]="controls" [form]="form">
     </dynamic-form>
   </div>
-  <section class="full-width">
+  <section class="full-width" *ngIf="!adminAccess && !isLocked">
     <ion-button expand="full" color="secondary" (click)="submitForm($event)" [disabled]="!form.valid">
       Submit
     </ion-button>

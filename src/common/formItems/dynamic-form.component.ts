@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ControlBase } from './control-base';
 import { DynamicControlsService } from './dynamic-controls.service';
-import { element } from 'protractor';
 import { FormConfigService } from 'src/app/services/formConfig/form-config.service';
 
 @Component({
@@ -17,66 +16,72 @@ export class DynamicFormComponent implements OnInit {
 
 
   constructor(private dynamicControlsService: DynamicControlsService,
-              private formConfig: FormConfigService) {
+    private formConfig: FormConfigService) {
 
   }
 
   ngOnInit() {
     this.form = this.dynamicControlsService.toFormGroup(this.form, this.controls);
 
+    let taskId;
+    let adminAccess = false;
+    this.formConfig.currentTask.subscribe(message => taskId = message);
+
+    this.formConfig.isAdmin.subscribe(message => adminAccess = message);
+
     // updates form with previously submitted values.
-    this.controls.forEach(element => {
-      let value;
-      value = this.formConfig.getSubmittedFormData(element.key, 'TP041800').map(res => res.json()).subscribe(response => {
-        const data = JSON.parse(JSON.stringify(response));
+    if (!adminAccess) {
+      this.controls.forEach(element => {
+        let value;
+        value = this.formConfig.getSubmittedFormData(element.key, 'TP041800', taskId).map(res => res.json()).subscribe(response => {
+          const data = JSON.parse(JSON.stringify(response));
 
-        if (data != null) {
-          if (element.controlType === 'file') {
-            // TODO
-          } else if (element.controlType === 'select') {
-            data.forEach(x => {
+          if (data != null) {
+            if (element.controlType === 'file') {
+              // TODO
+            } else if (element.controlType === 'select') {
+              data.forEach(x => {
 
-              const selections = element['options'];
+                const selections = element['options'];
 
-              // tslint:disable-next-line: prefer-for-of
-              for (let i = 0; i < selections.length; i++) {
-                if (selections[i]['key'] === x.value) {
-                  this.form.controls[element.key].setValue(selections[i]);
-                  break;
-                }
-              }
-            });
-          } else if (element.controlType === 'multi') {
-            data.forEach(x => {
-
-              const selections = element['options'];
-              console.log(selections);
-
-              const preselections = x.value.split(',');
-              // tslint:disable-next-line: prefer-for-of
-              const allSelected = [];
-
-              // tslint:disable-next-line: prefer-for-of
-              for (let i = 0; i < selections.length; i++) {
                 // tslint:disable-next-line: prefer-for-of
-                for (let j = 0; j < preselections.length; j++) {
-                  if (selections[i]['key'] === preselections[j]) {
-                    allSelected.push(selections[i]);
+                for (let i = 0; i < selections.length; i++) {
+                  if (selections[i]['key'] === x.value) {
+                    this.form.controls[element.key].setValue(selections[i]);
                     break;
                   }
                 }
-              }
-              this.form.controls[element.key].setValue(allSelected);
-            });
-          } else {
-            data.forEach(x => {
-              this.form.controls[element.key].setValue(x.value);
-            });
-          }
-        }
-      });
-    });
+              });
+            } else if (element.controlType === 'multi') {
+              data.forEach(x => {
 
+                const selections = element['options'];
+
+                const preselections = x.value.split(',');
+                // tslint:disable-next-line: prefer-for-of
+                const allSelected = [];
+
+                // tslint:disable-next-line: prefer-for-of
+                for (let i = 0; i < selections.length; i++) {
+                  // tslint:disable-next-line: prefer-for-of
+                  for (let j = 0; j < preselections.length; j++) {
+                    if (selections[i]['key'] === preselections[j]) {
+                      allSelected.push(selections[i]);
+                      break;
+                    }
+                  }
+                }
+                this.form.controls[element.key].setValue(allSelected);
+              });
+            } else {
+              data.forEach(x => {
+                this.form.controls[element.key].setValue(x.value);
+              });
+            }
+          }
+        });
+      });
+    }
   }
 
   onSubmit() {

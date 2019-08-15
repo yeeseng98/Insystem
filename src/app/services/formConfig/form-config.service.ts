@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,12 @@ import { Http, Headers } from '@angular/http';
 export class FormConfigService {
 
   private API: string = 'http://127.0.0.1:5000/';
+
+  private taskSource = new BehaviorSubject('notask');
+  currentTask = this.taskSource.asObservable();
+
+  private adminAccess = new BehaviorSubject(false);
+  isAdmin = this.adminAccess.asObservable();
 
   constructor(private http: Http) { }
 
@@ -21,11 +28,12 @@ export class FormConfigService {
   }
 
   // This method pre-loads user-submitted form data.
-  public getSubmittedFormData(fieldId: string, studentId: string) {
+  public getSubmittedFormData(fieldId: string, studentId: string, taskId: string) {
 
     const params = {
       fieldId: fieldId,
-      stdId: studentId
+      stdId: studentId,
+      taskId: taskId
     };
 
     return this.http.get(this.API + 'loadFormVal', { search: params });
@@ -76,14 +84,17 @@ export class FormConfigService {
   }
 
   // This method handles student form data submission.
-  public submitFormValues(val: any) {
+  public submitFormValues(val: any, taskId: any) {
 
     for (const propName in val) {
       if (val.hasOwnProperty(propName)) {
+        console.log(propName);
+
         const propValue = val[propName];
         const isArray = val[propName] instanceof Array;
         const isFile = val[propName] instanceof File;
 
+        // multi select
         if (isArray) {
           let selectArr = [];
           for (const selected in val[propName]) {
@@ -103,7 +114,8 @@ export class FormConfigService {
           const fieldVal = {
             fieldName: propName,
             studentID: 'TP041800',
-            fieldVal: allSelected
+            fieldVal: allSelected,
+            taskId: taskId
           };
           this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
 
@@ -113,33 +125,52 @@ export class FormConfigService {
           console.log('field is file');
 
         } else {
+          // single select
           if (val[propName].constructor === Object) {
             let data;
+
             for (const value in val[propName]) {
               if (val[propName].hasOwnProperty(value)) {
                 data = val[propName][value];
-
-                const fieldVal = {
-                  fieldName: propName,
-                  studentID: 'TP041800',
-                  fieldVal: data
-                };
-                this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
-
               }
             }
-          } else {
             const fieldVal = {
               fieldName: propName,
               studentID: 'TP041800',
-              fieldVal: val[propName]
+              fieldVal: data,
+              taskId: taskId
             };
-            this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
 
+            this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
           }
         }
+      } else {
+        // normal text field
+        const fieldVal = {
+          fieldName: propName,
+          studentID: 'TP041800',
+          fieldVal: val[propName],
+          taskId: taskId
+        };
+
+        this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
+
       }
     }
+
+    const submission = {
+      taskId: taskId,
+      studentId: 'TP041800'
+    };
+    this.http.post(this.API + 'recordSubmission', submission).subscribe(response => console.log(response));
+  }
+
+  changeTasks(task: string) {
+    this.taskSource.next(task);
+  }
+
+  changeAccess(cred: boolean) {
+    this.adminAccess.next(cred);
   }
 
   varConvert(val) {

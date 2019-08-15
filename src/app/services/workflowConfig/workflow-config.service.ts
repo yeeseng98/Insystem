@@ -62,7 +62,6 @@ export class WorkflowConfigService {
           phaseName: phaseInfo[i].phaseName,
           phaseOrder: i + 1
         };
-        console.log(phaseinfo);
         this.http.post(this.API + 'writePhases', phaseinfo).subscribe(response => console.log(response));
       }
       // tslint:disable-next-line: forin
@@ -107,6 +106,16 @@ export class WorkflowConfigService {
       endDate: val['endDate']
     };
     this.http.post(this.API + 'assignFlow', assignInfo).subscribe(response => console.log(response));
+  }
+
+  public tabulatePhases(val: any) {
+    const assignInfo = {
+      intakeCode: val['intakeCode'],
+      phaseId: val['phaseId'],
+      startDate: val['startDate'],
+      endDate: val['endDate']
+    };
+    this.http.post(this.API + 'assignPhaseDates', assignInfo).subscribe(response => console.log(response));
   }
 
   varConvert(val) {

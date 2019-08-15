@@ -6,6 +6,7 @@ import { FormConfigService } from '../../services/formConfig/form-config.service
 import 'rxjs/add/operator/map';
 import { AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { TaskConfigService } from 'src/app/services/taskConfig/task-config.service';
 
 @Component({
   selector: 'app-form',
@@ -19,21 +20,34 @@ export class FormPage {
   submitted: any;
 
   public formId: any;
-
-  // filename = 'form1-conf.json';
+  public studentId: any;
+  public taskId: any;
+  public adminAccess: false;
+  public isLocked: boolean =  true;
 
   constructor(private route: ActivatedRoute, public configService: FormConfigService,
-              public controlsService: ControlsService, public alertCtrl: AlertController) {
+              public controlsService: ControlsService, public taskService: TaskConfigService,
+              public alertCtrl: AlertController) {
+
     this.form = new FormGroup({});
     this.route.queryParams.subscribe(params => {
       this.formId = params['formId'];
+      this.studentId = params['studentId'];
+      this.taskId = params['taskId'];
+      this.adminAccess = params['adminAccess'];
+
+      this.configService.changeAccess(this.adminAccess);
+
+      taskService.isLocked.subscribe(message => this.isLocked = message);
 
       this.configService.getFormConfig(this.formId)
-      .map(res => res.json())
-      .subscribe(response => {
-        const formMap = JSON.parse(JSON.stringify(response), (k, v) => v === 'true' ? true : v === 'false' ? false : v);
-        this.controls = this.controlsService.getControls(formMap);
-      });
+        .map(res => res.json())
+        .subscribe(response => {
+          configService.changeTasks(this.taskId);
+
+          const formMap = JSON.parse(JSON.stringify(response), (k, v) => v === 'true' ? true : v === 'false' ? false : v);
+          this.controls = this.controlsService.getControls(formMap);
+        });
     });
 
     this.form.valueChanges
@@ -43,7 +57,7 @@ export class FormPage {
   }
 
   submitForm($event) {
-    this.configService.submitFormValues(this.submitted);
+    this.configService.submitFormValues(this.submitted, this.taskId);
     const alert = this.alertCtrl.create({
       message: 'Your form is successfully submitted!',
       subHeader: 'Success!',
