@@ -45,6 +45,7 @@ export class WorkflowTablePage implements OnInit {
         workflowId: event
       }
     };
-    this.router.navigate(['workflow-details'], navigationExtras);
+    // this.router.navigate(['workflow-details'], navigationExtras);
+    this.router.navigateByUrl('workflow-details', { state: { navigationExtras }});
   }
 }

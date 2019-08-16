@@ -26,12 +26,8 @@ export class ListPage implements OnInit {
           stdEmail: user.stdEmail
       }
     };
-    this.router.navigate(['detail'], navigationExtras);
+    this.router.navigate(['detail'], navigationExtras );
   }
   ngOnInit() {
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
 }

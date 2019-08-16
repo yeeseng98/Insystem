@@ -38,7 +38,7 @@ export class CreateWorkflowPage implements OnInit {
   };
 
   constructor(private _FB: FormBuilder, formConfigService: FormConfigService,
-    public workflowConfigService: WorkflowConfigService) {
+              public workflowConfigService: WorkflowConfigService) {
 
     // Define the FormGroup object for the form
     // (with sub-FormGroup objects for handling

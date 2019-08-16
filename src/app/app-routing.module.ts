@@ -27,7 +27,12 @@ const routes: Routes = [
   { path: 'workflow-details', loadChildren: './pages/workflow-details/workflow-details.module#WorkflowDetailsPageModule' },
   { path: 'assign-workflow', loadChildren: './pages/assign-workflow/assign-workflow.module#AssignWorkflowPageModule' },
   { path: 'workflow-selection', loadChildren: './pages/workflow-selection/workflow-selection.module#WorkflowSelectionPageModule' },
-  { path: 'student-task-view', loadChildren: './pages/student-task-view/student-task-view.module#StudentTaskViewPageModule' }
+  { path: 'student-task-view', loadChildren: './pages/student-task-view/student-task-view.module#StudentTaskViewPageModule' },
+  { path: 'file', loadChildren: './pages/file/file.module#FilePageModule' },
+  { path: 'meeting-confirmation-request',
+    loadChildren: './pages/meeting-confirmation-request/meeting-confirmation-request.module#MeetingConfirmationRequestPageModule' },
+  { path: 'meeting-confirmation-approval',
+    loadChildren: './pages/meeting-confirmation-approval/meeting-confirmation-approval.module#MeetingConfirmationApprovalPageModule' }
 ];
 
 @NgModule({

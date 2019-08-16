@@ -31,6 +31,14 @@ export class TaskConfigService {
     return this.http.get(this.API + 'intakeDates', { search: params });
   }
 
+  // sends task info for a file task
+  public getFileTask(taskId: string) {
+    const params = {
+      taskId: taskId
+    };
+
+    return this.http.get(this.API + 'getFileTask', { search: params });
+  }
   changeLock(bool: boolean) {
     this.locked.next(bool);
   }

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Request Meeting</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-label><strong>Mentor Name: {{mentorName}}</strong></ion-label>
+    <form [formGroup]="form" (ngSubmit)="receive(form.value, isPending)">
+      <ion-textarea formControlName="content" rows="6" placeholder="Please state your intent.">
+      </ion-textarea>
+      <section class="full-width">
+        <ion-button type="submit" expand="full" color="secondary" [disabled]="!form.valid">
+          Submit
+        </ion-button>
+      </section>
+    </form>
+  </ion-card>
+
+  <div *ngFor="let request of requests">
+      <ion-card>
+        <ion-label><strong>Mentor Name: {{mentorName}}</strong></ion-label>
+        <ion-label float-right><strong>Status: {{request.status}}</strong></ion-label>
+        <ion-textarea disabled rows="3" [value]="request.content">
+        </ion-textarea>
+      </ion-card>
+  </div>
+</ion-content>

@@ -56,5 +56,6 @@ export class AssignWorkflowPage {
         intakeId: intake.INTAKE_CODE
       }
     };
-    this.router.navigate(['workflow-selection'], navigationExtras);  }
+    this.router.navigate(['workflow-selection'], navigationExtras);
+  }
 }

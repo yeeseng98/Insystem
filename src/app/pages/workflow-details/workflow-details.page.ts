@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowConfigService } from 'src/app/services/workflowConfig/workflow-config.service';
 import { PhaseObj } from '../../models/phaseObj';
 
@@ -16,15 +16,19 @@ export class WorkflowDetailsPage implements OnInit {
   public allTasks: any[] = [];
   public workflowInfo = '';
 
-  constructor(private route: ActivatedRoute, public configService: WorkflowConfigService) {
+  constructor(private route: ActivatedRoute, private router: Router, public configService: WorkflowConfigService) {
+
+    const navigation = this.router.getCurrentNavigation();
+    this.workflowId = navigation.extras.state ? navigation.extras.state.workflowId : 0;
+
     this.route.queryParams.subscribe(params => {
-      this.workflowId = params['workflowId'];
+
+      // this.workflowId = params['workflowId'];
 
       this.configService.getSelectedWorkflow(this.workflowId)
         .map(res => res.json())
         .subscribe(response => {
           this.data = JSON.parse(JSON.stringify(response));
-          console.log(this.data);
 
           const phaseArray: PhaseObj[] = [];
 

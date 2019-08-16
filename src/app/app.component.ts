@@ -54,6 +54,16 @@ export class AppComponent {
       title: 'Student Task View',
       url: '/student-task-view',
       icon: 'student-task-view'
+    },
+    {
+      title: 'Request Meeting',
+      url: '/meeting-confirmation-request',
+      icon: 'meeting-confirmation-request'
+    },
+    {
+      title: 'Meeting Approval',
+      url: '/meeting-confirmation-approval',
+      icon: 'meeting-confirmation-approval'
     }
   ];
 

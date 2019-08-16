@@ -5,14 +5,12 @@ import { DynamicControlsService } from './dynamic-controls.service';
 import { DynamicFormComponent } from './dynamic-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-import { ProgressComponent } from './progress.component';
-import { FileUploadComponent } from './app-file-upload.component';
+import { SharedModule } from '../sharedModule';
 
 @NgModule({
-  imports: [IonicModule, ReactiveFormsModule, CommonModule],
+  imports: [IonicModule, ReactiveFormsModule, CommonModule, SharedModule],
   providers: [DynamicControlsService, ControlsService],
-  declarations: [DynamicFormComponent, ProgressComponent, FileUploadComponent],
+  declarations: [DynamicFormComponent],
   exports: [DynamicFormComponent]
 })
 export class DynamicFormModule {

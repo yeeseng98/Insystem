@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Approve Meeting Requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let request of requests; let i = index">
+    <ion-card tappable (click)="toggleSelection(i)"
+      [ngClass]="{'section-active': request.open, 'section':!request.open}">
+      <ion-label>
+        <ion-icon slot="start" name="arrow-forward" *ngIf="!request.open"></ion-icon>
+        <ion-icon slot="start" name="arrow-down" *ngIf="request.open"></ion-icon>
+        <strong>Student Name: {{request.studentName}}</strong>
+      </ion-label>
+      <div *ngIf="request.open">
+        <ion-textarea disabled rows="6" [value]="request.content">
+        </ion-textarea>
+        <ion-button horizontal="end" color="success" (click)="approveReq(request)">APPROVE</ion-button>
+        <ion-button horizontal="end" color="danger" (click)="rejectReq(request)">REJECT</ion-button>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
