@@ -124,36 +124,33 @@ export class FormConfigService {
           // TODO
           console.log('field is file');
 
-        } else {
-          // single select
-          if (val[propName].constructor === Object) {
-            let data;
+        } else if (val[propName].constructor === Object) {
+          let data;
 
-            for (const value in val[propName]) {
-              if (val[propName].hasOwnProperty(value)) {
-                data = val[propName][value];
-              }
+          for (const value in val[propName]) {
+            if (val[propName].hasOwnProperty(value)) {
+              data = val[propName][value];
             }
-            const fieldVal = {
-              fieldName: propName,
-              studentID: 'TP041800',
-              fieldVal: data,
-              taskId: taskId
-            };
-
-            this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
           }
-        }
-      } else {
-        // normal text field
-        const fieldVal = {
-          fieldName: propName,
-          studentID: 'TP041800',
-          fieldVal: val[propName],
-          taskId: taskId
-        };
+          const fieldVal = {
+            fieldName: propName,
+            studentID: 'TP041800',
+            fieldVal: data,
+            taskId: taskId
+          };
 
-        this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
+          this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
+        } else {
+          // normal text field
+          const fieldVal = {
+            fieldName: propName,
+            studentID: 'TP041800',
+            fieldVal: val[propName],
+            taskId: taskId
+          };
+
+          this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
+        }
 
       }
     }

@@ -44,11 +44,11 @@ export class RequestConfigService {
     this.http.post(this.API + 'approveRequest', approveInfo).subscribe(response => console.log(response));
   }
 
-  public rejectRequest(val: any, mentorId: any){
+  public rejectRequest(val: any, mentorId: any, rej: any) {
     const rejectInfo = {
       studentId: val['studentId'],
       mentorId: mentorId,
-      rej: val['rej']
+      rej: rej
     };
     this.http.post(this.API + 'rejectRequest', rejectInfo).subscribe(response => console.log(response));
   }

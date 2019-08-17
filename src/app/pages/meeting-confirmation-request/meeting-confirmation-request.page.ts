@@ -16,6 +16,7 @@ export class MeetingConfirmationRequestPage implements OnInit {
   public form: FormGroup;
   public isPending = false;
   public requests: any[] = [];
+  public open = false;
 
   constructor(private _FB: FormBuilder, private requestConfigService: RequestConfigService, public alertCtrl: AlertController) {
     this.mentorName = 'Ms. Mary Ting';
@@ -33,27 +34,32 @@ export class MeetingConfirmationRequestPage implements OnInit {
             if (element.isApproved === 'PEND') {
               const request = {
                 status: 'PENDING',
-                content: element.content
+                content: element.content,
+                date: element.dateCreated
               };
 
               this.requests.push(request);
             } else if (element.isApproved === 'APP') {
               const request = {
                 status: 'APPROVED',
-                content: element.content
+                content: element.content,
+                date: element.dateCreated
               };
 
               this.requests.push(request);
             } else if (element.isApproved === 'REJ') {
               const request = {
                 status: 'REJECTED',
-                content: element.content
+                content: element.content,
+                date: element.dateCreated,
+                rej: element.rejectComment
               };
 
               this.requests.push(request);
             } else {
               const request = {
                 status: 'UNKNOWN',
+                date: element.dateCreated,
                 content: element.content
               };
 
@@ -81,5 +87,9 @@ export class MeetingConfirmationRequestPage implements OnInit {
         buttons: ['Dismiss']
       }).then(alert => alert.present());
     }
+  }
+
+  toggleSelection(i) {
+    this.open = !this.open;
   }
 }

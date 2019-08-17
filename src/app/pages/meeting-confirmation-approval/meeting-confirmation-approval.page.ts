@@ -38,11 +38,47 @@ export class MeetingConfirmationApprovalPage implements OnInit {
 
   approveReq(val: any) {
     this.requestConfigService.approveRequest(val, this.mentorId);
+    let index = this.requests.indexOf(val);
+    this.requests.splice(index, 1);
+    const alert = this.alertCtrl.create({
+      message: 'Request approved!',
+      subHeader: 'Success!',
+      buttons: ['Dismiss']
+    }).then(alert => alert.present());
   }
 
   rejectReq(val: any) {
-    console.log(val);
-    this.requestConfigService.rejectRequest(val, this.mentorId);
+    let alert = this.alertCtrl.create({
+      subHeader: 'Reason for rejection:',
+      inputs: [
+        {
+          name: 'rejection',
+          placeholder: 'reason'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Confirm',
+          handler: data => {
+            this.requestConfigService.rejectRequest(val, this.mentorId, data.rejection);
+            let index = this.requests.indexOf(val);
+            this.requests.splice(index, 1);
+            const alr = this.alertCtrl.create({
+              message: 'Request rejected!',
+              subHeader: 'Success!',
+              buttons: ['Dismiss']
+            }).then(alr => alr.present());
+          }
+        }
+      ]
+    }).then(alert => alert.present());
   }
 
   toggleSelection(i) {

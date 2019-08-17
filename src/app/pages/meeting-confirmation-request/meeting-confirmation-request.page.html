@@ -18,12 +18,20 @@
     </form>
   </ion-card>
 
+  <ion-card tappable (click)="toggleSelection(i)" [ngClass]="{'section-active': open, 'section':!open}">
+    <ion-label>
+      <ion-icon slot="start" name="arrow-forward" *ngIf="!open"></ion-icon>
+      <ion-icon slot="start" name="arrow-down" *ngIf="open"></ion-icon>
+      <strong *ngIf="!open">Show Request History</strong>
+      <strong *ngIf="open">Hide Request History</strong>
+    </ion-label>
+  </ion-card>
   <div *ngFor="let request of requests">
-      <ion-card>
-        <ion-label><strong>Mentor Name: {{mentorName}}</strong></ion-label>
-        <ion-label float-right><strong>Status: {{request.status}}</strong></ion-label>
-        <ion-textarea disabled rows="3" [value]="request.content">
-        </ion-textarea>
-      </ion-card>
+    <ion-card *ngIf="open">
+      <ion-label><strong>Mentor Name: {{mentorName}} ( {{request.date}} )</strong></ion-label>
+      <ion-label float-right><strong>Status: {{request.status}}</strong></ion-label>
+      <ion-textarea disabled rows="3" [value]="request.content"> </ion-textarea>
+      <ion-label *ngIf="request.rej"><strong>Reason of rejection: {{request.rej}}</strong></ion-label>
+    </ion-card>
   </div>
 </ion-content>

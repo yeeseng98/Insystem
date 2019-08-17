@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="requests.length == 0">No requests found at the moment.</div>
   <div *ngFor="let request of requests; let i = index">
     <ion-card tappable (click)="toggleSelection(i)"
       [ngClass]="{'section-active': request.open, 'section':!request.open}">

@@ -3,6 +3,7 @@ import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { FormConfigService } from 'src/app/services/formConfig/form-config.service';
 import { WorkflowConfigService } from 'src/app/services/workflowConfig/workflow-config.service';
 import { UniqueName } from './workflow-name-validator';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-workflow',
@@ -30,7 +31,7 @@ export class CreateWorkflowPage implements OnInit {
     ],
     phaseDuration: [
       { type: 'required', message: 'Duration cannot be empty.' },
-      { type: 'pattern', message: 'This field must be a whole number.' }
+      { type: 'pattern', message: 'This field must be a whole number and cannot be zero.' }
     ],
     phaseName: [
       { type: 'required', message: 'Phase Name cannot be empty.' }
@@ -38,7 +39,7 @@ export class CreateWorkflowPage implements OnInit {
   };
 
   constructor(private _FB: FormBuilder, formConfigService: FormConfigService,
-              public workflowConfigService: WorkflowConfigService) {
+              public workflowConfigService: WorkflowConfigService, public alertCtrl: AlertController) {
 
     // Define the FormGroup object for the form
     // (with sub-FormGroup objects for handling
@@ -80,7 +81,7 @@ export class CreateWorkflowPage implements OnInit {
   initPhaseFields(): FormGroup {
     return this._FB.group({
       phaseName: ['', Validators.required],
-      phaseDuration: [0, Validators.compose([Validators.required, Validators.pattern('^[0-9]+$')])]
+      phaseDuration: ['', Validators.compose([Validators.required, Validators.pattern('^[1-9][0-9]*$')])]
     });
   }
 
@@ -112,14 +113,56 @@ export class CreateWorkflowPage implements OnInit {
   }
 
   receive(val: any): void {
-    // solve bug where first fromid selectbox is null.
-    const checker = val['cfields'];
-    for (let i in checker) {
-      if ( checker[i].type === 'form' && checker[i].form == null) {
-        val['cfields'][i].form = this.defForm;
+    // check if each phase has 1 task at least;
+    console.log(val);
+
+    let phase1Flag = false;
+    let phase2Flag = false;
+    let phase3Flag = false;
+    let phase4Flag = false;
+
+    const workflowField = val['cfields'];
+
+    for (let i = 1; i <= val['phaseCount'] ; i++) {
+      if (i === 1) {
+        phase1Flag = true;
+      } else if (i === 2) {
+        phase2Flag = true;
+      } else if (i === 3) {
+        phase3Flag = true;
+      } else if (i === 4) {
+        phase4Flag = true;
       }
     }
-    this.workflowConfigService.submitNewWorkflow(val);
+
+    for (let i in workflowField) {
+      if (workflowField[i].phaseLevel === 'Phase 1') {
+        phase1Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 2') {
+        phase2Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 3') {
+        phase3Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 4') {
+        phase4Flag = false;
+      }
+    }
+
+    if (!phase1Flag && !phase2Flag && !phase3Flag && !phase4Flag) {
+      // solve bug where first fromid selectbox is null.
+      for (let i in workflowField) {
+        if (workflowField[i].type === 'form' && workflowField[i].form == null) {
+          val['cfields'][i].form = this.defForm;
+        }
+      }
+
+      this.workflowConfigService.submitNewWorkflow(val);
+    } else {
+      const alert = this.alertCtrl.create({
+        message: 'Please ensure that each phase has at least one task!',
+        subHeader: 'Error!',
+        buttons: ['Dismiss']
+      }).then(alert => alert.present());
+    }
   }
 
   getErrorList(errorObject) {

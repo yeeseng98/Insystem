@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { FormConfigService } from '../../services/formConfig/form-config.service';
 import { UniqueName } from './form-name-validator';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-form',
@@ -25,7 +26,7 @@ export class CreateFormPage implements OnInit {
     ]
   };
 
-  constructor(private _FB: FormBuilder, private formConfigService: FormConfigService) {
+  constructor(public alertCtrl: AlertController, private _FB: FormBuilder, private formConfigService: FormConfigService) {
     // Define the FormGroup object for the form
     // (with sub-FormGroup objects for handling
     // the dynamically generated form input fields)
@@ -63,8 +64,13 @@ export class CreateFormPage implements OnInit {
   }
 
   receive(val: any): void {
-    console.dir(val);
     this.formConfigService.submitNewForm(val);
+
+    const alert = this.alertCtrl.create({
+      message: 'Form is successfully created.',
+      subHeader: 'Error!',
+      buttons: ['Dismiss']
+    }).then(alert => alert.present());
   }
 
   getErrorList(errorObject) {
