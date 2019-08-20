@@ -119,11 +119,16 @@ export class FormConfigService {
           };
           this.http.post(this.API + 'insertFormVal', fieldVal).subscribe(response => console.log(response));
 
-
+          // file
         } else if (isFile) {
-          // TODO
-          console.log('field is file');
-
+          // const fieldVal = {
+          //   studentID: 'TP041800',
+          //   taskId: taskId,
+          //   file: val[propName]
+          // };
+          // this.http.post(this.API + 'fileSub', fieldVal).subscribe(response => console.log(response));
+          
+          // single select
         } else if (val[propName].constructor === Object) {
           let data;
 

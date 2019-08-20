@@ -36,6 +36,7 @@ export class ExpandableComponent implements OnInit {
           studentId: 'TP041800'
         }
       };
+      this.taskConfigService.changeLock(task.isLocked);
       this.router.navigate(['file'], navigationExtras);
     } else {
       const toast = await this.toastCtrl.create({

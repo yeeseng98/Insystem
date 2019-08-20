@@ -29,7 +29,9 @@
   <div *ngFor="let request of requests">
     <ion-card *ngIf="open">
       <ion-label><strong>Mentor Name: {{mentorName}} ( {{request.date}} )</strong></ion-label>
-      <ion-label float-right><strong>Status: {{request.status}}</strong></ion-label>
+      <ion-label *ngIf="request.status == 'PENDING'"float-right style="color: #ebbd34"><strong>Status: {{request.status}}</strong></ion-label>
+      <ion-label *ngIf="request.status == 'APPROVED'" float-right style="color: #22862C" ><strong>Status: {{request.status}}</strong></ion-label>
+      <ion-label *ngIf="request.status == 'REJECTED'"float-right style="color: red"><strong>Status: {{request.status}}</strong></ion-label>
       <ion-textarea disabled rows="3" [value]="request.content"> </ion-textarea>
       <ion-label *ngIf="request.rej"><strong>Reason of rejection: {{request.rej}}</strong></ion-label>
     </ion-card>

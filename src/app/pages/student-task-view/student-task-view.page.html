@@ -2,6 +2,8 @@
   <ion-toolbar>
     <ion-title>Student Task View</ion-title>
     <ion-buttons slot="end">
+      <ion-label *ngIf="automaticClose"><strong>AUTO CLOSE</strong></ion-label> 
+      <ion-label *ngIf="!automaticClose"><strong>MANUAL CLOSE</strong></ion-label> 
       <ion-button (click)="automaticClose = !automaticClose" >
         <ion-icon slot="icon-only" name="close" *ngIf="automaticClose"></ion-icon>
         <ion-icon slot="icon-only" name="resize" *ngIf="!automaticClose"></ion-icon>

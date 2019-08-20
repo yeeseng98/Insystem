@@ -19,11 +19,10 @@ export class WorkflowDetailsPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, public configService: WorkflowConfigService) {
 
     const navigation = this.router.getCurrentNavigation();
-    this.workflowId = navigation.extras.state ? navigation.extras.state.workflowId : 0;
 
     this.route.queryParams.subscribe(params => {
 
-      // this.workflowId = params['workflowId'];
+      this.workflowId = params['workflowId'];
 
       this.configService.getSelectedWorkflow(this.workflowId)
         .map(res => res.json())

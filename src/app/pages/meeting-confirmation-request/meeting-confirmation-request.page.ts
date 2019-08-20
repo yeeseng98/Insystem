@@ -80,6 +80,11 @@ export class MeetingConfirmationRequestPage implements OnInit {
     if (!isPending) {
       this.requestConfigService.sendMeetRequest(val.content, this.mentorId, this.studentId);
       this.isPending = true;
+      const alert = this.alertCtrl.create({
+        message: 'You have successfully submitted your request!',
+        subHeader: 'Success!',
+        buttons: ['Dismiss']
+      }).then(alert => alert.present());
     } else {
       const alert = this.alertCtrl.create({
         message: 'You are not allowed to send another request if there is a pending request.',
