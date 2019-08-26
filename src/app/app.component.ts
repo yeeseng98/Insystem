@@ -64,6 +64,16 @@ export class AppComponent {
       title: 'Meeting Approval',
       url: '/meeting-confirmation-approval',
       icon: 'meeting-confirmation-approval'
+    },
+    {
+      title: 'Resource Table',
+      url: '/resource-table',
+      icon: 'resource-table'
+    },
+    {
+      title: 'Download Internship Resources',
+      url: '/resource-download',
+      icon: 'resource-download'
     }
   ];
 

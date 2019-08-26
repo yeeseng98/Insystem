@@ -19,6 +19,7 @@
       </ion-select>
 
       <ion-label *ngIf="control.controlType === 'file'">{{control.label}}</ion-label>
+      <ion-label *ngIf="control.controlType === 'file'">{{control.fileName}}</ion-label>
       <app-file-upload *ngIf="control.controlType === 'file'" [formControlName]="control.key" [progress]="progress" ></app-file-upload>
 
     </ion-item>

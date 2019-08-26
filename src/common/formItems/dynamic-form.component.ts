@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ControlBase } from './control-base';
 import { DynamicControlsService } from './dynamic-controls.service';
 import { FormConfigService } from 'src/app/services/formConfig/form-config.service';
+import { FileConfigService } from 'src/app/services/fileConfig/file-config.service';
 
 @Component({
   selector: 'dynamic-form',
@@ -16,7 +17,7 @@ export class DynamicFormComponent implements OnInit {
 
 
   constructor(private dynamicControlsService: DynamicControlsService,
-    private formConfig: FormConfigService) {
+              private formConfig: FormConfigService, private fileConfig: FileConfigService) {
 
   }
 
@@ -38,7 +39,13 @@ export class DynamicFormComponent implements OnInit {
 
           if (data != null) {
             if (element.controlType === 'file') {
-              // TODO
+              this.fileConfig.getExistingFormFile(element.key, 'TP041800', taskId).map(res => res.json()).subscribe(response => {
+                const data = JSON.parse(JSON.stringify(response));
+
+                data.forEach(x => {
+                  element.fileName = x.fileName;
+                });
+              });
             } else if (element.controlType === 'select') {
               data.forEach(x => {
 

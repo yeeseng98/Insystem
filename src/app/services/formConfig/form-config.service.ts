@@ -121,13 +121,14 @@ export class FormConfigService {
 
           // file
         } else if (isFile) {
-          // const fieldVal = {
-          //   studentID: 'TP041800',
-          //   taskId: taskId,
-          //   file: val[propName]
-          // };
-          // this.http.post(this.API + 'fileSub', fieldVal).subscribe(response => console.log(response));
-          
+          const _formData = new FormData();
+          _formData.append('file', val[propName], val[propName].name);
+          _formData.append('studentId', 'TP041800');
+          _formData.append('taskId', taskId);
+          _formData.append('formatId', propName);
+
+          this.http.post(this.API + 'formFileSub', _formData).subscribe(response => console.log(response));
+
           // single select
         } else if (val[propName].constructor === Object) {
           let data;

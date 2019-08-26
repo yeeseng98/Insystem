@@ -18,6 +18,7 @@ export class FilePage implements OnInit {
   public taskName: any;
   public form: FormGroup;
   public isLocked: boolean = true;
+  public existFile;
 
   filedata;
 
@@ -38,6 +39,14 @@ export class FilePage implements OnInit {
 
         this.taskName = json_data[0].taskName;
         this.taskDesc = json_data[0].desc;
+
+        this.fileConfig.getExistingTaskFile('TP041800', this.taskId).map(res => res.json()).subscribe(resp => {
+          const data = JSON.parse(JSON.stringify(resp));
+
+          data.forEach(element => {
+            this.existFile = element.fileName;
+          });
+        });
       }
       );
 

@@ -5,6 +5,7 @@ export class ControlBase<T> {
   required: boolean;
   order: number;
   controlType: string;
+  fileName: string;
 
   constructor(options: {
     value?: T,
