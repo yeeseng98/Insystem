@@ -34,7 +34,8 @@ const routes: Routes = [
   { path: 'meeting-confirmation-approval',
     loadChildren: './pages/meeting-confirmation-approval/meeting-confirmation-approval.module#MeetingConfirmationApprovalPageModule' },
   { path: 'resource-table', loadChildren: './pages/resource-table/resource-table.module#ResourceTablePageModule' },
-  { path: 'resource-download', loadChildren: './pages/resource-download/resource-download.module#ResourceDownloadPageModule' }
+  { path: 'resource-download', loadChildren: './pages/resource-download/resource-download.module#ResourceDownloadPageModule' },
+  { path: 'add-resource', loadChildren: './pages/add-resource/add-resource.module#AddResourcePageModule' }
 ];
 
 @NgModule({
