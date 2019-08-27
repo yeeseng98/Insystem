@@ -51,9 +51,20 @@ export class FileConfigService {
   }
 
   // insert new internship resource
-  public insertResource(val: any) {
+  public insertResource(val: any, tFaculty: string) {
+    const _formData = new FormData();
+    _formData.append('file', val, val.name);
+    _formData.append('tFaculty', tFaculty);
 
+    this.http.post(this.API + 'insertResource', _formData).subscribe(response => console.log(response));
   }
 
+  // download file
+  public downloadResource(fileId: string) {
+    const params = {
+      fileId: fileId
+    };
 
+    return this.http.get(this.API + 'getFile', { search: params });
+  }
 }

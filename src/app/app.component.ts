@@ -23,57 +23,62 @@ export class AppComponent {
     {
       title: 'Form',
       url: '/form',
-      icon: 'form'
+      icon: 'paper'
     },
     {
       title: 'Create Form',
       url: '/create-form',
-      icon: 'create-form'
+      icon: 'paper'
     },
     {
       title: 'Create Workflow',
       url: '/create-workflow',
-      icon: 'create-workflow'
+      icon: 'logo-buffer'
     },
     {
       title: 'Form Table',
       url: '/form-table',
-      icon: 'form-table'
+      icon: 'list'
     },
     {
       title: 'Workflow Table',
       url: '/workflow-table',
-      icon: 'workflow-table'
+      icon: 'list'
     },
     {
       title: 'Assign Workflow',
       url: '/assign-workflow',
-      icon: 'assign-workflow'
+      icon: 'return-right'
     },
     {
       title: 'Student Task View',
       url: '/student-task-view',
-      icon: 'student-task-view'
+      icon: 'checkbox'
     },
     {
       title: 'Request Meeting',
       url: '/meeting-confirmation-request',
-      icon: 'meeting-confirmation-request'
+      icon: 'contacts'
     },
     {
       title: 'Meeting Approval',
       url: '/meeting-confirmation-approval',
-      icon: 'meeting-confirmation-approval'
+      icon: 'contacts'
     },
     {
       title: 'Resource Table',
       url: '/resource-table',
-      icon: 'resource-table'
+      icon: 'list'
     },
     {
       title: 'Download Internship Resources',
       url: '/resource-download',
-      icon: 'resource-download'
+      icon: 'cloud-download'
+    },
+    {
+      title: 'Add New Internship Resource',
+      url: '/add-resource',
+      icon: 'cloud-upload'
     }
   ];
 

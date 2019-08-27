@@ -29,22 +29,22 @@
       [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true">
       <ngx-datatable-column prop="FileID" name="File ID">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row.FileID}}
+          {{row.fileID}}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column prop="FileName" name="File Name">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row.FileName}}
+          {{row.fileName}}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column prop="TargetFaculty" name="Target Faculty">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row.TargetFaculty}}
+          {{row.targetFaculty}}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Action">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <button ion-button small outline color="light" (click)="download(row.FileID)">Download</button>
+          <button ion-button small outline color="light" (click)="download(row.fileID)">Download</button>
         </ng-template>  
       </ngx-datatable-column>
     </ngx-datatable>

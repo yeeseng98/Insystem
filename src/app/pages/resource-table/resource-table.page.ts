@@ -3,6 +3,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FileConfigService } from 'src/app/services/fileConfig/file-config.service';
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-resource-table',
   templateUrl: './resource-table.page.html',
@@ -14,7 +15,8 @@ export class ResourceTablePage implements OnInit {
   temp = [];
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
 
-  constructor(private fileConfigService: FileConfigService, private router: Router, private http: HttpClient) { 
+  constructor(private fileConfigService: FileConfigService, private router: Router,
+    public alertCtrl: AlertController, private http: HttpClient) {
     this.fileConfigService.getResourceList('CT').map(res => res.json()).subscribe(response => {
       this.temp = [...JSON.parse(JSON.stringify(response))];
 
@@ -30,7 +32,7 @@ export class ResourceTablePage implements OnInit {
 
     // filter our data
     const temp = this.temp.filter(function (d) {
-      return d.WorkflowName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.fileName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows
@@ -40,6 +42,35 @@ export class ResourceTablePage implements OnInit {
   }
 
   download(event) {
+    this.fileConfigService.downloadResource(event).subscribe(response => {
 
+      let filename = '';
+      const disposition = response.headers['content-disposition'];
+      if (disposition && disposition.indexOf('attachment') !== -1) {
+          const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+          const matches = filenameRegex.exec(disposition);
+          if (matches != null && matches[1]) {
+            filename = matches[1].replace(/['"]/g, '');
+          }
+      }
+      console.log(filename);
+      console.log(response);
+    });
+    const alert = this.alertCtrl.create({
+      message: 'File task successfully submitted!',
+      subHeader: 'Success!',
+      buttons: ['Dismiss']
+    }).then(alert => alert.present());
+  }
+
+  saveData(blob, fileName) {
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+
+    const url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 }

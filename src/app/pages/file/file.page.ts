@@ -4,6 +4,7 @@ import { TaskConfigService } from 'src/app/services/taskConfig/task-config.servi
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { requiredFileType } from 'src/common/formItems/upload-file-validators';
 import { FileConfigService } from 'src/app/services/fileConfig/file-config.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-file',
@@ -20,10 +21,10 @@ export class FilePage implements OnInit {
   public isLocked: boolean = true;
   public existFile;
 
-  filedata;
+  public filedata;
 
-  constructor(private _FB: FormBuilder, public route: ActivatedRoute,
-    public taskConfigService: TaskConfigService, public fileConfig: FileConfigService) {
+  constructor(private _FB: FormBuilder, public route: ActivatedRoute, public alertCtrl: AlertController,
+              public taskConfigService: TaskConfigService, public fileConfig: FileConfigService) {
 
     this.form = this._FB.group({
       file: ['', requiredFileType('docx')]
@@ -61,7 +62,11 @@ export class FilePage implements OnInit {
   }
 
   receive(val: any) {
-    console.log(this.filedata);
     this.fileConfig.insertFile(this.filedata, this.taskId);
+    const alert = this.alertCtrl.create({
+      message: 'File task successfully submitted!',
+      subHeader: 'Success!',
+      buttons: ['Dismiss']
+    }).then(alert => alert.present());
   }
 }
