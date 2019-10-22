@@ -4,6 +4,8 @@ import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FileConfigService } from 'src/app/services/fileConfig/file-config.service';
 import { AlertController } from '@ionic/angular';
+import { saveAs } from 'file-saver';
+
 @Component({
   selector: 'app-resource-table',
   templateUrl: './resource-table.page.html',
@@ -27,6 +29,17 @@ export class ResourceTablePage implements OnInit {
   ngOnInit() {
   }
 
+  getRowClass = (row) => {
+   return {
+     'row-color': true
+   };
+  }
+  getColumnClass = (column) => {
+    return {
+      'column-color': true
+    };
+   }
+ 
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
 
@@ -43,24 +56,10 @@ export class ResourceTablePage implements OnInit {
 
   download(event) {
     this.fileConfigService.downloadResource(event).subscribe(response => {
-
-      let filename = '';
-      const disposition = response.headers['content-disposition'];
-      if (disposition && disposition.indexOf('attachment') !== -1) {
-          const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-          const matches = filenameRegex.exec(disposition);
-          if (matches != null && matches[1]) {
-            filename = matches[1].replace(/['"]/g, '');
-          }
-      }
-      console.log(filename);
-      console.log(response);
+      window.open(response.url),
+      error => this.generateAlert('Failed'),
+      () => this.generateAlert('Success');
     });
-    const alert = this.alertCtrl.create({
-      message: 'File task successfully submitted!',
-      subHeader: 'Success!',
-      buttons: ['Dismiss']
-    }).then(alert => alert.present());
   }
 
   saveData(blob, fileName) {
@@ -73,4 +72,15 @@ export class ResourceTablePage implements OnInit {
     a.click();
     window.URL.revokeObjectURL(url);
   }
+
+  generateAlert(response) {
+    const alert = this.alertCtrl.create({
+      message: 'Task ' + response + '!',
+      subHeader: response,
+      buttons: ['Dismiss']
+    }).then(alert => alert.present());
+
+    return alert;
+  }
+
 }

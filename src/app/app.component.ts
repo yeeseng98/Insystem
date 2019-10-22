@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -19,11 +19,6 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
-    },
-    {
-      title: 'Form',
-      url: '/form',
-      icon: 'paper'
     },
     {
       title: 'Create Form',
@@ -71,11 +66,6 @@ export class AppComponent {
       icon: 'list'
     },
     {
-      title: 'Download Internship Resources',
-      url: '/resource-download',
-      icon: 'cloud-download'
-    },
-    {
       title: 'Add New Internship Resource',
       url: '/add-resource',
       icon: 'cloud-upload'
@@ -85,7 +75,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public menuCtrl: MenuController
   ) {
     this.initializeApp();
   }

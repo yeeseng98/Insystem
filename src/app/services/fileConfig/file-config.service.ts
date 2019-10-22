@@ -18,6 +18,12 @@ export class FileConfigService {
     _formData.append('taskId', taskId);
 
     this.http.post(this.API + 'fileTaskSub', _formData).subscribe(response => console.log(response));
+
+    const submission = {
+      taskId: taskId,
+      studentId: 'TP041800'
+    };
+    this.http.post(this.API + 'recordSubmission', submission).subscribe(response => console.log(response));
   }
 
   // fetch existing submitted filename

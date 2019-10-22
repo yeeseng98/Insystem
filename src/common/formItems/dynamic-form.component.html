@@ -1,27 +1,27 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
   <ion-list>
-    <ion-item *ngFor="let control of controls">
+    <ion-item *ngFor="let control of controls" class="roundedInput" margin bottom>
+      <ion-label position="floating" *ngIf="control.controlType === 'textbox'"><strong>{{control.label}}</strong></ion-label>
+      <ion-label position="floating" *ngIf="control.controlType === 'textarea'"><strong>{{control.label}}</strong></ion-label>
       <ion-input *ngIf="control.controlType === 'textbox'" [formControlName]="control.key" [id]="control.key"
-        [type]="control.type" [placeholder]="control.label">
+        [type]="control.type">
       </ion-input>
       <ion-textarea *ngIf="control.controlType === 'textarea'" [formControlName]="control.key" [id]="control.key"
-        [placeholder]="control.label" rows="4">
+         rows="4">
       </ion-textarea>
 
-      <ion-label *ngIf="control.controlType === 'select'">{{control.label}}</ion-label>
+      <ion-label *ngIf="control.controlType === 'select'"><strong>{{control.label}}</strong></ion-label>
       <ion-select [formControlName]="control.key" [id]="control.key" *ngIf="control.controlType === 'select'">
         <ion-select-option *ngFor="let option of control.options" [value]="option">{{option.label}}</ion-select-option>
       </ion-select>
 
-      <ion-label *ngIf="control.controlType === 'multi'">{{control.label}}</ion-label>
+      <ion-label *ngIf="control.controlType === 'multi'"><strong>{{control.label}}</strong></ion-label>
       <ion-select multiple="true" [formControlName]="control.key" [id]="control.key" *ngIf="control.controlType === 'multi'">
         <ion-select-option *ngFor="let option of control.options" [value]="option">{{option.label}}</ion-select-option>
       </ion-select>
 
-      <ion-label *ngIf="control.controlType === 'file'">{{control.label}}</ion-label>
-      <ion-label *ngIf="control.controlType === 'file'">{{control.fileName}}</ion-label>
+      <ion-label *ngIf="control.controlType === 'file'"><strong>{{control.label}}</strong> &nbsp; Current: {{control.fileName}}</ion-label>
       <app-file-upload *ngIf="control.controlType === 'file'" [formControlName]="control.key" [progress]="progress" ></app-file-upload>
-
     </ion-item>
   </ion-list>
 </form>

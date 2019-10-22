@@ -3,14 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Workflow Details: {{workflowId}}</ion-title>
+    <ion-title>Workflow Details of {{workflowName}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <div [innerHTML]="workflowInfo"></div>
-
-    <ion-button (click)='updateTest(id)'>TEST</ion-button>
   </ion-card>
 </ion-content>

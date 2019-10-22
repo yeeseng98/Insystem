@@ -22,6 +22,14 @@ export class TaskConfigService {
     return this.http.get(this.API + 'intakeTasks', { search: params });
   }
 
+  // get list of tasks submitted by the student
+  public getTaskStatus(studentId: string) {
+    const params = {
+      studentId: studentId
+    };
+    return this.http.get(this.API + 'getTaskCompletion', { search: params });
+  }
+
   // get start end dates of phases in an intake
   public getIntakePhaseDates(intakeId: string) {
     const params = {

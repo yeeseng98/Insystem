@@ -12,6 +12,7 @@ import { PhaseObj } from '../../models/phaseObj';
 export class WorkflowDetailsPage implements OnInit {
 
   public workflowId: any;
+  public workflowName: any;
   public data;
   public allTasks: any[] = [];
   public workflowInfo = '';
@@ -45,22 +46,22 @@ export class WorkflowDetailsPage implements OnInit {
             console.log(phaseArray);
           });
 
-          this.workflowInfo = '<h2> Date Created: ' + this.allTasks[0].dateCreated + '</h2>';
-          this.workflowInfo = this.workflowInfo + '<br> <h1> Workflow Name:' + this.allTasks[0].workflowName;
-          this.workflowInfo = this.workflowInfo + '        ID:' + this.allTasks[0].workflowID + '</h1>';
+          this.workflowName = this.allTasks[0].workflowName;
+          this.workflowInfo = '<p> Date Created: ' + this.allTasks[0].dateCreated + '<p>';
+          this.workflowInfo = this.workflowInfo + '<p> ID: ' + this.allTasks[0].workflowID + '</p>';
 
           // tslint:disable-next-line: prefer-for-of
           for (let i = 0; i < phaseArray.length; i++) {
-            this.workflowInfo = this.workflowInfo + '<br> <h2> Phase ' + phaseArray[i].phaseNum + ' </h2>';
-            this.workflowInfo = this.workflowInfo + '<br> <h2> Phase Duration: ' + phaseArray[i].phaseDur + ' days</h2>';
+            // tslint:disable-next-line: max-line-length
+            this.workflowInfo = this.workflowInfo + '<br> <p><strong><h1> Phase ' + phaseArray[i].phaseNum + ' &nbsp; (' + phaseArray[i].phaseDur + ' Days) </h1></strong></p>';
 
             this.allTasks.forEach((task) => {
 
               if (task.phaseOrder === phaseArray[i].phaseNum) {
-                this.workflowInfo = this.workflowInfo + '<br> <h3> Task Name: ' + task.taskName;
-                this.workflowInfo = this.workflowInfo + '        ID: ' + task.taskID + ' </h3>';
-                this.workflowInfo = this.workflowInfo + '<h3> Task Instruction: ' + task.desc + ' </h3>';
-                this.workflowInfo = this.workflowInfo + '<h3> Task Type: ' + task.taskType + '</h3>';
+                this.workflowInfo = this.workflowInfo + '<p><h2> Task Name: ' + task.taskName;
+                this.workflowInfo = this.workflowInfo + '&nbsp;&nbsp;&nbsp;&nbsp; ID: ' + task.taskID + ' </h2></p>';
+                this.workflowInfo = this.workflowInfo + '<p><h2> Task Instruction: ' + task.desc + ' </h2></p>';
+                this.workflowInfo = this.workflowInfo + '<p><h2> Task Type: ' + task.taskType + '</h2><p>';
                 this.workflowInfo = this.workflowInfo + '<br>';
               }
             });

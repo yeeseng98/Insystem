@@ -32,6 +32,7 @@
           <ion-label>
             {{ child.taskName }}
           </ion-label>
+          <ion-icon slot="end" name="checkmark" *ngIf="child.isSubmitted"></ion-icon>
           <ion-icon slot="end" name="lock" *ngIf="child.isLocked"></ion-icon>
         </ion-item>
 
