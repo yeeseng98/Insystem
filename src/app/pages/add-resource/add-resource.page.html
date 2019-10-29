@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="header-bg">
     <ion-title>Add New Internship Resource</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -7,11 +7,12 @@
 <ion-content>
   <ion-card>
     <form [formGroup]="form" (ngSubmit)="receive(form.value)">
+      <ion-label position="floating">1. Upload a PDF file type internship resource:</ion-label>
       <app-file-upload formControlName="file" [progress]="progress" (change)="fileEvent($event)">
       </app-file-upload>
-
-      <ion-label floating>Select the target faculty of this resource:</ion-label>
-      <ion-select formControlName="tFaculty" value='All'>
+      <br>
+      <ion-label position="floating">2. Select the target faculty of this resource:</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="action-sheet" formControlName="tFaculty" value='All'>
         <ion-select-option value='All'>All</ion-select-option>
         <ion-select-option value='CT'>Computing, Technology & Games Development</ion-select-option>
         <ion-select-option value='EN'>Engineering</ion-select-option>

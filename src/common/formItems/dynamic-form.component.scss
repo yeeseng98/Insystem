@@ -5,4 +5,9 @@
     --box-shadow: 2px gray;
     --highlight-height: 0;
     --background: #f8f9fa;
-   }
+}
+
+.required-field::after {
+    content: "*";
+    color: red;
+}

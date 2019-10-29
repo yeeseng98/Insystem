@@ -6,7 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   public appPages = [
@@ -51,12 +52,12 @@ export class AppComponent {
       icon: 'checkbox'
     },
     {
-      title: 'Request Meeting',
+      title: 'Discussion Verification Request',
       url: '/meeting-confirmation-request',
       icon: 'contacts'
     },
     {
-      title: 'Meeting Approval',
+      title: 'Discussion Content Approval',
       url: '/meeting-confirmation-approval',
       icon: 'contacts'
     },

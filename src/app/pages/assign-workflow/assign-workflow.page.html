@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="header-bg">
     <ion-title>Assign Workflow</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-label><strong>SELECT INTAKE:</strong></ion-label>
+  <ion-label><strong>Search and select an intake:</strong></ion-label>
   <ion-list>
     <ion-searchbar id="searchIntake" (ionInput)="onSearchInput($event)"></ion-searchbar>
     <div *ngIf="searching" class="spinner-container">

@@ -1,0 +1,32 @@
+.error-message {
+    color: red;
+    font-size: 0.7em;
+}
+
+.remove{
+    color: red;
+    font-size: 0.9em;
+}
+
+.add{
+    color: blue;
+    font-size: 0.9em;
+}
+
+.roundedInput {
+    --border-color: var(--ion-color-medium-shade);
+    --border-radius: 3px;
+    --border-width: 1px;
+    --box-shadow: 2px gray;
+    --highlight-height: 0;
+    --background: #f8f9fa;
+}
+
+.ispan {
+    margin: -5px;
+    padding: 5px;
+    background: yellow;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}

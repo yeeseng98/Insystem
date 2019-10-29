@@ -1,17 +1,15 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="header-bg">
     <ion-title>Create Workflow</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
   <form [formGroup]="form" (ngSubmit)="receive(form.value)">
     <ion-list margin-bottom>
-      <ion-item margin-bottom no-lines>
-        <ion-label floating>Workflow name:</ion-label>
-
+      <ion-item margin-bottom no-lines class="roundedInput">
+        <ion-label position="floating"><strong>Workflow Name (Unique)</strong></ion-label>
         <!-- Assign our first FormControl of name to the input field -->
         <ion-input type="text" maxlength="20" formControlName="fname"></ion-input>
-        <span>(Must be unique!)</span>
       </ion-item>
       <div class="validation-errors">
         <ng-container *ngFor="let validation of validation_messages.fname">
@@ -23,7 +21,7 @@
       </div>
 
       <div *ngIf="form.get('fname').value != ''">
-        <ion-item>
+        <ion-item class="roundedInput">
           <ion-label floating>Select the number of phases of this workflow:</ion-label>
           <ion-select formControlName="phaseCount" (ionChange)="appendPhase($event.target.value )">
             <ion-select-option value=1>One</ion-select-option>
@@ -33,17 +31,26 @@
           </ion-select>
         </ion-item>
       </div>
-
+      <br>
       <div formArrayName="phaseInfo" margin-bottom *ngIf="form.get('phaseCount').value > 0">
+        <span class="ispan">1. Set up all the phases for this workflow. </span>
         <section [formGroupName]="j" *ngFor="let phase of form.controls.phaseInfo.controls; let j = index">
           <ion-item-group>
             <ion-item-divider color="dark">Phase #{{ j + 1 }}</ion-item-divider>
             <ion-item>
-              <ion-label floating>Phase Name:</ion-label>
+              <ion-label position="floating">Phase Name:</ion-label>
               <ion-input type="text" maxlength="50" formControlName="phaseName"></ion-input>
             </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.phaseName">
+                  <div class="error-message"
+                    *ngIf="phase.get('phaseName').hasError(validation.type) && (phase.get('phaseName').dirty || phase.get('phaseName').touched)">
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+            </div>
             <ion-item>
-              <ion-label floating>Phase Duration (Days):</ion-label>
+              <ion-label position="floating">Phase Duration by Days (Numeric value - e.g: 1,2,3):</ion-label>
               <ion-input type="text" maxlength="5" formControlName="phaseDuration"></ion-input>
             </ion-item>
             <div class="validation-errors">
@@ -61,6 +68,8 @@
       <!-- Assign the technologies FormArray to the form
             where we want to track/generate new input track fields -->
       <div *ngIf="form.get('phaseCount').value > 0">
+        <br>
+        <span class="ispan">2. Set up workflow tasks and assign each of them to a phase. </span>
         <div formArrayName="cfields" margin-bottom>
 
           <!-- Assign a FormGroupName property binding to track
@@ -70,9 +79,17 @@
                existing fields -->
           <section [formGroupName]="i" *ngFor="let field of form.controls.cfields.controls; let i = index">
             <ion-item-group>
-              <ion-item-divider color="light">Task #{{ i + 1 }}</ion-item-divider>
+              <ion-item-divider color="light"><strong>Task #{{ i + 1 }}</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
+                <div *ngIf="form.controls.cfields.length > 1">
+                  [<span class="remove" item-end ion-button icon-left clear *ngIf="form.controls.cfields.length > 1"
+                    (click)="removeInputField(i)">
+                    <ion-icon name="close"></ion-icon>
+                    Remove
+                  </span>]
+                </div>
+              </ion-item-divider>
               <ion-item>
-                <ion-label floating>Task name:</ion-label>
+                <ion-label position="floating">Task name:</ion-label>
                 <ion-input type="text" maxlength="50" formControlName="title"></ion-input>
               </ion-item>
               <div class="validation-errors">
@@ -84,7 +101,7 @@
                 </ng-container>
               </div>
               <ion-item>
-                <ion-label floating>Task instructions:</ion-label>
+                <ion-label position="floating">Task instructions:</ion-label>
                 <ion-input type="text" maxlength="100" formControlName="desc"></ion-input>
               </ion-item>
               <ion-item>
@@ -103,23 +120,17 @@
               <div *ngIf="field.get('type').value=='form'">
                 <ion-item>
                   <ion-label floating>Select a form template:</ion-label>
-                  <ion-select formControlName="form" [value]="forms[0]">
+                  <ion-select [interfaceOptions]="customPopoverOptions" interface="action-sheet" formControlName="form" [value]="forms[0]">
                     <ion-select-option *ngFor="let form of forms" [value]="form">{{form.formName}}</ion-select-option>
                   </ion-select>
                 </ion-item>
               </div>
-              <!-- Allow generated input field to be removed -->
-              <span float-right ion-button icon-left clear *ngIf="form.controls.cfields.length > 1"
-                (click)="removeInputField(i)">
-                <ion-icon name="close"></ion-icon>
-                Remove
-              </span>
             </ion-item-group>
           </section>
         </div>
 
         <!-- Allow new input field to be generated/added -->
-        <span ion-button float-left icon-left clear (click)="addNewInputField()">
+        <span class="add" ion-button float-left icon-left clear (click)="addNewInputField()">
           <ion-icon name="add"></ion-icon>
           Add a new field.
         </span>

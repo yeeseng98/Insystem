@@ -1,10 +1,11 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Request Meeting</ion-title>
+  <ion-toolbar class="header-bg">
+    <ion-title>Discussion Verification Request</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-label margin-left>Please fill in any valid discussion content to proof that you have met your supervisor at least once before internship programme ends. It will be sent to your supervisor for approval.</ion-label>
   <ion-card>
     <ion-label><strong>Mentor Name: {{mentorName}}</strong></ion-label>
     <form [formGroup]="form" (ngSubmit)="receive(form.value, isPending)">

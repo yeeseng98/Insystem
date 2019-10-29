@@ -1,20 +1,13 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="header-bg">
     <ion-title>Create Form</ion-title>
   </ion-toolbar>
 </ion-header>
-<style>
-  input~span:after {
-    opacity: 0;
-  }
-</style>
 <ion-content padding>
   <form [formGroup]="form" (ngSubmit)="receive(form.value)">
     <ion-list margin-bottom>
-      <ion-item margin-bottom no-lines>
-        <ion-label floating>Form name:</ion-label>
-
-        <!-- Assign our first FormControl of name to the input field -->
+      <ion-item margin-bottom no-lines class="roundedInput">
+        <ion-label position="floating"><strong>Form Name (Unique)</strong></ion-label>
         <ion-input type="text" maxlength="20" formControlName="fname"></ion-input>
         <!-- <span *ngIf="(!form.get('fname').dirty || !form.get('fname').touched)">(Must be unique!)</span> -->
       </ion-item>
@@ -39,9 +32,18 @@
                existing fields -->
         <section [formGroupName]="i" *ngFor="let field of form.controls.cfields.controls; let i = index">
           <ion-item-group>
-            <ion-item-divider color="light">Field #{{ i + 1 }}</ion-item-divider>
+            <ion-item-divider color="light" ><strong>Field #{{ i + 1 }}</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+              <!-- Allow generated input field to be removed -->
+              <div *ngIf="form.controls.cfields.length > 1">
+                [<span class="remove" ion-button icon-left clear *ngIf="form.controls.cfields.length > 1"
+                  (click)="removeInputField(i)">
+                  <ion-icon name="close"></ion-icon>
+                  Remove
+                </span>]
+              </div>
+            </ion-item-divider>
             <ion-item>
-              <ion-label floating>Field display name:</ion-label>
+              <ion-label position="floating">Field display name:</ion-label>
               <ion-input type="text" maxlength="50" formControlName="title"></ion-input>
             </ion-item>
             <div class="validation-errors">
@@ -53,7 +55,7 @@
               </ng-container>
             </div>
             <ion-item>
-              <ion-label floating>Field Type:</ion-label>
+              <ion-label>Field Type:</ion-label>
               <ion-select value="text" okText="Okay" cancelText="Dismiss" formControlName="type">
                 <ion-select-option value="text">Text</ion-select-option>
                 <ion-select-option value="textarea">Text Area</ion-select-option>
@@ -64,7 +66,7 @@
             </ion-item>
             <div *ngIf="field.get('type').value=='select' || field.get('type').value=='multi' ">
               <ion-item>
-                <ion-label floating>Select Options:</ion-label>
+                <ion-label position="floating">Select Options - Separate options by comma(,)</ion-label>
                 <ion-input type="text" maxlength="50" formControlName="options"></ion-input>
               </ion-item>
             </div>
@@ -76,19 +78,13 @@
               </ion-select>
             </ion-item>
 
-            <!-- Allow generated input field to be removed -->
-            <span float-right ion-button icon-left clear *ngIf="form.controls.cfields.length > 1"
-              (click)="removeInputField(i)">
-              <ion-icon name="close"></ion-icon>
-              Remove
-            </span>
           </ion-item-group>
         </section>
       </div>
 
 
       <!-- Allow new input field to be generated/added -->
-      <span ion-button float-left icon-left clear (click)="addNewInputField()">
+      <span class="add" ion-button float-left icon-left clear (click)="addNewInputField()">
         <ion-icon name="add"></ion-icon>
         Add a new field.
       </span>

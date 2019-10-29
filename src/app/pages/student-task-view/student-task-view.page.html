@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="header-bg">
     <ion-title>Student Task View</ion-title>
     <ion-buttons slot="end">
       <ion-label *ngIf="automaticClose"><strong>AUTO CLOSE</strong></ion-label> 
@@ -45,3 +45,6 @@
     <p *ngIf="item.children.length == 0 && item.open" text-center>Sorry, no tasks was assigned.</p>
   </ion-list>
 </ion-content>
+<ion-footer>
+  &nbsp;&nbsp; *Note: Only PDF file type is allowed for document submissions.
+</ion-footer>

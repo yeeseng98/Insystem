@@ -1,0 +1,28 @@
+.error-message {
+    color: red;
+    font-size: 0.7em;
+}
+
+.remove{
+    color: red;
+    font-size: 0.95em;
+}
+
+.add{
+    color: blue;
+    font-size: 0.9em;
+}
+
+.roundedInput {
+    --border-color: var(--ion-color-medium-shade);
+    --border-radius: 3px;
+    --border-width: 1px;
+    --box-shadow: 2px gray;
+    --highlight-height: 0;
+    --background: #f8f9fa;
+}
+
+
+input~span:after {
+    opacity: 0;
+  }
