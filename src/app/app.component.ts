@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AccessConfigService } from './services/accessConfig/access-config.service';
 
 @Component({
   selector: 'app-root',
@@ -70,6 +71,11 @@ export class AppComponent {
       title: 'Add New Internship Resource',
       url: '/add-resource',
       icon: 'cloud-upload'
+    },
+    {
+      title: 'Authority Delegation',
+      url: '/authority-delegation',
+      icon: 'build'
     }
   ];
 
@@ -77,8 +83,28 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
+    public accessConfig: AccessConfigService
   ) {
+
+    // do role identification here, match against:
+    // STD - student, ADN - admin, CTF - career staff, SPV - supervisor
+
+    // this.appPages = [];
+
+    // accessConfig.getUserAccess('ADN').map(res => res.json()).subscribe(response => {
+    //   const pages = JSON.parse(JSON.stringify(response));
+
+    //   pages.forEach(element => {
+    //     const pageObj ={
+    //       title: element.pageName,
+    //       url: element.pageUrl,
+    //       icon: element.pageIcon
+    //     };
+    //     this.appPages.push(pageObj);
+    //   });
+    // });
+
     this.initializeApp();
   }
 

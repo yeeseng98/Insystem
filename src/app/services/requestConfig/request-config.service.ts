@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class RequestConfigService {
 
   private API: string = 'http://127.0.0.1:5000/';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, public alertCtrl: AlertController) { }
 
   public sendMeetRequest(content: string, mentorId: string, studentId: string) {
     const meetInfo = {
@@ -16,8 +17,13 @@ export class RequestConfigService {
       studentId: studentId,
       content: content
     };
-    console.log(meetInfo);
-    this.http.post(this.API + 'newMeeting', meetInfo).subscribe(response => console.log(response));
+    this.http.post(this.API + 'newMeeting', meetInfo).subscribe(response => {
+      if (response.status === 200) {
+        this.generateAlert('The request is sent to your supervisor!');
+      } else {
+        this.generateAlert('Some error has occured, please try again later.');
+      }
+    });
   }
 
   public checkMeetRequest(studentId: string) {
@@ -41,7 +47,13 @@ export class RequestConfigService {
       studentId: val['studentId'],
       mentorId: mentorId,
     };
-    this.http.post(this.API + 'approveRequest', approveInfo).subscribe(response => console.log(response));
+    this.http.post(this.API + 'approveRequest', approveInfo).subscribe(response => {
+      if (response.status === 200) {
+        this.generateAlert('The request is approved successfully!');
+      } else {
+        this.generateAlert('Some error has occured, please try again later.');
+      }
+    });
   }
 
   public rejectRequest(val: any, mentorId: any, rej: any) {
@@ -50,6 +62,21 @@ export class RequestConfigService {
       mentorId: mentorId,
       rej: rej
     };
-    this.http.post(this.API + 'rejectRequest', rejectInfo).subscribe(response => console.log(response));
+    this.http.post(this.API + 'rejectRequest', rejectInfo).subscribe(response => {
+      if (response.status === 200) {
+        this.generateAlert('The request is rejected successfully!');
+      } else {
+        this.generateAlert('Some error has occured, please try again later.');
+      }
+    });
+  }
+
+  generateAlert(response) {
+    const alert = this.alertCtrl.create({
+      message: response,
+      buttons: ['Dismiss']
+    }).then(alert => alert.present());
+
+    return alert;
   }
 }

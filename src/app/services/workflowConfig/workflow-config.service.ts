@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class WorkflowConfigService {
 
   private API: string = 'http://127.0.0.1:5000/';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, public alertCtrl: AlertController) { }
 
   // get workflow names for validation
   public getWorkflowValidation() {
@@ -105,7 +106,13 @@ export class WorkflowConfigService {
       startDate: val['startDate'],
       endDate: val['endDate']
     };
-    this.http.post(this.API + 'assignFlow', assignInfo).subscribe(response => console.log(response));
+    this.http.post(this.API + 'assignFlow', assignInfo).subscribe(response => {
+      if (response.status === 200) {
+        this.generateAlert('The workflow is assigned successfully!');
+      } else {
+        this.generateAlert('Some error has occured, please try again later.');
+      }
+    });
   }
 
   public tabulatePhases(val: any) {
@@ -120,5 +127,14 @@ export class WorkflowConfigService {
 
   varConvert(val) {
     return val.toLowerCase().replace(/\s/g, '');
+  }
+
+  generateAlert(response) {
+    const alert = this.alertCtrl.create({
+      message: response,
+      buttons: ['Dismiss']
+    }).then(alert => alert.present());
+
+    return alert;
   }
 }

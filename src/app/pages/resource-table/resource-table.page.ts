@@ -15,10 +15,10 @@ export class ResourceTablePage implements OnInit {
 
   rows = [];
   temp = [];
+  public adminAccess = true;
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
 
-  constructor(private fileConfigService: FileConfigService, private router: Router,
-    public alertCtrl: AlertController, private http: HttpClient) {
+  constructor(private fileConfigService: FileConfigService, private router: Router, private http: HttpClient) {
     this.fileConfigService.getResourceList('CT').map(res => res.json()).subscribe(response => {
       this.temp = [...JSON.parse(JSON.stringify(response))];
 
@@ -39,7 +39,7 @@ export class ResourceTablePage implements OnInit {
       'column-color': true
     };
    }
- 
+
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
 
@@ -56,10 +56,15 @@ export class ResourceTablePage implements OnInit {
 
   download(event) {
     this.fileConfigService.downloadResource(event).subscribe(response => {
-      window.open(response.url),
-      error => this.generateAlert('Failed'),
-      () => this.generateAlert('Success');
+      window.open(response.url);
     });
+  }
+
+  delete(event) {
+    this.fileConfigService.deleteResource(event);
+    this.rows = this.rows.filter(item => item.fileID !== event);
+
+    //this.generateAlert('Successful');
   }
 
   saveData(blob, fileName) {
@@ -71,16 +76,6 @@ export class ResourceTablePage implements OnInit {
     a.download = fileName;
     a.click();
     window.URL.revokeObjectURL(url);
-  }
-
-  generateAlert(response) {
-    const alert = this.alertCtrl.create({
-      message: 'Task ' + response + '!',
-      subHeader: response,
-      buttons: ['Dismiss']
-    }).then(alert => alert.present());
-
-    return alert;
   }
 
 }

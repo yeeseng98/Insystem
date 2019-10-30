@@ -23,7 +23,7 @@ export class FilePage implements OnInit {
 
   public filedata;
 
-  constructor(private _FB: FormBuilder, public route: ActivatedRoute, public alertCtrl: AlertController,
+  constructor(private _FB: FormBuilder, public route: ActivatedRoute,
               public taskConfigService: TaskConfigService, public fileConfig: FileConfigService) {
 
     this.form = this._FB.group({
@@ -63,10 +63,5 @@ export class FilePage implements OnInit {
 
   receive(val: any) {
     this.fileConfig.insertFile(this.filedata, this.taskId);
-    const alert = this.alertCtrl.create({
-      message: 'File task successfully submitted!',
-      subHeader: 'Success!',
-      buttons: ['Dismiss']
-    }).then(alert => alert.present());
   }
 }

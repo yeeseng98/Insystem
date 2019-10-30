@@ -68,7 +68,6 @@ export class CreateFormPage implements OnInit {
 
     const alert = this.alertCtrl.create({
       message: 'Form is successfully created.',
-      subHeader: 'Error!',
       buttons: ['Dismiss']
     }).then(alert => alert.present());
   }

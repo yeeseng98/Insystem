@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar class="header-bg">
+    <ion-title>Authority Delegation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <span>The following modules can be assigned to either system admin or career centre staff:</span>
+  <ion-item-group>
+    <section *ngFor="let page of modifiablePages">
+      <ion-item class="roundedInput">
+        <ion-label>{{page.pageName}}</ion-label>
+        <ion-select [interfaceOptions]="customPopoverOptions" interface="action-sheet" [value]="page.accessedBy" okText="Okay" cancelText="Dismiss" (ionChange)="changeAuthority($event, page.pageID)">
+          <ion-select-option value="ADN">Admin Only</ion-select-option>
+          <ion-select-option value="CTF">Career Centre Staff Only</ion-select-option>
+          <ion-select-option value="ADN, CTF">Both Users</ion-select-option>
+        </ion-select>
+      </ion-item >
+    </section>
+  </ion-item-group>
+
+</ion-content>

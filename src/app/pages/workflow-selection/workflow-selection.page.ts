@@ -22,7 +22,7 @@ export class WorkflowSelectionPage implements OnInit {
   workflowDays;
 
   constructor(private datePipe: DatePipe, private _FB: FormBuilder,
-    public route: ActivatedRoute, public workflowConfigService: WorkflowConfigService, public alertCtrl: AlertController) {
+    public route: ActivatedRoute, public workflowConfigService: WorkflowConfigService) {
     this.route.queryParams.subscribe(params => {
       this.intakeId = params['intakeId'];
     });
@@ -117,10 +117,5 @@ export class WorkflowSelectionPage implements OnInit {
         });
 
       });
-    const alert = this.alertCtrl.create({
-      message: 'Workflow successfully assigned!',
-      subHeader: 'Success!',
-      buttons: ['Dismiss']
-    }).then(alert => alert.present());
   }
 }

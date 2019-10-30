@@ -14,7 +14,7 @@ export class AddResourcePage implements OnInit {
   public form: FormGroup;
   public filedata;
 
-  constructor(private _FB: FormBuilder, public alertCtrl: AlertController, public fileConfig: FileConfigService) {
+  constructor(private _FB: FormBuilder, public fileConfig: FileConfigService) {
     this.form = this._FB.group({
       file: ['', requiredFileType('docx')],
       tFaculty: ['All', Validators.required]
@@ -23,11 +23,6 @@ export class AddResourcePage implements OnInit {
 
   receive(val: any): void {
     this.fileConfig.insertResource(this.filedata, val.tFaculty);
-    const alert = this.alertCtrl.create({
-      message: 'Resource was successfully inserted!',
-      subHeader: 'Success!',
-      buttons: ['Dismiss']
-    }).then(alert => alert.present());
   }
 
   fileEvent(e) {

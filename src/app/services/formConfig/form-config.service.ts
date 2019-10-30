@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { BehaviorSubject } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class FormConfigService {
   private adminAccess = new BehaviorSubject(false);
   isAdmin = this.adminAccess.asObservable();
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, public alertCtrl: AlertController) { }
 
   // This method gets dynamic form data from database.
   public getFormConfig(formId: string) {
@@ -165,7 +166,13 @@ export class FormConfigService {
       taskId: taskId,
       studentId: 'TP041800'
     };
-    this.http.post(this.API + 'recordSubmission', submission).subscribe(response => console.log(response));
+    this.http.post(this.API + 'recordSubmission', submission).subscribe(response => {
+      if (response.status === 200) {
+        this.generateAlert('Your submission is recorded successfully!');
+      } else {
+        this.generateAlert('Some error has occured, please try again later.');
+      }
+    });
   }
 
   changeTasks(task: string) {
@@ -178,5 +185,14 @@ export class FormConfigService {
 
   varConvert(val) {
     return val.toLowerCase().replace(/\s/g, '');
+  }
+
+  generateAlert(response) {
+    const alert = this.alertCtrl.create({
+      message: response,
+      buttons: ['Dismiss']
+    }).then(alert => alert.present());
+
+    return alert;
   }
 }
