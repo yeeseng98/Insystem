@@ -35,7 +35,8 @@ const routes: Routes = [
     loadChildren: './pages/meeting-confirmation-approval/meeting-confirmation-approval.module#MeetingConfirmationApprovalPageModule' },
   { path: 'resource-table', loadChildren: './pages/resource-table/resource-table.module#ResourceTablePageModule' },
   { path: 'add-resource', loadChildren: './pages/add-resource/add-resource.module#AddResourcePageModule' },
-  { path: 'authority-delegation', loadChildren: './pages/authority-delegation/authority-delegation.module#AuthorityDelegationPageModule' }
+  { path: 'authority-delegation', loadChildren: './pages/authority-delegation/authority-delegation.module#AuthorityDelegationPageModule' },
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' }
 ];
 
 @NgModule({

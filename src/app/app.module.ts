@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Http, HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage';
+import { Network } from '@ionic-native/network/ngx';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -27,10 +29,12 @@ import { TestProvService } from './services/testProv/test-prov.service';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
+    Network,
     SplashScreen,
     TestProvService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

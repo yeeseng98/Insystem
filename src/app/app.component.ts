@@ -76,6 +76,11 @@ export class AppComponent {
       title: 'Authority Delegation',
       url: '/authority-delegation',
       icon: 'build'
+    },
+    {
+      title: 'Login',
+      url: '/login',
+      icon: 'build'
     }
   ];
 

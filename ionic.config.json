@@ -1,5 +1,7 @@
 {
   "name": "Insystem",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
