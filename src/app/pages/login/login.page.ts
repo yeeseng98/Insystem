@@ -8,6 +8,9 @@ import { catchError, switchMap, tap, timeout } from 'rxjs/operators';
 import { Role } from '../../interfaces/settings';
 import { CasTicketService } from '../../services/cas-ticket.service';
 import { WsApiService } from '../../services/wsApiService/ws-api.service';
+import { Router } from '@angular/router';
+import { StudentConfigService } from 'src/app/services/studentConfig/student-config.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -33,7 +36,9 @@ export class LoginPage implements OnInit {
     private navCtrl: NavController,
     private toastCtrl: ToastController,
     private ws: WsApiService,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private router: Router,
+    private sConfig: StudentConfigService
   ) { }
 
   ngOnInit() {
@@ -89,7 +94,7 @@ export class LoginPage implements OnInit {
           this.userAuthenticated = true;
           setTimeout(() => {
             // Show the success message for 300 ms after completing the request
-            this.navCtrl.navigateRoot('/');
+            this.checkAndRedirect();
           }, 300);
         }
       );
@@ -136,4 +141,21 @@ export class LoginPage implements OnInit {
     caches.forEach(endpoint => this.ws.get(endpoint, true).subscribe());
   }
 
+  checkAndRedirect() {
+
+  // check user role
+    // is student, check declaration status
+    console.log(this.apkey);
+    this.sConfig.checkDeclaration(this.apkey).subscribe( res => {
+      // 200 -> has declared
+      // 404 -> has not declared
+      if (res.status === 200) {
+        this.router.navigate(['student-task-view']);
+      } else if (res.status === 204) {
+        this.router.navigate(['int-declaration']);
+      } else {
+        this.showToastMessage('Something went wrong while redirecting, please try again later!');
+      }
+    });
+  }
 }

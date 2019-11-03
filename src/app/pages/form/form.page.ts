@@ -58,12 +58,6 @@ export class FormPage {
 
   submitForm($event) {
     this.configService.submitFormValues(this.submitted, this.taskId);
-    const alert = this.alertCtrl.create({
-      message: 'Your form is successfully submitted!',
-      subHeader: 'Success!',
-      buttons: ['Dismiss']
-    }).then(alert => alert.present());
-    console.log('Success!\n', this.submitted);
   }
 
 }

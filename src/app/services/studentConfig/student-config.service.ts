@@ -11,6 +11,7 @@ export class StudentConfigService {
 
   constructor(private http: Http, public alertCtrl: AlertController) { }
 
+  // student sends a declaration request
   public confirmDeclaration(studentId: string, studentName: string, intake: string) {
     const params = {
       studentId: studentId,
@@ -25,6 +26,18 @@ export class StudentConfigService {
         this.generateAlert('Some error has occured, please try again later.');
       }
     });
+  }
+
+  /* check if the student has already declared internship
+   * true -> redirect to task view page.
+   * false -> redirect to internship declaration page.
+   */
+  checkDeclaration(studentId: string) {
+    const params = {
+      studentId: studentId,
+    };
+
+    return this.http.get(this.API + 'checkStudentExist', { search: params });
   }
 
   generateAlert(response) {
