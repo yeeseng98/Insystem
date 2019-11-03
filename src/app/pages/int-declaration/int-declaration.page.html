@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar class="header-bg">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      INTERNSHIP DECLARATION
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="profile$ | async as profile">
+    <h2>--CONSENT DETAILS--, your mentor that will supervise your internship is <strong>{{profile.MENTOR_NAME}}</strong></h2>
+
+    <h2>Please input your full name ({{profile.NAME}}) in the textbox below to sign the declaration:</h2>
+    <form [formGroup]="form" (ngSubmit)="verify(form.value)">
+    <ion-input type="text" class="roundedInput" placeholder="Full name here" formControlName="name"></ion-input>
+    <div class="error" *ngIf="matchError">The name does not match. Please input your full name as shown.</div>
+    <section class="full-width">
+      <ion-button type="submit" expand="full" color="secondary">
+        Submit
+      </ion-button>
+    </section>
+    </form>
+  </div>
+</ion-content>

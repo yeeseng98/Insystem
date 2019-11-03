@@ -13,9 +13,9 @@ import { AccessConfigService } from './services/accessConfig/access-config.servi
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
+      title: 'Login',
+      url: '/login',
+      icon: 'build'
     },
     {
       title: 'List',
@@ -78,9 +78,9 @@ export class AppComponent {
       icon: 'build'
     },
     {
-      title: 'Login',
-      url: '/login',
-      icon: 'build'
+      title: 'Internship Declaration',
+      url: '/int-declaration',
+      icon: 'disc'
     }
   ];
 

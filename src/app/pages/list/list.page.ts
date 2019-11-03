@@ -3,7 +3,7 @@ import { TestProvService } from '../../services/testProv/test-prov.service';
 import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
-import { User } from '../../models/User';
+import { User } from '../../interfaces/user';
 import { Router, NavigationExtras } from '@angular/router';
 
 @Component({

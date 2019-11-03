@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -36,7 +36,8 @@ const routes: Routes = [
   { path: 'resource-table', loadChildren: './pages/resource-table/resource-table.module#ResourceTablePageModule' },
   { path: 'add-resource', loadChildren: './pages/add-resource/add-resource.module#AddResourcePageModule' },
   { path: 'authority-delegation', loadChildren: './pages/authority-delegation/authority-delegation.module#AuthorityDelegationPageModule' },
-  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'int-declaration', loadChildren: './pages/int-declaration/int-declaration.module#IntDeclarationPageModule' }
 ];
 
 @NgModule({

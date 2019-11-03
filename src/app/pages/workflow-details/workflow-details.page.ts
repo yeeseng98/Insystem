@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowConfigService } from 'src/app/services/workflowConfig/workflow-config.service';
-import { PhaseObj } from '../../models/phaseObj';
+import { PhaseObj } from '../../interfaces/phaseObj';
 
 @Component({
   selector: 'app-workflow-details',

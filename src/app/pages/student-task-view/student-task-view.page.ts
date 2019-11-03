@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskConfigService } from 'src/app/services/taskConfig/task-config.service';
-import { PhaseInfo } from 'src/app/models/phaseInfo';
+import { PhaseInfo } from 'src/app/interfaces/phaseInfo';
 import { ControlsService } from 'src/common/formItems/controls.service';
 
 @Component({
