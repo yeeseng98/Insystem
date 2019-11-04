@@ -5,3 +5,14 @@
 :host ::ng-deep .column-size {
     width: 20%;
 }
+
+.actionLabel{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor:pointer; 
+    font-size: 1.1em;
+    background-color: orange;
+    padding: 5px 5px 5px 5px;
+}

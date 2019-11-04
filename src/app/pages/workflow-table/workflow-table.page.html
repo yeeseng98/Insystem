@@ -46,9 +46,7 @@
       </ngx-datatable-column>
       <ngx-datatable-column name="Action">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <div style="display: flex !important; vertical-align: middle !important; ">
-            <ion-button size="small" color="secondary" (click)="goto(row.WorkflowID)">Details</ion-button>
-          </div>
+          <ion-label class="actionLabel"  (click)="goto(row.WorkflowID)">Details</ion-label>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>

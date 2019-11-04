@@ -4,7 +4,9 @@
       Internship Resources Table
     </ion-title>
 
-    <ion-input type="text" style="margin:auto;width:50%; background-color:white; border-radius: 15px; color:black; margin-bottom: 0.1em;" placeholder="Search" (keyup)="updateFilter($event)">
+    <ion-input type="text"
+      style="margin:auto;width:50%; background-color:white; border-radius: 15px; color:black; margin-bottom: 0.1em;"
+      placeholder="Search" (keyup)="updateFilter($event)">
     </ion-input>
   </ion-toolbar>
 </ion-header>
@@ -27,29 +29,31 @@
       -->
     <ngx-datatable class="material fullscreen" [rows]="rows" [columnMode]="'force'" [headerHeight]="50"
       [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true" bordered="true" [rowClass]="getRowClass">
-      <ngx-datatable-column prop="FileID" name="File ID" headerClass="column-size" >
+      <ngx-datatable-column prop="FileID" name="File ID" headerClass="column-size">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row.fileID}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column prop="FileName" name="File Name">
+      <ngx-datatable-column prop="FileName" name="File Name" headerClass="column-size">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row.fileName}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column prop="TargetFaculty" name="Target Faculty">
+      <ngx-datatable-column prop="TargetFaculty" name="Target Faculty" headerClass="column-size">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row.targetFaculty}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Action" cellClass="d-flex align-items-center">
+      <ngx-datatable-column name="Action" headerClass="column-size">
         <ng-template let-row="row" ngx-datatable-cell-template>
-            <div style="display: flex !important; vertical-align: middle !important; ">
-                <ion-button size="small" color="secondary" (click)="download(row.fileID)">Download</ion-button>
-                <ion-button size="small" color="secondary" (click)="delete(row.fileID)" *ngIf="adminAccess">Delete</ion-button>
-            </div>
+          <ion-label class="actionLabel" (click)="download(row.fileID)">⇩ Download</ion-label>
         </ng-template>
       </ngx-datatable-column>
+      <ngx-datatable-column name="Action" headerClass="column-size" *ngIf="adminAccess">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ion-label class="actionLabel"  (click)="delete(row.fileID)">⌫ Delete</ion-label>
+          </ng-template>
+        </ngx-datatable-column>
     </ngx-datatable>
   </div>
 </ion-content>

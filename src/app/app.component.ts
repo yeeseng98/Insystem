@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, MenuController } from '@ionic/angular';
+import { Platform, MenuController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AccessConfigService } from './services/accessConfig/access-config.service';
@@ -11,6 +11,9 @@ import { AccessConfigService } from './services/accessConfig/access-config.servi
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  public showMenu = true;
+
   public appPages = [
     {
       title: 'Login',
@@ -89,7 +92,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public menuCtrl: MenuController,
-    public accessConfig: AccessConfigService
+    public accessConfig: AccessConfigService,
+    public events: Events
   ) {
 
     // do role identification here, match against:
@@ -119,4 +123,5 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
 }

@@ -6,3 +6,18 @@
 .menu-item{
     --background: #EAE8DC;
 }
+
+.menuSmall{
+    min-width: 1% !important;
+    max-width: 6% !important;
+}
+    
+.menuBig{
+    max-width: 28% !important;
+}
+    
+.menu-button{
+    --background: transparent;
+    margin-left: -5%;
+    font-size: 0.8em;
+}

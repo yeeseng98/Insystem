@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Events, Platform, ToastController, AlertController, NavController } from '@ionic/angular';
+import { Events, Platform, ToastController, AlertController, NavController, MenuController } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 
 import { throwError } from 'rxjs';
@@ -38,7 +38,8 @@ export class LoginPage implements OnInit {
     private ws: WsApiService,
     public alertCtrl: AlertController,
     private router: Router,
-    private sConfig: StudentConfigService
+    private sConfig: StudentConfigService,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
@@ -157,5 +158,9 @@ export class LoginPage implements OnInit {
         this.showToastMessage('Something went wrong while redirecting, please try again later!');
       }
     });
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
   }
 }

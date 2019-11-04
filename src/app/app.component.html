@@ -1,9 +1,17 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu type="push">
+    <ion-menu type="overlay" [ngClass]="{'menuSmall': !showMenu, 'menuBig': showMenu}">
       <ion-header>
         <ion-toolbar class="new-background-color">
-          <ion-title>Menu</ion-title>
+         <ion-title>
+            <ion-button *ngIf="showMenu" (click)="showMenu = !showMenu" class="menu-button">
+              <ion-icon slot="start" name="close"></ion-icon>
+              MENU
+            </ion-button>
+            <ion-button *ngIf="!showMenu" (click)="showMenu = !showMenu" class="menu-button">
+                <ion-icon slot="start" name="menu"></ion-icon>
+            </ion-button>
+          </ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>
@@ -13,9 +21,9 @@
               <ion-menu-button color="light"></ion-menu-button>
             </ion-menu-toggle>
             <ion-item class="menu-item" [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
+              <ion-icon [name]="p.icon"></ion-icon>
+              <ion-label *ngIf="showMenu">
+                &nbsp;&nbsp;&nbsp; {{p.title}}
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
