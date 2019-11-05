@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-import { DynamicFormModule } from '../../../common/formItems/dynamic-form.module';
+import { DynamicFormModule } from '../../components/formItems/dynamic-form.module';
 import { FormPage } from './form.page';
 import { FormConfigService } from '../../services/formConfig/form-config.service';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskConfigService } from 'src/app/services/taskConfig/task-config.service';
 import { PhaseInfo } from 'src/app/interfaces/phaseInfo';
-import { ControlsService } from 'src/common/formItems/controls.service';
+import { ControlsService } from 'src/app/components/formItems/controls.service';
 import { MenuController } from '@ionic/angular';
 import { StudentConfigService } from 'src/app/services/studentConfig/student-config.service';
 import { WsApiService } from 'src/app/services/wsApiService/ws-api.service';

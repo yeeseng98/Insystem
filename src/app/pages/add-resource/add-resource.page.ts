@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { requiredFileType } from 'src/common/formItems/upload-file-validators';
+import { requiredFileType } from 'src/app/components/formItems/upload-file-validators';
 import { FileConfigService } from 'src/app/services/fileConfig/file-config.service';
 
 @Component({

@@ -90,11 +90,6 @@ export class AppComponent {
       title: 'Search Student',
       url: '/student-search',
       icon: 'search'
-    },
-    {
-      title: 'Mentee List',
-      url: '/mentee-list-view',
-      icon: 'list'
     }
   ];
 
@@ -107,6 +102,7 @@ export class AppComponent {
     public events: Events
   ) {
 
+    // remove during user test
     // do role identification here, match against:
     // STD - student, ADN - admin, CTF - career staff, SPV - supervisor
     // this.appPages = [];

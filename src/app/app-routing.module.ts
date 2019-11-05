@@ -39,7 +39,6 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'int-declaration', loadChildren: './pages/int-declaration/int-declaration.module#IntDeclarationPageModule' },
   { path: 'student-search', loadChildren: './pages/student-search/student-search.module#StudentSearchPageModule' },
-  { path: 'mentee-list-view', loadChildren: './pages/mentee-list-view/mentee-list-view.module#MenteeListViewPageModule' }
 ];
 
 @NgModule({

@@ -23,7 +23,7 @@ export class StudentConfigService {
     this.http.post(this.API + 'confirmDeclaration', params).subscribe(response => {
       if (response.status === 200) {
         this.generateAlert('The declaration is signed successfully!');
-        this.router.navigate(['int-declaration']);
+        this.router.navigate(['student-task-view']);
       } else {
         this.generateAlert('Some error has occured, please try again later.');
       }

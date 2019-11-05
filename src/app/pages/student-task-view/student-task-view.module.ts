@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ExpandableComponent } from '../../../common/expandable/expandable.component';
+import { ExpandableComponent } from '../../components/expandable/expandable.component';
 import { StudentTaskViewPage } from './student-task-view.page';
 
 const routes: Routes = [

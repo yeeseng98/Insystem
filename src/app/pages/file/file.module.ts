@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { FilePage } from './file.page';
-import { SharedModule } from 'src/common/sharedModule';
+import { SharedModule } from 'src/app/components/sharedModule';
 
 const routes: Routes = [
   {

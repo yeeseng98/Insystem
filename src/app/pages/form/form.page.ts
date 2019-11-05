@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ControlsService } from '../../../common/formItems/controls.service';
-import { ControlBase } from '../../../common/formItems/control-base';
+import { ControlsService } from '../../components/formItems/controls.service';
+import { ControlBase } from '../../components/formItems/control-base';
 import { FormConfigService } from '../../services/formConfig/form-config.service';
 import 'rxjs/add/operator/map';
 import { AlertController } from '@ionic/angular';
