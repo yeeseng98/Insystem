@@ -5,6 +5,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { requiredFileType } from 'src/common/formItems/upload-file-validators';
 import { FileConfigService } from 'src/app/services/fileConfig/file-config.service';
 import { AlertController } from '@ionic/angular';
+import { WsApiService } from 'src/app/services/wsApiService/ws-api.service';
+import { Observable } from 'rxjs';
+import { StudentProfile } from 'src/app/interfaces/student-profile';
 
 @Component({
   selector: 'app-file',
@@ -12,6 +15,8 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./file.page.scss'],
 })
 export class FilePage implements OnInit {
+
+  profile$: Observable<StudentProfile>;
 
   public studentId: any;
   public taskId: any;
@@ -24,33 +29,37 @@ export class FilePage implements OnInit {
   public filedata;
 
   constructor(private _FB: FormBuilder, public route: ActivatedRoute,
-              public taskConfigService: TaskConfigService, public fileConfig: FileConfigService) {
+    public taskConfigService: TaskConfigService, public fileConfig: FileConfigService, private ws: WsApiService) {
+
+    this.profile$ = this.ws.get<StudentProfile>('/student/profile');
 
     this.form = this._FB.group({
       file: ['', requiredFileType('docx')]
     });
-    this.route.queryParams.subscribe(params => {
-      this.studentId = params['studentId'];
-      this.taskId = params['taskId'];
 
-      taskConfigService.isLocked.subscribe(message => this.isLocked = message);
+    this.profile$.subscribe(std => {
+      this.route.queryParams.subscribe(params => {
+        this.taskId = params['taskId'];
 
-      this.taskConfigService.getFileTask(this.taskId).map(res => res.json()).subscribe(response => {
-        const json_data = JSON.parse(JSON.stringify(response));
+        taskConfigService.isLocked.subscribe(message => this.isLocked = message);
 
-        this.taskName = json_data[0].taskName;
-        this.taskDesc = json_data[0].desc;
+        this.taskConfigService.getFileTask(this.taskId).map(res => res.json()).subscribe(response => {
+          const json_data = JSON.parse(JSON.stringify(response));
 
-        this.fileConfig.getExistingTaskFile('TP041800', this.taskId).map(res => res.json()).subscribe(resp => {
-          const data = JSON.parse(JSON.stringify(resp));
+          this.taskName = json_data[0].taskName;
+          this.taskDesc = json_data[0].desc;
 
-          data.forEach(element => {
-            this.existFile = element.fileName;
+          this.fileConfig.getExistingTaskFile(std.STUDENT_NUMBER, this.taskId).map(res => res.json()).subscribe(resp => {
+            const data = JSON.parse(JSON.stringify(resp));
+
+            data.forEach(element => {
+              this.existFile = element.fileName;
+            });
           });
-        });
-      }
-      );
+        }
+        );
 
+      });
     });
   }
 
@@ -62,6 +71,8 @@ export class FilePage implements OnInit {
   }
 
   receive(val: any) {
-    this.fileConfig.insertFile(this.filedata, this.taskId);
+    this.profile$.subscribe(std => {
+      this.fileConfig.insertFile(this.filedata, this.taskId, std.STUDENT_NUMBER);
+    });
   }
 }

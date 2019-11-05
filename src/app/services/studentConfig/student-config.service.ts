@@ -58,7 +58,13 @@ export class StudentConfigService {
       endDate: endDate
     };
 
-    return this.http.get(this.API + 'getStudent', { search: params });
+    return this.http.post(this.API + 'extendInternship', params).subscribe(response => {
+      if (response.status === 200) {
+        this.generateAlert('The extension is updated successfully!');
+      } else {
+        this.generateAlert('Some error has occured, please try again later.');
+      }
+    });
   }
 
   generateAlert(response) {

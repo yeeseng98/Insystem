@@ -45,8 +45,7 @@ export class FormTablePage implements OnInit {
   goto(event) {
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        formId: event,
-        adminAccess: true
+        formId: event
       }
     };
     this.router.navigate(['form'], navigationExtras);

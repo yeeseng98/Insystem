@@ -85,7 +85,7 @@ export class FormConfigService {
   }
 
   // This method handles student form data submission.
-  public submitFormValues(val: any, taskId: any) {
+  public submitFormValues(val: any, taskId: any, studentId: string) {
 
     for (const propName in val) {
       if (val.hasOwnProperty(propName)) {
@@ -114,7 +114,7 @@ export class FormConfigService {
           const allSelected = selectArr.join(',');
           const fieldVal = {
             fieldName: propName,
-            studentID: 'TP041800',
+            studentID: studentId,
             fieldVal: allSelected,
             taskId: taskId
           };
@@ -124,7 +124,7 @@ export class FormConfigService {
         } else if (isFile) {
           const _formData = new FormData();
           _formData.append('file', val[propName], val[propName].name);
-          _formData.append('studentId', 'TP041800');
+          _formData.append('studentId', studentId);
           _formData.append('taskId', taskId);
           _formData.append('formatId', propName);
 
@@ -141,7 +141,7 @@ export class FormConfigService {
           }
           const fieldVal = {
             fieldName: propName,
-            studentID: 'TP041800',
+            studentID: studentId,
             fieldVal: data,
             taskId: taskId
           };
@@ -151,7 +151,7 @@ export class FormConfigService {
           // normal text field
           const fieldVal = {
             fieldName: propName,
-            studentID: 'TP041800',
+            studentID: studentId,
             fieldVal: val[propName],
             taskId: taskId
           };
@@ -164,7 +164,7 @@ export class FormConfigService {
 
     const submission = {
       taskId: taskId,
-      studentId: 'TP041800'
+      studentId: studentId
     };
     this.http.post(this.API + 'recordSubmission', submission).subscribe(response => {
       if (response.status === 200) {

@@ -23,8 +23,7 @@ export class ExpandableComponent implements OnInit {
       const navigationExtras: NavigationExtras = {
         queryParams: {
           taskId: task.taskId,
-          formId: task.formId,
-          studentId: 'TP041800',
+          formId: task.formId
         }
       };
       this.taskConfigService.changeLock(task.isLocked);
@@ -32,8 +31,7 @@ export class ExpandableComponent implements OnInit {
     } else if (task.type === 'file') {
       const navigationExtras: NavigationExtras = {
         queryParams: {
-          taskId: task.taskId,
-          studentId: 'TP041800'
+          taskId: task.taskId
         }
       };
       this.taskConfigService.changeLock(task.isLocked);

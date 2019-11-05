@@ -7,6 +7,11 @@ import 'rxjs/add/operator/map';
 import { AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TaskConfigService } from 'src/app/services/taskConfig/task-config.service';
+import { SettingsService } from 'src/app/services/settings.service';
+import { Role } from 'src/app/interfaces/settings';
+import { WsApiService } from 'src/app/services/wsApiService/ws-api.service';
+import { Observable } from 'rxjs';
+import { StudentProfile } from 'src/app/interfaces/student-profile';
 
 @Component({
   selector: 'app-form',
@@ -14,6 +19,8 @@ import { TaskConfigService } from 'src/app/services/taskConfig/task-config.servi
   styleUrls: ['./form.page.scss'],
 })
 export class FormPage {
+
+  profile$: Observable<StudentProfile>;
 
   form: FormGroup;
   controls: ControlBase<any>[];
@@ -27,16 +34,19 @@ export class FormPage {
 
   constructor(private route: ActivatedRoute, public configService: FormConfigService,
               public controlsService: ControlsService, public taskService: TaskConfigService,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController, settings: SettingsService, private ws: WsApiService) {
 
     this.form = new FormGroup({});
     this.route.queryParams.subscribe(params => {
       this.formId = params['formId'];
       this.studentId = params['studentId'];
       this.taskId = params['taskId'];
-      this.adminAccess = params['adminAccess'];
 
-      this.configService.changeAccess(this.adminAccess);
+      const role = settings.get('role');
+      // tslint:disable-next-line: no-bitwise
+      if (role & Role.Admin) {
+        this.configService.changeAccess(this.adminAccess);
+      }
 
       taskService.isLocked.subscribe(message => this.isLocked = message);
 
@@ -57,7 +67,11 @@ export class FormPage {
   }
 
   submitForm($event) {
-    this.configService.submitFormValues(this.submitted, this.taskId);
+    this.profile$ = this.ws.get<StudentProfile>('/student/profile');
+
+    this.profile$.subscribe(std => {
+      this.configService.submitFormValues(this.submitted, this.taskId, std.STUDENT_NUMBER);
+    });
   }
 
 }

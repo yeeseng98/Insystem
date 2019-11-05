@@ -11,11 +11,11 @@ export class FileConfigService {
   constructor(public http: Http, public alertCtrl: AlertController) { }
 
   // submission for file type tasks
-  public insertFile(val: any, taskId: string) {
+  public insertFile(val: any, taskId: string, studentId: string) {
 
     const _formData = new FormData();
     _formData.append('file', val, val.name);
-    _formData.append('studentId', 'TP041800');
+    _formData.append('studentId', studentId);
     _formData.append('taskId', taskId);
 
     this.http.post(this.API + 'fileTaskSub', _formData).subscribe(response => {
@@ -28,7 +28,7 @@ export class FileConfigService {
 
     const submission = {
       taskId: taskId,
-      studentId: 'TP041800'
+      studentId: studentId
     };
     this.http.post(this.API + 'recordSubmission', submission).subscribe(response => {
       if (response.status === 200) {

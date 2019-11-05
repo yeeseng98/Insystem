@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestConfigService } from 'src/app/services/requestConfig/request-config.service';
 import { AlertController } from '@ionic/angular';
+import { WsApiService } from 'src/app/services/wsApiService/ws-api.service';
+import { StaffProfile } from 'src/app/interfaces/staff-profile';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-meeting-confirmation-approval',
@@ -9,27 +12,38 @@ import { AlertController } from '@ionic/angular';
 })
 export class MeetingConfirmationApprovalPage implements OnInit {
 
+  profile$: Observable<StaffProfile>;
+
   public requests: any[] = [];
   public mentorId;
 
-  constructor( private requestConfigService: RequestConfigService, public alertCtrl: AlertController) { 
+  constructor(private requestConfigService: RequestConfigService, public alertCtrl: AlertController, private ws: WsApiService) {
+    this.profile$ = this.ws.get<StaffProfile>('/staff/profile');
 
-    this.mentorId = 'SE1928';
-    this.requestConfigService.getRequests(this.mentorId).map(res => res.json())
-      .subscribe(response => {
-      const json_data = JSON.parse(JSON.stringify(response));
+    this.profile$.subscribe(mtr => {
 
-      console.log(json_data);
-      json_data.forEach(element => {
-        const req = {
-          studentName: 'YOON YEE SENG',
-          studentId: element.studentID,
-          content: element.content
-        };
-        this.requests.push(req);
-      });
+      this.mentorId = mtr.FULLNAME;
 
-      this.requests[0].open = true;
+      // remove when user test
+      this.mentorId = 'MARY TING';
+      // this.mentorId = 'SE1928';
+
+      this.requestConfigService.getRequests(this.mentorId).map(res => res.json())
+        .subscribe(response => {
+          const json_data = JSON.parse(JSON.stringify(response));
+
+          console.log(json_data);
+          json_data.forEach(element => {
+            const req = {
+              studentName: element.studentName,
+              studentId: element.studentID,
+              content: element.content
+            };
+            this.requests.push(req);
+          });
+
+          this.requests[0].open = true;
+        });
     });
   }
 

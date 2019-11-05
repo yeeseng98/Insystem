@@ -83,7 +83,7 @@ export class StudentSearchPage implements OnInit {
           {
             text: 'Confirm',
             handler: data => {
-              
+              this.sConfig.extendInternship(this.tpNum, this.newEndDate);
             }
           }
         ]

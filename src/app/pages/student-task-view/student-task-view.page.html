@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar class="header-bg">
-    <ion-title>Student Task View</ion-title>
+    <ion-title>Student Task View &nbsp;&nbsp;&nbsp;<span *ngIf="isExtended">[All tasks extended until: {{extendedDate}}]</span></ion-title>
     <ion-buttons slot="end">
       <ion-label *ngIf="automaticClose"><strong>AUTO CLOSE</strong></ion-label> 
       <ion-label *ngIf="!automaticClose"><strong>MANUAL CLOSE</strong></ion-label> 

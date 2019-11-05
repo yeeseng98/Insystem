@@ -90,6 +90,11 @@ export class AppComponent {
       title: 'Search Student',
       url: '/student-search',
       icon: 'search'
+    },
+    {
+      title: 'Mentee List',
+      url: '/mentee-list-view',
+      icon: 'list'
     }
   ];
 
