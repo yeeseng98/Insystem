@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskConfigService } from 'src/app/services/taskConfig/task-config.service';
 import { PhaseInfo } from 'src/app/interfaces/phaseInfo';
 import { ControlsService } from 'src/common/formItems/controls.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-student-task-view',
@@ -13,7 +14,8 @@ export class StudentTaskViewPage {
   tasks: any[] = [];
   automaticClose = false;
 
-  constructor(public taskConfigService: TaskConfigService) {
+  constructor(public taskConfigService: TaskConfigService, menuCtrl: MenuController) {
+    menuCtrl.enable(true);
 
     taskConfigService.getIntakeTasks('NP1F1609BM').map(res => res.json())
       .subscribe(response => {
@@ -27,7 +29,6 @@ export class StudentTaskViewPage {
         taskConfigService.getTaskStatus('TP041800').map(res => res.json())
           .subscribe(subbedTaskList => {
             const json_tasks = JSON.parse(JSON.stringify(subbedTaskList));
-            console.log(json_tasks);
             json_tasks.forEach((task) => {
               submittedTasks.push(task.taskID);
             });
@@ -63,7 +64,7 @@ export class StudentTaskViewPage {
                         now.getTime() <= new Date(phaseDates[i].endDate).getTime()) {
                         phaseArray[j].isLocked = false;
                       }
-                      console.log(phaseDates[i].startDate);
+
                       phaseArray[j].startDate = phaseDates[i].startDate;
                       phaseArray[j].endDate = phaseDates[i].endDate;
                       break;
@@ -87,7 +88,6 @@ export class StudentTaskViewPage {
                   json_data.forEach((element) => {
                     if (phaseArray[i].phaseNum === element.phaseOrder) {
                         if (submittedTasks.includes(element.taskID)) {
-                          console.log(submittedTasks);
                           let ele = {
                             taskName: element.taskName,
                             desc: element.desc,
@@ -97,7 +97,6 @@ export class StudentTaskViewPage {
                             isLocked: phaseArray[i].isLocked,
                             isSubmitted: true
                           };
-                          console.log("DSAC");
                           obj['children'].push(ele);
                         } else {
                           let ele = {
@@ -114,7 +113,6 @@ export class StudentTaskViewPage {
                     }
                   });
 
-                  console.log(obj);
                   this.tasks[i] = obj;
                 }
 

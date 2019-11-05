@@ -10,6 +10,7 @@ import { CasTicketService } from '../../services/cas-ticket.service';
 import { WsApiService } from '../../services/wsApiService/ws-api.service';
 import { Router } from '@angular/router';
 import { StudentConfigService } from 'src/app/services/studentConfig/student-config.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,8 @@ export class LoginPage implements OnInit {
     public alertCtrl: AlertController,
     private router: Router,
     private sConfig: StudentConfigService,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private settings: SettingsService
   ) { }
 
   ngOnInit() {
@@ -143,21 +145,37 @@ export class LoginPage implements OnInit {
   }
 
   checkAndRedirect() {
+    // check user role
+    const role = this.settings.get('role');
 
-  // check user role
-    // is student, check declaration status
-    console.log(this.apkey);
-    this.sConfig.checkDeclaration(this.apkey).subscribe( res => {
-      // 200 -> has declared
-      // 404 -> has not declared
-      if (res.status === 200) {
-        this.router.navigate(['student-task-view']);
-      } else if (res.status === 204) {
-        this.router.navigate(['int-declaration']);
-      } else {
-        this.showToastMessage('Something went wrong while redirecting, please try again later!');
-      }
-    });
+    this.events.publish('login', role);
+    // tslint:disable-next-line: no-bitwise
+    if (role & Role.Student) {
+      // is student, check declaration status
+      this.sConfig.checkDeclaration(this.apkey).subscribe(res => {
+        // 200 -> has declared
+        // 404 -> has not declared
+        if (res.status === 200) {
+          this.router.navigate(['student-task-view']);
+        } else if (res.status === 204) {
+          this.router.navigate(['int-declaration']);
+        } else {
+          this.showToastMessage('Something went wrong while redirecting, please try again later!');
+        }
+      });
+      // tslint:disable-next-line: no-bitwise
+    } else if (role & Role.Admin) {
+      this.sConfig.checkDeclaration(this.apkey).subscribe(res => {
+        this.router.navigate(['student-search']);
+      });
+      // tslint:disable-next-line: no-bitwise
+    } else if (role & Role.Lecturer) {
+      this.sConfig.checkDeclaration(this.apkey).subscribe(res => {
+        this.router.navigate(['meeting-confirmation-approval']);
+      });
+    } else {
+      // implement superuser and career centre here
+    }
   }
 
   ionViewWillEnter() {

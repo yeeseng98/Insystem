@@ -47,13 +47,13 @@ export class WorkflowDetailsPage implements OnInit {
           });
 
           this.workflowName = this.allTasks[0].workflowName;
-          this.workflowInfo = '<p> Date Created: ' + this.allTasks[0].dateCreated + '<p>';
-          this.workflowInfo = this.workflowInfo + '<p> ID: ' + this.allTasks[0].workflowID + '</p>';
+          this.workflowInfo = '<h1><p> Date Created: ' + this.allTasks[0].dateCreated + '<p></h1>';
+          this.workflowInfo = this.workflowInfo + '<h1><p> ID: ' + this.allTasks[0].workflowID + '</p></h1>';
 
           // tslint:disable-next-line: prefer-for-of
           for (let i = 0; i < phaseArray.length; i++) {
             // tslint:disable-next-line: max-line-length
-            this.workflowInfo = this.workflowInfo + '<br> <p><strong><h1> Phase ' + phaseArray[i].phaseNum + ' &nbsp; (' + phaseArray[i].phaseDur + ' Days) </h1></strong></p>';
+            this.workflowInfo = this.workflowInfo + '<br><u><p><strong><h1> Phase ' + phaseArray[i].phaseNum + ' &nbsp; (' + phaseArray[i].phaseDur + ' Days) </h1></strong></p></u>';
 
             this.allTasks.forEach((task) => {
 

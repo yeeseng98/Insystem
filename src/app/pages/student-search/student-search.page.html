@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar class="header-bg">
+    <ion-title>Search Student</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label><strong>Enter the student's TP number:</strong></ion-label>
+  <ion-input type="text" maxlength="20" [(ngModel)]="TPField" placeholder="TP Number"></ion-input>
+  <section class="full-width">
+    <ion-button (click)="search()" expand="full" color="secondary">
+      Search
+    </ion-button>
+  </section>
+
+  <div *ngIf="hasSearched">
+    <ion-card>
+      Name: {{name}}
+      <br>
+      Intake: {{intake}}
+      <br>
+      Internship Status: {{intStatus}}
+      <br>
+      Workflow ID: {{workflowId}}
+      <br>
+      Start Date: {{startDate}}
+      <br>
+      End Date: {{endDate}}
+      <br>
+      Company Name: {{companyName}}
+      <br>
+      Extension Date: {{extensionDate}}
+      <br>
+      Declaration Date: {{declarationDate}}
+      <br>
+      <ion-button *ngIf="!requestExtend" color="danger" (click)="showExtension()">Extend Internship for This Student</ion-button>
+      <div *ngIf="requestExtend">
+        <ion-item>
+        <ion-label position="floating">Enter the amount of days extended:</ion-label>
+        <ion-input [(ngModel)]="extendDur" type="number" (ionChange)="calEndDate()"></ion-input>
+      </ion-item>
+      <ion-label *ngIf="hasDate">New End Date: {{newEndDate}}</ion-label>
+      <br>
+      <ion-button color="danger" (click)="extend(tpNum)">Confirm</ion-button>
+      </div>
+
+    </ion-card>
+  </div>
+</ion-content>

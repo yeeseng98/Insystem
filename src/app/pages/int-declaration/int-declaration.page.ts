@@ -5,6 +5,7 @@ import { WsApiService } from 'src/app/services/wsApiService/ws-api.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { StudentConfigService } from 'src/app/services/studentConfig/student-config.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-int-declaration',
@@ -18,7 +19,9 @@ export class IntDeclarationPage implements OnInit {
   public matchError = false;
 
   constructor(private ws: WsApiService, private settings: SettingsService,
-              private _FB: FormBuilder, private sConfig: StudentConfigService) {
+              private _FB: FormBuilder, private sConfig: StudentConfigService,
+              private menuCtrl: MenuController) {
+    menuCtrl.enable(false);
     this.profile$ = this.ws.get<StudentProfile>('/student/profile');
 
     this.form = this._FB.group({

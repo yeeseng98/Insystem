@@ -4,6 +4,7 @@ import { Platform, MenuController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AccessConfigService } from './services/accessConfig/access-config.service';
+import { Role } from './interfaces/settings';
 
 @Component({
   selector: 'app-root',
@@ -84,6 +85,11 @@ export class AppComponent {
       title: 'Internship Declaration',
       url: '/int-declaration',
       icon: 'disc'
+    },
+    {
+      title: 'Search Student',
+      url: '/student-search',
+      icon: 'search'
     }
   ];
 
@@ -98,20 +104,57 @@ export class AppComponent {
 
     // do role identification here, match against:
     // STD - student, ADN - admin, CTF - career staff, SPV - supervisor
-
     // this.appPages = [];
 
-    // accessConfig.getUserAccess('ADN').map(res => res.json()).subscribe(response => {
-    //   const pages = JSON.parse(JSON.stringify(response));
+    // this.events.subscribe('login', role => {
+    //   // tslint:disable-next-line: no-bitwise
+    //   if (role & Role.Student) {
+    //     accessConfig.getUserAccess('STD').map(res => res.json()).subscribe(response => {
+    //       const pages = JSON.parse(JSON.stringify(response));
 
-    //   pages.forEach(element => {
-    //     const pageObj ={
-    //       title: element.pageName,
-    //       url: element.pageUrl,
-    //       icon: element.pageIcon
-    //     };
-    //     this.appPages.push(pageObj);
-    //   });
+    //       pages.forEach(element => {
+    //         const pageObj ={
+    //           title: element.pageName,
+    //           url: element.pageUrl,
+    //           icon: element.pageIcon
+    //         };
+    //         this.appPages.push(pageObj);
+    //       });          console.log(this.appPages);
+
+    //     });
+    //   // tslint:disable-next-line: no-bitwise
+    //   } else if (role & Role.Admin) {
+    //     accessConfig.getUserAccess('ADN').map(res => res.json()).subscribe(response => {
+    //       const pages = JSON.parse(JSON.stringify(response));
+
+    //       pages.forEach(element => {
+    //         const pageObj ={
+    //           title: element.pageName,
+    //           url: element.pageUrl,
+    //           icon: element.pageIcon
+    //         };
+    //         this.appPages.push(pageObj);
+    //       });          console.log(this.appPages);
+
+    //     });
+    //   // tslint:disable-next-line: no-bitwise
+    //   } else if (role & Role.Lecturer) {
+    //     accessConfig.getUserAccess('SPV').map(res => res.json()).subscribe(response => {
+    //       const pages = JSON.parse(JSON.stringify(response));
+
+    //       pages.forEach(element => {
+    //         const pageObj ={
+    //           title: element.pageName,
+    //           url: element.pageUrl,
+    //           icon: element.pageIcon
+    //         };
+    //         this.appPages.push(pageObj);
+    //       });
+    //       console.log(this.appPages);
+    //     });
+    //   } else {
+    //   // implement superuser and career centre here
+    //   }
     // });
 
     this.initializeApp();
