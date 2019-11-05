@@ -21,6 +21,8 @@ export class StudentTaskViewPage {
   tasks: any[] = [];
   automaticClose = false;
   isExtended = false;
+  isComApproved = false;
+  isDiscApproved = false;
 
   constructor(public taskConfigService: TaskConfigService, menuCtrl: MenuController,
               private sConfig: StudentConfigService, private ws: WsApiService) {
@@ -34,11 +36,17 @@ export class StudentTaskViewPage {
       sConfig.getStudent(std.STUDENT_NUMBER).map(res => res.json()).subscribe(info => {
 
         const std_data = JSON.parse(JSON.stringify(info));
-        console.log(std_data);
+
         std_data.forEach(stdInfo => {
           if (stdInfo.isExtended === 'Y') {
             this.isExtended = true;
             this.extendedDate = stdInfo.extensionDate;
+          }
+          if (stdInfo.isApprovedCompany === 'Y') {
+            this.isComApproved = true;
+          }
+          if (stdInfo.isApprovedMeeting === 'Y') {
+            this.isDiscApproved = true;
           }
         });
 

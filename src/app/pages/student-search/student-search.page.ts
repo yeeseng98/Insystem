@@ -31,7 +31,9 @@ export class StudentSearchPage implements OnInit {
   declarationDate: string;
 
   constructor(private datePipe: DatePipe, private menuCtrl: MenuController,
-              private sConfig: StudentConfigService, public alertCtrl: AlertController) { }
+              private sConfig: StudentConfigService, public alertCtrl: AlertController) {
+    menuCtrl.enable(true);
+  }
 
   ngOnInit() {
   }

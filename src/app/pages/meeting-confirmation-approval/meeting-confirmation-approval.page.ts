@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestConfigService } from 'src/app/services/requestConfig/request-config.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { WsApiService } from 'src/app/services/wsApiService/ws-api.service';
 import { StaffProfile } from 'src/app/interfaces/staff-profile';
 import { Observable } from 'rxjs';
@@ -17,7 +17,10 @@ export class MeetingConfirmationApprovalPage implements OnInit {
   public requests: any[] = [];
   public mentorId;
 
-  constructor(private requestConfigService: RequestConfigService, public alertCtrl: AlertController, private ws: WsApiService) {
+  constructor(private requestConfigService: RequestConfigService, public alertCtrl: AlertController, 
+              private ws: WsApiService, private menuCtrl: MenuController) {
+    menuCtrl.enable(true);
+
     this.profile$ = this.ws.get<StaffProfile>('/staff/profile');
 
     this.profile$.subscribe(mtr => {
