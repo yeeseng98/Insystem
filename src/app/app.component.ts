@@ -22,11 +22,6 @@ export class AppComponent {
       icon: 'build'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
-    {
       title: 'Create Form',
       url: '/create-form',
       icon: 'paper'
@@ -65,6 +60,11 @@ export class AppComponent {
       title: 'Discussion Content Approval',
       url: '/meeting-confirmation-approval',
       icon: 'contacts'
+    },
+    {
+      title: 'Company Request Approval',
+      url: '/company-approval',
+      icon: 'business'
     },
     {
       title: 'Resource Table',

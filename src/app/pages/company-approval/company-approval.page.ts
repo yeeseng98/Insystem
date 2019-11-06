@@ -2,24 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { RequestConfigService } from 'src/app/services/requestConfig/request-config.service';
 import { AlertController, MenuController } from '@ionic/angular';
 import { WsApiService } from 'src/app/services/wsApiService/ws-api.service';
-import { StaffProfile } from 'src/app/interfaces/staff-profile';
 import { Observable } from 'rxjs';
+import { StaffProfile } from 'src/app/interfaces/staff-profile';
 
 @Component({
-  selector: 'app-meeting-confirmation-approval',
-  templateUrl: './meeting-confirmation-approval.page.html',
-  styleUrls: ['./meeting-confirmation-approval.page.scss'],
+  selector: 'app-company-approval',
+  templateUrl: './company-approval.page.html',
+  styleUrls: ['./company-approval.page.scss'],
 })
-export class MeetingConfirmationApprovalPage implements OnInit {
+export class CompanyApprovalPage implements OnInit {
 
   staffProfile$: Observable<StaffProfile[]>;
 
   public requests: any[] = [];
   public mentorId;
 
-  constructor(private requestConfigService: RequestConfigService, public alertCtrl: AlertController, 
-              private ws: WsApiService, private menuCtrl: MenuController) {
-    menuCtrl.enable(true);
+  constructor(private requestConfigService: RequestConfigService, public alertCtrl: AlertController,
+              private ws: WsApiService) {
 
     this.staffProfile$ = this.ws.get<StaffProfile[]>('/staff/profile');
 
@@ -27,26 +26,10 @@ export class MeetingConfirmationApprovalPage implements OnInit {
 
       this.mentorId = mtr[0].FULLNAME;
 
-      // remove when user test
-      this.mentorId = 'MARY TING';
-      // this.mentorId = 'SE1928';
+      this.requestConfigService.getComRequests(this.mentorId).subscribe(res => {
 
-      this.requestConfigService.getRequests(this.mentorId).map(res => res.json())
-        .subscribe(response => {
-          const json_data = JSON.parse(JSON.stringify(response));
-
-          console.log(json_data);
-          json_data.forEach(element => {
-            const req = {
-              studentName: element.studentName,
-              studentId: element.studentID,
-              content: element.content
-            };
-            this.requests.push(req);
-          });
-
-          this.requests[0].open = true;
-        });
+        // do logic here
+      });
     });
   }
 
@@ -54,7 +37,7 @@ export class MeetingConfirmationApprovalPage implements OnInit {
   }
 
   approveReq(val: any) {
-    this.requestConfigService.approveRequest(val, this.mentorId);
+    this.requestConfigService.approveCompanyApplication(val, this.mentorId, 'companyID');
     let index = this.requests.indexOf(val);
     this.requests.splice(index, 1);
   }
@@ -79,7 +62,7 @@ export class MeetingConfirmationApprovalPage implements OnInit {
         {
           text: 'Confirm',
           handler: data => {
-            this.requestConfigService.rejectRequest(val, this.mentorId, data.rejection);
+            this.requestConfigService.rejectCompanyApplication(val, this.mentorId, data.rejection, 'companyID');
             let index = this.requests.indexOf(val);
             this.requests.splice(index, 1);
           }

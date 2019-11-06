@@ -7,18 +7,6 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: './pages/home/home.module#HomePageModule'
-  },
-  {
-    path: 'list',
-    loadChildren: './pages/list/list.module#ListPageModule'
-  },
-  {
-    path: 'detail',
-    loadChildren: './pages/detail/detail.module#DetailPageModule'
-  },
   { path: 'form', loadChildren: './pages/form/form.module#FormPageModule' },
   { path: 'create-form', loadChildren: './pages/create-form/create-form.module#CreateFormPageModule' },
   { path: 'create-workflow', loadChildren: './pages/create-workflow/create-workflow.module#CreateWorkflowPageModule' },
@@ -39,6 +27,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'int-declaration', loadChildren: './pages/int-declaration/int-declaration.module#IntDeclarationPageModule' },
   { path: 'student-search', loadChildren: './pages/student-search/student-search.module#StudentSearchPageModule' },
+  { path: 'company-approval', loadChildren: './pages/company-approval/company-approval.module#CompanyApprovalPageModule' },
 ];
 
 @NgModule({
