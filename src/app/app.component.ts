@@ -90,6 +90,11 @@ export class AppComponent {
       title: 'Search Student',
       url: '/student-search',
       icon: 'search'
+    },
+    {
+      title: 'Search Workflow Assignments',
+      url: '/intake-workflow-view',
+      icon: 'search'
     }
   ];
 
@@ -120,8 +125,21 @@ export class AppComponent {
     //           icon: element.pageIcon
     //         };
     //         this.appPages.push(pageObj);
-    //       });          console.log(this.appPages);
+    //       });
+    //     });
+    //   // tslint:disable-next-line: no-bitwise
+    //   } else if (role & Role.Lecturer) {
+    //     accessConfig.getUserAccess('SPV').map(res => res.json()).subscribe(response => {
+    //       const pages = JSON.parse(JSON.stringify(response));
 
+    //       pages.forEach(element => {
+    //         const pageObj = {
+    //           title: element.pageName,
+    //           url: element.pageUrl,
+    //           icon: element.pageIcon
+    //         };
+    //         this.appPages.push(pageObj);
+    //       });
     //     });
     //   // tslint:disable-next-line: no-bitwise
     //   } else if (role & Role.Admin) {
@@ -135,23 +153,7 @@ export class AppComponent {
     //           icon: element.pageIcon
     //         };
     //         this.appPages.push(pageObj);
-    //       });          console.log(this.appPages);
-
-    //     });
-    //   // tslint:disable-next-line: no-bitwise
-    //   } else if (role & Role.Lecturer) {
-    //     accessConfig.getUserAccess('SPV').map(res => res.json()).subscribe(response => {
-    //       const pages = JSON.parse(JSON.stringify(response));
-
-    //       pages.forEach(element => {
-    //         const pageObj ={
-    //           title: element.pageName,
-    //           url: element.pageUrl,
-    //           icon: element.pageIcon
-    //         };
-    //         this.appPages.push(pageObj);
     //       });
-    //       console.log(this.appPages);
     //     });
     //   } else {
     //   // implement superuser and career centre here

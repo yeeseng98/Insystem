@@ -43,13 +43,12 @@ export class StudentSearchPage implements OnInit {
       const json_data = JSON.parse(JSON.stringify(res));
 
       if (json_data.length > 0) {
-        console.log(json_data);
         json_data.forEach(element => {
           this.tpNum = element.studentID;
           this.name = element.studentName;
           this.intStatus = element.internshipStatus;
           this.intake = element.intake;
-          this.workflowId = this.nullable(element.workflowID);
+          this.workflowId = this.nullable(element.workflowId);
           this.startDate = this.nullable(element.startDate);
           this.endDate = this.nullable(element.endDate);
           this.companyName = this.nullable(element.companyName);

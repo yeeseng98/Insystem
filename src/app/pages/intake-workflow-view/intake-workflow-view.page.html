@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar class="header-bg">
+    <ion-title>View Workflow Assignments</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label><strong>Enter a workflow ID to check the intakes that are assigned to this workflow (Check workflow table
+      to find the ID):</strong></ion-label>
+  <ion-input type="text" maxlength="20" [(ngModel)]="workflowId" placeholder="Workflow ID"></ion-input>
+  <section class="full-width">
+    <ion-button (click)="searchByWorkflow()" expand="full" color="secondary">
+      Search
+    </ion-button>
+  </section>
+  <div *ngIf="hasSearchedByWorkflow">
+    <ion-item-group>
+      <section *ngFor="let intake of intakeArray">
+        <ion-item>
+          <ion-label>Intake {{intake.intakeCode}}</ion-label>
+          <ion-label>{{intake.workflowName}}: {{intake.startDate}} - {{intake.endDate}}</ion-label>
+        </ion-item>
+      </section>
+    </ion-item-group>
+  </div>
+  <br>
+  <div style="text-align: center;"><strong>OR</strong></div>
+  <br>
+  <ion-label><strong>Enter an intake ID to check what workflow it is assigned to:</strong></ion-label>
+  <ion-input type="text" maxlength="20" [(ngModel)]="intakeId" placeholder="Intake ID"></ion-input>
+  <section class="full-width">
+    <ion-button (click)="searchByIntake()" expand="full" color="secondary">
+      Search
+    </ion-button>
+  </section>
+  <div *ngIf="hasSearchedByIntake">
+    <ion-card>
+      Searched Intake: {{sIntakeCode}}
+      <br>
+      Workflow ID: {{sWorkflowID}}
+      <br>
+      Workflow Name: {{sWorkflowName}}
+      <br>
+      Start Date: {{sStartDate}}
+      <br>
+      End Date: {{sEndDate}}
+    </ion-card>
+  </div>
+</ion-content>

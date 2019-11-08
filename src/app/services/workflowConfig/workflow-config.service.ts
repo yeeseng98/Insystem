@@ -95,6 +95,7 @@ export class WorkflowConfigService {
           this.http.post(this.API + 'writeTasks', field).subscribe(response => console.log(response));
         }
       }
+      this.generateAlert('Workflow generation successful');
     });
   }
 
@@ -125,6 +126,24 @@ export class WorkflowConfigService {
     this.http.post(this.API + 'assignPhaseDates', assignInfo).subscribe(response => console.log(response));
   }
 
+  // get a workflow assigned to an intake
+  public getWorkflowByIntake(intakeId: string) {
+    const params = {
+      intakeId: intakeId
+    };
+
+    return this.http.get(this.API + 'getIntakeToWorkflow', { search: params });
+  }
+
+  // get a list of intakes assigned to a workflow
+  public getIntakesByWorkflow(workflowId: string) {
+    const params = {
+      workflowId: workflowId
+    };
+
+    return this.http.get(this.API + 'getWorkflowToIntakes', { search: params });
+  }
+
   varConvert(val) {
     return val.toLowerCase().replace(/\s/g, '');
   }
@@ -137,4 +156,5 @@ export class WorkflowConfigService {
 
     return alert;
   }
+
 }

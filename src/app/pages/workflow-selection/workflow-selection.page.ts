@@ -22,7 +22,7 @@ export class WorkflowSelectionPage implements OnInit {
   workflowDays;
 
   constructor(private datePipe: DatePipe, private _FB: FormBuilder,
-    public route: ActivatedRoute, public workflowConfigService: WorkflowConfigService) {
+    public route: ActivatedRoute, public workflowConfigService: WorkflowConfigService, private alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.intakeId = params['intakeId'];
     });
@@ -80,42 +80,62 @@ export class WorkflowSelectionPage implements OnInit {
     this.endDate = this.datePipe.transform(selectedDate, 'yyyy-MM-dd');
   }
 
-  receive(val) {
+  async receive(val) {
+    const iCode = this.intakeId;
+    const wkId = val.workflowId.workflowId;
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm Workflow Assignment',
+      // tslint:disable-next-line: max-line-length
+      message: 'You are about to assign <strong>' + iCode + '</strong> to workflow <strong>' + wkId + '</strong>, this action is irreversible. Are you sure you want to continue?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            const obj = {
+              intakeCode: this.intakeId,
+              workflowId: val.workflowId.workflowId,
+              startDate: this.datePipe.transform(val.startDate, 'yyyy-MM-dd'),
+              endDate: this.endDate
+            };
+            this.workflowConfigService.assignWorkflow(obj);
 
-    const obj = {
-      intakeCode: this.intakeId,
-      workflowId: val.workflowId.workflowId,
-      startDate: this.datePipe.transform(val.startDate, 'yyyy-MM-dd'),
-      endDate: this.endDate
-    };
-    console.log(obj);
-    this.workflowConfigService.assignWorkflow(obj);
+            this.workflowConfigService.getWorkflowPhases(val.workflowId.workflowId).map(res => res.json())
+              .subscribe(resp => {
 
-    this.workflowConfigService.getWorkflowPhases(val.workflowId.workflowId).map(res => res.json())
-      .subscribe(resp => {
+                const data = JSON.parse(JSON.stringify(resp));
+                console.log(data);
+                let startDate = this.datePipe.transform(val.startDate, 'yyyy-MM-dd');
+                let endDate;
 
-        const data = JSON.parse(JSON.stringify(resp));
-        console.log(data);
-        let startDate = this.datePipe.transform(val.startDate, 'yyyy-MM-dd');
-        let endDate;
+                data.forEach((phase) => {
+                  const convDate = new Date(startDate);
+                  convDate.setDate(convDate.getDate() + phase.phaseDuration);
+                  endDate = this.datePipe.transform(convDate, 'yyyy-MM-dd');
 
-        data.forEach((phase) => {
-          const convDate = new Date(startDate);
-          convDate.setDate(convDate.getDate() + phase.phaseDuration);
-          endDate = this.datePipe.transform(convDate, 'yyyy-MM-dd');
+                  const phaseObj = {
+                    intakeCode: this.intakeId,
+                    phaseId: phase.phaseID,
+                    startDate: startDate,
+                    endDate: endDate
+                  };
 
-          const phaseObj = {
-            intakeCode: this.intakeId,
-            phaseId: phase.phaseID,
-            startDate: startDate,
-            endDate: endDate
-          };
+                  this.workflowConfigService.tabulatePhases(phaseObj);
 
-          this.workflowConfigService.tabulatePhases(phaseObj);
+                  startDate = endDate;
+                });
 
-          startDate = endDate;
-        });
+              });
+          }
+        }
+      ]
+    });
+    await alert.present();
 
-      });
   }
 }
