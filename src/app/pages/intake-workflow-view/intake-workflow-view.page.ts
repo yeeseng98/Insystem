@@ -20,7 +20,6 @@ export class IntakeWorkflowViewPage implements OnInit {
   sIntakeCode: string;
   sStartDate: string;
   sEndDate: string;
-  isReassignable = false;
 
   constructor(private alertCtrl: AlertController, private wConfig: WorkflowConfigService) { }
 
@@ -69,10 +68,6 @@ export class IntakeWorkflowViewPage implements OnInit {
           this.sIntakeCode = element.intakeCode;
 
           const now = new Date();
-
-          if (now.getTime() < new Date(element.startDate).getTime()) {
-            this.isReassignable = true;
-          }
         });
 
         this.hasSearchedByIntake = true;
