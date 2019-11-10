@@ -95,6 +95,11 @@ export class AppComponent {
       title: 'Search Workflow Assignments',
       url: '/intake-workflow-view',
       icon: 'search'
+    },
+    {
+      title: 'View Mentor',
+      url: '/mentor-details',
+      icon: 'person'
     }
   ];
 

@@ -2,17 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPage } from './login.page';
-
-import { ComponentsModule } from 'src/app/components/components.module';
+import { MentorDetailsPage } from './mentor-details.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPage
+    component: MentorDetailsPage
   }
 ];
 
@@ -21,13 +20,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    ComponentsModule
+    ComponentsModule,
+    RouterModule.forChild(routes)
   ],
-  providers: [
-  ],
-  declarations: [LoginPage],
-  exports: [
-  ],
+  declarations: [MentorDetailsPage]
 })
-export class LoginPageModule { }
+export class MentorDetailsPageModule {}

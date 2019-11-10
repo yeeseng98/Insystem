@@ -16,6 +16,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TestProvService } from './services/testProv/test-prov.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { AppAvailability } from '@ionic-native/app-availability/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +37,8 @@ import { TestProvService } from './services/testProv/test-prov.service';
   providers: [
     StatusBar,
     Network,
+    AppAvailability,
+    InAppBrowser,
     SplashScreen,
     TestProvService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

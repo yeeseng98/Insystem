@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: 'student-search', loadChildren: './pages/student-search/student-search.module#StudentSearchPageModule' },
   { path: 'company-approval', loadChildren: './pages/company-approval/company-approval.module#CompanyApprovalPageModule' },
   { path: 'intake-workflow-view', loadChildren: './pages/intake-workflow-view/intake-workflow-view.module#IntakeWorkflowViewPageModule' },
+  { path: 'mentor-details', loadChildren: './pages/mentor-details/mentor-details.module#MentorDetailsPageModule' },
 ];
 
 @NgModule({

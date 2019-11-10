@@ -4,10 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner';
+import { MessageWithSvgComponent } from './message-with-svg/message-with-svg.component';
 
 @NgModule({
   declarations: [
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    MessageWithSvgComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner';
     IonicModule
   ],
   exports: [
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    MessageWithSvgComponent
   ],
   entryComponents: [
   ]

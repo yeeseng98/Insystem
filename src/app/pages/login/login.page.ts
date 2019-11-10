@@ -137,11 +137,11 @@ export class LoginPage implements OnInit {
   }
 
   cacheApi(role: Role) {
-    // tslint:disable-next-line:no-bitwise
-    const caches = role & Role.Student
-      ? ['/student/profile', '/student/courses', '/staff/listing']
-      : ['/staff/profile', '/staff/listing'];
-    caches.forEach(endpoint => this.ws.get(endpoint, true).subscribe());
+    // // tslint:disable-next-line:no-bitwise
+    // const caches = role & Role.Student
+    //   ? ['/student/profile', '/student/courses', '/staff/listing']
+    //   : ['/staff/profile', '/staff/listing'];
+    // caches.forEach(endpoint => this.ws.get(endpoint, true).subscribe());
   }
 
   checkAndRedirect() {
