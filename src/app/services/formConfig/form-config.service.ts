@@ -58,30 +58,33 @@ export class FormConfigService {
       formId: this.varConvert(formName),
       fname: formName
     }
-    this.http.post(this.API + 'newForm', form).subscribe(response => console.log(response));
-    // tslint:disable-next-line: forin
-    for (let i in formField) {
-      let option = new Array();
-      if (formField[i].options !== '') {
-        option = formField[i].options.split(',').map(function (item) {
-          return item.trim();
-        });
+    this.http.post(this.API + 'newForm', form).subscribe(response => {
+      console.log(response);
+      // tslint:disable-next-line: forin
+      for (let i in formField) {
+        let option = new Array();
+        if (formField[i].options !== '') {
+          option = formField[i].options.split(',').map(function (item) {
+            return item.trim();
+          });
+        }
+
+        const fieldKey = this.varConvert(formName) + this.varConvert(formField[i].title);
+
+        const field = {
+          fname: this.varConvert(formName),
+          name: fieldKey,
+          type: formField[i].type,
+          required: formField[i].isRequired,
+          display: formField[i].display,
+          selected: formField[i].selected,
+          title: formField[i].title,
+          options: option,
+          order: i
+        };
+        this.http.post(this.API + 'writeFields', field).subscribe(response => console.log(response));
       }
-
-      const fieldKey = this.varConvert(formName) + this.varConvert(formField[i].title);
-
-      const field = {
-        fname: this.varConvert(formName),
-        name: fieldKey,
-        type: formField[i].type,
-        required: formField[i].isRequired,
-        display: formField[i].display,
-        selected: formField[i].selected,
-        title: formField[i].title,
-        options: option
-      };
-      this.http.post(this.API + 'writeFields', field).subscribe(response => console.log(response));
-    }
+    });
   }
 
   // This method handles student form data submission.

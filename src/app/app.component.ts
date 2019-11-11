@@ -129,7 +129,10 @@ export class AppComponent {
     //           url: element.pageUrl,
     //           icon: element.pageIcon
     //         };
-    //         this.appPages.push(pageObj);
+
+    //         if (!this.appPages.includes(pageObj)) {
+    //           this.appPages.push(pageObj);
+    //         }
     //       });
     //     });
     //   // tslint:disable-next-line: no-bitwise
@@ -143,7 +146,9 @@ export class AppComponent {
     //           url: element.pageUrl,
     //           icon: element.pageIcon
     //         };
-    //         this.appPages.push(pageObj);
+    //         if (!this.appPages.includes(pageObj)) {
+    //           this.appPages.push(pageObj);
+    //         }
     //       });
     //     });
     //   // tslint:disable-next-line: no-bitwise
@@ -157,7 +162,9 @@ export class AppComponent {
     //           url: element.pageUrl,
     //           icon: element.pageIcon
     //         };
-    //         this.appPages.push(pageObj);
+    //         if (!this.appPages.includes(pageObj)) {
+    //           this.appPages.push(pageObj);
+    //         }
     //       });
     //     });
     //   } else {
