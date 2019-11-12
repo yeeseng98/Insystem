@@ -13,11 +13,13 @@ export class StudentConfigService {
   constructor(private http: Http, public alertCtrl: AlertController, private router: Router) { }
 
   // student sends a declaration request
-  public confirmDeclaration(studentId: string, studentName: string, intake: string) {
+  public confirmDeclaration(studentId: string, studentName: string, intake: string, email: string, mentorEmail: string) {
     const params = {
       studentId: studentId,
       studentName: studentName,
-      intake: intake
+      intake: intake,
+      email: email,
+      mentorEmail: mentorEmail
     };
 
     this.http.post(this.API + 'confirmDeclaration', params).subscribe(response => {

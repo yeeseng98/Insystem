@@ -15,4 +15,5 @@ export interface StudentProfile {
   BLOCK: boolean;
   MESSAGE: string;
   MENTOR_SAMACCOUNTNAME: string;
+  STUDENT_EMAIL: string;
 }
