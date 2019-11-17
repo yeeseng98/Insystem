@@ -144,6 +144,20 @@ export class WorkflowConfigService {
     return this.http.get(this.API + 'getWorkflowToIntakes', { search: params });
   }
 
+  // get a list of intakes assigned to a workflow
+  public getAllAssignedFlows() {
+    return this.http.get(this.API + 'getAssignedWorkflows');
+  }
+
+  // get details of a selected intake assignment
+  public getAssignedDetails(intakeId: string, workflowId: string) {
+    const params = {
+      workflowId: workflowId,
+      intakeId: intakeId
+    };
+
+    return this.http.get(this.API + 'getAssignedDetails', { search: params });
+  }
   varConvert(val) {
     return val.toLowerCase().replace(/\s/g, '');
   }

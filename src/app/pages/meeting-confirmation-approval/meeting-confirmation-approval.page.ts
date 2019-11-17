@@ -25,7 +25,7 @@ export class MeetingConfirmationApprovalPage implements OnInit {
 
     this.staffProfile$.subscribe(mtr => {
 
-      this.mentorId = mtr[0].FULLNAME;
+      // this.mentorId = mtr[0].FULLNAME;
 
       // remove when user test
       this.mentorId = 'MARY TING';

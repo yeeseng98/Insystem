@@ -28,7 +28,19 @@ export class CompanyApprovalPage implements OnInit {
 
       this.requestConfigService.getComRequests(this.mentorId).subscribe(res => {
 
-        // do logic here
+        // const json_data = JSON.parse(JSON.stringify(res));
+
+        // console.log(json_data);
+        // json_data.forEach(element => {
+        //   const req = {
+        //     studentName: element.studentName,
+        //     studentId: element.studentID,
+        //     content: element.content
+        //   };
+        //   this.requests.push(req);
+        // });
+
+        // this.requests[0].open = true;
       });
     });
   }

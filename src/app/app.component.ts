@@ -47,24 +47,19 @@ export class AppComponent {
       icon: 'return-right'
     },
     {
-      title: 'Student Task View',
-      url: '/student-task-view',
-      icon: 'checkbox'
+      title: 'Search Workflow Assignments',
+      url: '/intake-workflow-view',
+      icon: 'search'
     },
     {
-      title: 'Discussion Verification Request',
-      url: '/meeting-confirmation-request',
-      icon: 'contacts'
+      title: 'Workflow Assignment Table',
+      url: '/intake-workflow-table',
+      icon: 'paper'
     },
     {
-      title: 'Discussion Content Approval',
-      url: '/meeting-confirmation-approval',
-      icon: 'contacts'
-    },
-    {
-      title: 'Company Request Approval',
-      url: '/company-approval',
-      icon: 'business'
+      title: 'Search Student',
+      url: '/student-search',
+      icon: 'search'
     },
     {
       title: 'Resource Table',
@@ -87,20 +82,30 @@ export class AppComponent {
       icon: 'disc'
     },
     {
-      title: 'Search Student',
-      url: '/student-search',
-      icon: 'search'
+      title: 'Student Task View',
+      url: '/student-task-view',
+      icon: 'checkbox'
     },
     {
-      title: 'Search Workflow Assignments',
-      url: '/intake-workflow-view',
-      icon: 'search'
+      title: 'Discussion Verification Request',
+      url: '/meeting-confirmation-request',
+      icon: 'contacts'
     },
     {
       title: 'View Mentor',
       url: '/mentor-details',
       icon: 'person'
-    }
+    },
+    {
+      title: 'Discussion Content Approval',
+      url: '/meeting-confirmation-approval',
+      icon: 'contacts'
+    },
+    {
+      title: 'Company Request Approval',
+      url: '/company-approval',
+      icon: 'business'
+    },
   ];
 
   constructor(

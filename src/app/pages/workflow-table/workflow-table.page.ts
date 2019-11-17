@@ -14,7 +14,7 @@ export class WorkflowTablePage implements OnInit {
   temp = [];
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
 
-  constructor(private workflowConfigService: WorkflowConfigService, private router: Router, private http: HttpClient) { 
+  constructor(private workflowConfigService: WorkflowConfigService, private router: Router) {
     this.workflowConfigService.getExistingWorkflows().map(res => res.json()).subscribe(response => {
       this.temp = [...JSON.parse(JSON.stringify(response))];
 

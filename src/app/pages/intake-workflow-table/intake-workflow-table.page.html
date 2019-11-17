@@ -1,12 +1,9 @@
 <ion-header>
   <ion-toolbar class="header-bg">
-    <ion-title>
-      Workflow Table
-    </ion-title>
-
+    <ion-title>Workflow Assignment Table</ion-title>
     <ion-input type="text"
       style="margin:auto;width:50%; background-color:white; border-radius: 15px; color:black; margin-bottom: 0.1em;"
-      placeholder="Search by Workflow Name" (keyup)="updateFilter($event)">
+      placeholder="Search by Intake" (keyup)="updateFilter($event)">
     </ion-input>
   </ion-toolbar>
 </ion-header>
@@ -28,25 +25,35 @@
            8. limit - the number of records to display before paginating the results
         -->
     <ngx-datatable class="material fullscreen" [rows]="rows" [columnMode]="'force'" [headerHeight]="50"
-      [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true">
+      [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true" [rowClass]="getRowClass">
       <ngx-datatable-column prop="WorkflowID" name="Workflow ID">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row.WorkflowID}}
+          {{row.workflowID}}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column prop="WorkflowName" name="Workflow Name">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row.WorkflowName}}
+          {{row.workflowName}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column prop="DateCreated" name="Date Created">
+      <ngx-datatable-column prop="Intake" name="Intake">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row.DateCreated}}
+          {{row.intakeCode}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="StartDate" name="Start Date">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.startDate}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="EndDate" name="End Date">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.endDate}}
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Action">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <ion-label class="actionLabel"  (click)="goto(row.WorkflowID)">Details</ion-label>
+          <ion-label class="actionLabel" (click)="goto(row.workflowID, row.intakeCode)">Details</ion-label>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>

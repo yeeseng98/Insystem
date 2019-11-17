@@ -43,7 +43,6 @@ export class WorkflowDetailsPage implements OnInit {
             if (!this.containsObject(phaseobj, phaseArray)) {
               phaseArray.push(phaseobj);
             }
-            console.log(phaseArray);
           });
 
           this.workflowName = this.allTasks[0].workflowName;
@@ -61,7 +60,7 @@ export class WorkflowDetailsPage implements OnInit {
                 this.workflowInfo = this.workflowInfo + '<p><h2> Task Name: ' + task.taskName;
                 this.workflowInfo = this.workflowInfo + '&nbsp;&nbsp;&nbsp;&nbsp; ID: ' + task.taskID + ' </h2></p>';
                 this.workflowInfo = this.workflowInfo + '<p><h2> Task Instruction: ' + task.desc + ' </h2></p>';
-                this.workflowInfo = this.workflowInfo + '<p><h2> Task Type: ' + task.taskType + '</h2><p>';
+                this.workflowInfo = this.workflowInfo + '<p><h2> Task Type: ' + task.taskType + '</h2></p>';
                 this.workflowInfo = this.workflowInfo + '<br>';
               }
             });
