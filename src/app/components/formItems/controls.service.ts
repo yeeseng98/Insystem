@@ -18,9 +18,10 @@ export class ControlsService {
         label: descriptor.title,
         value: '',
         required: descriptor.required,
-        order: index
+        order: descriptor.order
       };
 
+      console.log(options);
       switch (descriptor.type) {
         case 'text':
         case 'number':

@@ -4,4 +4,5 @@ export class ControlDescriptor {
   required: boolean;
   display: string;
   title: string;
+  order: number;
 }
