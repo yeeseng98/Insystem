@@ -127,12 +127,15 @@ export class CasTicketService {
 
         /* tslint:disable:no-bitwise */
         if (parts.indexOf('ou=students') !== -1) {
+          console.log('Student');
           role |= Role.Student;
         }
         if (parts.indexOf('ou=academic') !== -1) {
+          console.log('lecturer');
           role |= Role.Lecturer;
         }
         if (parts.indexOf('ou=apiit tpm') !== -1) {
+          console.log('admin');
           role |= Role.Admin;
         }
         /* tslint:enable:no-bitwise */

@@ -120,6 +120,12 @@ export class CreateWorkflowPage implements OnInit {
     let phase2Flag = false;
     let phase3Flag = false;
     let phase4Flag = false;
+    let phase5Flag = false;
+    let phase6Flag = false;
+    let phase7Flag = false;
+    let phase8Flag = false;
+    let phase9Flag = false;
+    let phase10Flag = false;
 
     const workflowField = val['cfields'];
 
@@ -132,6 +138,18 @@ export class CreateWorkflowPage implements OnInit {
         phase3Flag = true;
       } else if (i === 4) {
         phase4Flag = true;
+      } else if (i === 5) {
+        phase5Flag = true;
+      } else if (i === 6) {
+        phase6Flag = true;
+      } else if (i === 7) {
+        phase7Flag = true;
+      } else if (i === 8) {
+        phase8Flag = true;
+      } else if (i === 9) {
+        phase9Flag = true;
+      } else if (i === 10) {
+        phase10Flag = true;
       }
     }
 
@@ -144,10 +162,24 @@ export class CreateWorkflowPage implements OnInit {
         phase3Flag = false;
       } else if (workflowField[i].phaseLevel === 'Phase 4') {
         phase4Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 5') {
+        phase5Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 6') {
+        phase6Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 7') {
+        phase7Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 8') {
+        phase8Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 9') {
+        phase9Flag = false;
+      } else if (workflowField[i].phaseLevel === 'Phase 10') {
+        phase10Flag = false;
       }
     }
 
-    if (!phase1Flag && !phase2Flag && !phase3Flag && !phase4Flag) {
+    if (!phase1Flag && !phase2Flag && !phase3Flag && !phase4Flag &&
+        !phase5Flag && !phase6Flag && !phase7Flag && !phase8Flag &&
+        !phase9Flag && !phase10Flag) {
       // solve bug where first fromid selectbox is null.
       for (let i in workflowField) {
         if (workflowField[i].type === 'form' && workflowField[i].form == null) {

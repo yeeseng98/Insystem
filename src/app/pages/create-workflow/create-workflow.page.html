@@ -28,6 +28,12 @@
             <ion-select-option value=2>Two</ion-select-option>
             <ion-select-option value=3>Three</ion-select-option>
             <ion-select-option value=4>Four</ion-select-option>
+            <ion-select-option value=5>Five</ion-select-option>
+            <ion-select-option value=6>Six</ion-select-option>
+            <ion-select-option value=7>Seven</ion-select-option>
+            <ion-select-option value=8>Eight</ion-select-option>
+            <ion-select-option value=9>Nine</ion-select-option>
+            <ion-select-option value=10>Ten</ion-select-option>
           </ion-select>
         </ion-item>
       </div>
@@ -42,12 +48,12 @@
               <ion-input type="text" maxlength="50" formControlName="phaseName"></ion-input>
             </ion-item>
             <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.phaseName">
-                  <div class="error-message"
-                    *ngIf="phase.get('phaseName').hasError(validation.type) && (phase.get('phaseName').dirty || phase.get('phaseName').touched)">
-                    {{ validation.message }}
-                  </div>
-                </ng-container>
+              <ng-container *ngFor="let validation of validation_messages.phaseName">
+                <div class="error-message"
+                  *ngIf="phase.get('phaseName').hasError(validation.type) && (phase.get('phaseName').dirty || phase.get('phaseName').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
             </div>
             <ion-item>
               <ion-label position="floating">Phase Duration by Days (Numeric value - e.g: 1,2,3):</ion-label>
@@ -79,7 +85,7 @@
                existing fields -->
           <section [formGroupName]="i" *ngFor="let field of form.controls.cfields.controls; let i = index">
             <ion-item-group>
-              <ion-item-divider color="light"><strong>Task #{{ i + 1 }}</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
+              <ion-item-divider color="light"><strong>Task #{{ i + 1 }}</strong> &nbsp;&nbsp;&nbsp;&nbsp;
                 <div *ngIf="form.controls.cfields.length > 1">
                   [<span class="remove" item-end ion-button icon-left clear *ngIf="form.controls.cfields.length > 1"
                     (click)="removeInputField(i)">
@@ -120,7 +126,8 @@
               <div *ngIf="field.get('type').value=='form'">
                 <ion-item>
                   <ion-label floating>Select a form template:</ion-label>
-                  <ion-select [interfaceOptions]="customPopoverOptions" interface="action-sheet" formControlName="form" [value]="forms[0]">
+                  <ion-select [interfaceOptions]="customPopoverOptions" interface="action-sheet" formControlName="form"
+                    [value]="forms[0]">
                     <ion-select-option *ngFor="let form of forms" [value]="form">{{form.formName}}</ion-select-option>
                   </ion-select>
                 </ion-item>
