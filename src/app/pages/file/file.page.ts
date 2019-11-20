@@ -33,7 +33,7 @@ export class FilePage implements OnInit {
     this.profile$ = this.ws.get<StudentProfile>('/student/profile');
 
     this.form = this._FB.group({
-      file: ['', requiredFileType('docx')]
+      file: ['', requiredFileType('pdf')]
     });
 
     this.profile$.subscribe(std => {

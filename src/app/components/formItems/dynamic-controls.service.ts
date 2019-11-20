@@ -14,7 +14,7 @@ export class DynamicControlsService {
     controls.forEach(control => {
 
       if (control.controlType === 'file') {
-        let formControl = new FormControl(control.value || '', requiredFileType('docx'));
+        let formControl = new FormControl(control.value || '', requiredFileType('pdf'));
         formGroup.addControl(control.key, formControl);
 
       } else {

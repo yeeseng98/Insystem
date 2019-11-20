@@ -16,7 +16,7 @@ export class AddResourcePage implements OnInit {
 
   constructor(private _FB: FormBuilder, public fileConfig: FileConfigService) {
     this.form = this._FB.group({
-      file: ['', requiredFileType('docx')],
+      file: ['', requiredFileType('pdf')],
       tFaculty: ['All', Validators.required]
     });
   }

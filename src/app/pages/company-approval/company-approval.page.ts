@@ -28,19 +28,21 @@ export class CompanyApprovalPage implements OnInit {
 
       this.requestConfigService.getComRequests(this.mentorId).subscribe(res => {
 
-        // const json_data = JSON.parse(JSON.stringify(res));
+        const json_data = JSON.parse(JSON.stringify(res));
 
-        // console.log(json_data);
-        // json_data.forEach(element => {
-        //   const req = {
-        //     studentName: element.studentName,
-        //     studentId: element.studentID,
-        //     content: element.content
-        //   };
-        //   this.requests.push(req);
-        // });
+        json_data.forEach(element => {
+          const req = {
+            studentName: element.studentName,
+            studentId: element.studentID,
+            companyId: element.companyID
 
-        // this.requests[0].open = true;
+            // TODO: FETCH COMPANY DATA FROM JOB PORTAL API USING companyId
+            // assign company data to content
+          };
+          this.requests.push(req);
+        });
+
+        this.requests[0].open = true;
       });
     });
   }
